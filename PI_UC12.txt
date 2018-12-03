@@ -1,0 +1,7 @@
+quem vai abrir os chamados serão os professores?
+
+4 tipos de usuários:
+- os que vao abrir os chamados(docentes)
+- o usuário de gereciamento
+- técnicos também podem abrir chamados
+- administradores

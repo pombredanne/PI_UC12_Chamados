@@ -1,0 +1,6 @@
+git init 
+git remote add origin https://github.com/lucasectos/PI_UC12_Chamados.git
+git add --all
+git commit -m "Criação do Projeto"
+git push -u origin master
+git clone https://github.com/lucasectos/PI_UC12_Chamados.git
