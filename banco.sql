@@ -4,7 +4,7 @@ create table usuarios
 (
     id int not null primary key AUTO_INCREMENT,
     nome varchar(100),
-    nome
 	nomeUsuario varchar(100),
-    senha varchar(16)
+    senha varchar(16),
+	admin boolean
 );

@@ -14,7 +14,7 @@
     
     if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         
-        echo 'Olá ' . $_SESSION['senha'];
+        echo 'Olá ' . $_SESSION['nome'];
     }
     
     ?>
@@ -22,6 +22,7 @@
     <br><br>
     
     <a href="index.php"><button>Início</button></a>
+    <a href="sair.php"><button>Sair</button></a>
     
 </header>
 

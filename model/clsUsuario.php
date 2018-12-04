@@ -2,16 +2,25 @@
 
 class Usuario {
     
-    private $id, $nome, $nomeUsuario, $senha;
+    private $id, $nome, $nomeUsuario, $senha, $admin;
 
-    function __construct($id = null, $nome = null, $nomeUsuario = null, $senha = null) {
+    function __construct($id = null, $nome = null, $nomeUsuario = null, $senha = null, $admin = null) {
         
         $this->id = $id;
         $this->nome = $nome;
         $this->nomeUsuario = $nomeUsuario;
         $this->senha = $senha;
+        $this->admin = $admin;
     }
     
+    function getAdmin() {
+        return $this->admin;
+    }
+
+    function setAdmin($admin) {
+        $this->admin = $admin;
+    }
+
     function getId() {
         return $this->id;
     }

@@ -3,8 +3,8 @@ session_start();
 
 if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
 
-    echo '<input type="checkbox">'
-    . '<label>Admin</label>';
+    echo '<input type="checkbox" name="cbAdmin">'
+    . '<label>Admin</label><br><br>';
 }
 ?>
 

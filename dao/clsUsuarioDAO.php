@@ -7,11 +7,12 @@ class UsuarioDAO {
 
     public static function inserir($usuario) {
 
-        $sql = "INSERT INTO usuarios (nome, usuario, senha) VALUES"
+        $sql = "INSERT INTO usuarios (nome, nomeUsuario, senha, admin) VALUES"
                 . "("
                 . " '" . $usuario->getNome() . "' , "
-                . " '" . $usuario->getUsuario() . "' , "
-                . " '" . $usuario->getSenha() . "'  "
+                . " '" . $usuario->getNomeUsuario() . "' , "
+                . " '" . $usuario->getSenha() . "' , "
+                . " " . $usuario->getAdmin() . "  "
                 . ");";
 
         Conexao::executar($sql);
@@ -19,11 +20,11 @@ class UsuarioDAO {
 
     public static function login($nomeUsuario, $senha) {
 
-        $sql = "SELECT id, nome, nomeUsuario, senha"
+        $sql = "SELECT id, nome, nomeUsuario, senha, admin"
                 . " FROM usuarios"
-                . " WHERE (nomeUsuario = " . $id
-                . " AND senha = " . $senha . ")";
-
+                . " WHERE nomeUsuario = '" . $nomeUsuario
+                . "' AND senha = '" . $senha . "'";
+        
         $result = Conexao::consultar($sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -33,8 +34,9 @@ class UsuarioDAO {
             $usuario = new Usuario();
             $usuario->setId($dados['id']);
             $usuario->setNome($dados['nome']);
-            $usuario->setUsuario($dados['nomeUsuario']);
+            $usuario->setNomeUsuario($dados['nomeUsuario']);
             $usuario->setSenha($dados['senha']);
+            $usuario->setAdmin($dados['admin']);
 
             return $usuario;
         } else {

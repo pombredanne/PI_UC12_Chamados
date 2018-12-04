@@ -8,10 +8,15 @@ if (isset($_GET['inserir'])) {
     
     $usuario = new Usuario();
     $usuario->setNome($_POST['txtNome']);
-    $usuario->setUsuario($_POST['txtUsuario']);
+    $usuario->setNomeUsuario($_POST['txtUsuario']);
+        
+    if (isset($_POST['cbAdmin']))
+        $usuario->setAdmin (1);
+    else
+        $usuario->setAdmin (0);
     
     $senha = $_POST['txtSenha'];
-    $usuario->setSenha(md5($senha));
+    $usuario->setSenha(md5($_POST['txtSenha']));
     
     UsuarioDAO::inserir($usuario);
     
