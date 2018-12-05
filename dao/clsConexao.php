@@ -4,10 +4,10 @@ class Conexao {
 
     private static function abrir() {
 
-        $nome = "chamados_m171";
-        $local = "localhost";
-        $usuario = "root";
-        $senha = "";
+        $nome = "m171_05_chamados";
+        $local = "senacinfo-db";
+        $usuario = "inf_m171";
+        $senha = "senacrs";
 
         $conn = mysqli_connect($local, $usuario, $senha, $nome);
 

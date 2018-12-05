@@ -22,8 +22,8 @@ class UsuarioDAO {
 
         $sql = "SELECT id, nome, nomeUsuario, senha, admin"
                 . " FROM usuarios"
-                . " WHERE nomeUsuario = '" . $nomeUsuario
-                . "' AND senha = '" . $senha . "'";
+                . " WHERE nomeUsuario = '" . $nomeUsuario . "'"
+                . " AND senha = '" . $senha . "'";
         
         $result = Conexao::consultar($sql);
 

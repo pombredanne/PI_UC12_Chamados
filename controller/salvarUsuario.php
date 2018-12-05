@@ -16,7 +16,8 @@ if (isset($_GET['inserir'])) {
         $usuario->setAdmin (0);
     
     $senha = $_POST['txtSenha'];
-    $usuario->setSenha(md5($_POST['txtSenha']));
+    $senha = md5($senha);
+    $usuario->setSenha($senha);
     
     UsuarioDAO::inserir($usuario);
     

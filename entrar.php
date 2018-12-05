@@ -5,13 +5,15 @@ include_once 'dao/clsUsuarioDAO.php';
 include_once 'model/clsUsuario.php';
 
 $nomeUsuario = $_POST['txtUsuario'];
-$senha = md5($_POST['txtSenha']);
+$senha = $_POST['txtSenha'];
+$senha = md5($senha);
 
 $usuario = UsuarioDAO::login($nomeUsuario, $senha);
 
 if ($usuario == null) {
 
     echo '<body onload="window.history.back()">';
+    
 } else {
 
     session_start();

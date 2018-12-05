@@ -22,6 +22,7 @@
     <br><br>
     
     <a href="index.php"><button>Início</button></a>
+    <a href="abrirChamado.php"><button>Abrir Chamado</button></a>
     <a href="sair.php"><button>Sair</button></a>
     
 </header>

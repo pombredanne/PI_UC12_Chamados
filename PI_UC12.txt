@@ -5,3 +5,5 @@ quem vai abrir os chamados serão os professores?
 - o usuário de gereciamento
 - técnicos também podem abrir chamados
 - administradores
+
+fk com usuarios na tabela chamados
