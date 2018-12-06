@@ -7,12 +7,13 @@ class UsuarioDAO {
 
     public static function inserir($usuario) {
 
-        $sql = "INSERT INTO usuarios (nome, nomeUsuario, senha, admin) VALUES"
+        $sql = "INSERT INTO usuarios (nome, nomeUsuario, senha, admin, tipo) VALUES"
                 . "("
                 . " '" . $usuario->getNome() . "' , "
                 . " '" . $usuario->getNomeUsuario() . "' , "
                 . " '" . $usuario->getSenha() . "' , "
-                . " " . $usuario->getAdmin() . "  "
+                . " " . $usuario->getAdmin() . " , "
+                . " '" . $usuario->getTipo() . "'  "
                 . ");";
 
         Conexao::executar($sql);
@@ -20,7 +21,7 @@ class UsuarioDAO {
 
     public static function login($nomeUsuario, $senha) {
 
-        $sql = "SELECT id, nome, nomeUsuario, senha, admin"
+        $sql = "SELECT id, nome, nomeUsuario, senha, admin, tipo"
                 . " FROM usuarios"
                 . " WHERE nomeUsuario = '" . $nomeUsuario . "'"
                 . " AND senha = '" . $senha . "'";
@@ -37,6 +38,7 @@ class UsuarioDAO {
             $usuario->setNomeUsuario($dados['nomeUsuario']);
             $usuario->setSenha($dados['senha']);
             $usuario->setAdmin($dados['admin']);
+            $usuario->setTipo($dados['tipo']);
 
             return $usuario;
         } else {

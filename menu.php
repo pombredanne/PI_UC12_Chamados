@@ -4,27 +4,30 @@
 </head>
 
 <header>
-    
+
+    <a href="index.php"><button>Início</button></a>
+
     <?php
-    
+    error_reporting(0);
+
     if (session_status() != PHP_SESSION_ACTIVE) {
-        
+
         session_start();
     }
     
+    if (!$_SESSION['tipo'] == "gerenciamento" && $_SESSION['logado']) {
+
+        echo '<a href="abrirChamado.php"><button>Abrir chamado</button></a>';
+    }
+
     if (isset($_SESSION['logado']) && $_SESSION['logado']) {
-        
-        echo 'Olá ' . $_SESSION['nome'];
+
+        echo ' <a href="sair.php"><button>Sair</button></a>';
+        echo '<br><br>Olá ' . $_SESSION['nome'] . "<br><br>";
     }
     
     ?>
-    
-    <br><br>
-    
-    <a href="index.php"><button>Início</button></a>
-    <a href="abrirChamado.php"><button>Abrir Chamado</button></a>
-    <a href="sair.php"><button>Sair</button></a>
-    
+
 </header>
 
 

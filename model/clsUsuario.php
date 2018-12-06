@@ -2,9 +2,9 @@
 
 class Usuario {
     
-    private $id, $nome, $nomeUsuario, $senha, $admin;
+    private $id, $nome, $nomeUsuario, $senha, $admin, $tipo;
 
-    function __construct($id = null, $nome = null, $nomeUsuario = null, $senha = null, $admin = null) {
+    function __construct($id = null, $nome = null, $nomeUsuario = null, $senha = null, $admin = null, $tipo = null) {
         
         $this->id = $id;
         $this->nome = $nome;
@@ -13,6 +13,14 @@ class Usuario {
         $this->admin = $admin;
     }
     
+    function getTipo() {
+        return $this->tipo;
+    }
+
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
     function getAdmin() {
         return $this->admin;
     }

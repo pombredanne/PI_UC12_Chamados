@@ -22,8 +22,17 @@ if ($usuario == null) {
     $_SESSION['id'] = $usuario->getId();
     $_SESSION['nome'] = $usuario->getNome();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
+    $_SESSION['tipo'] = $usuario->getTipo();
     
-    header("Location: " . $_SERVER['HTTP_REFERER']);
+    if ($usuario->getTipo() == "Gerenciamento") {
+        
+        header("Location: chamados.php");
+        
+    } else {
+        
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        
+    }
 }
 
 

@@ -19,6 +19,8 @@ if (isset($_GET['inserir'])) {
     $senha = md5($senha);
     $usuario->setSenha($senha);
     
+    $usuario->setTipo($_POST['selectTipoUsuario']);
+    
     UsuarioDAO::inserir($usuario);
     
     header("Location: ../index.php");
