@@ -28,7 +28,11 @@ if ($usuario == null) {
         
         header("Location: chamados.php");
         
-    } else {
+    } else if ($usuario->getTipo() == "Docente"){
+        
+        header("Location: abrirChamado.php");
+        
+    }else {
         
         header("Location: " . $_SERVER['HTTP_REFERER']);
         

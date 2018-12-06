@@ -19,5 +19,5 @@ if (isset($_GET['inserir'])) {
     
     ChamadoDAO::inserir($chamado);
     
-//    header("Location: ../index.php");
+    header("Location: ../index.php");
 }

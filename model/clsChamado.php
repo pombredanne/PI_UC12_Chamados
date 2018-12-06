@@ -2,17 +2,35 @@
 
 class Chamado {
     
-    private $id, $dataHora, $descricaoProblema, $sala, $status, $usuario;
+    private $id, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel;
     
-    function __construct($id = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null) {
+    function __construct($id = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null) {
         $this->id = $id;
         $this->dataHora = $dataHora;
         $this->descricaoProblema = $descricaoProblema;
         $this->sala = $sala;
         $this->status = $status;
         $this->usuario = $usuario;
+        $this->nivelCriticidade = $nivelCriticidade;
+        $this->tecnicoResponsavel = $tecnicoResponsavel;
     }
     
+    function getTecnicoResponsavel() {
+        return $this->tecnicoResponsavel;
+    }
+
+    function setTecnicoResponsavel($tecnicoResponsavel) {
+        $this->tecnicoResponsavel = $tecnicoResponsavel;
+    }
+    
+    function getNivelCriticidade() {
+        return $this->nivelCriticidade;
+    }
+
+    function setNivelCriticidade($nivelCriticidade) {
+        $this->nivelCriticidade = $nivelCriticidade;
+    }
+
     function getUsuario() {
         return $this->usuario;
     }

@@ -15,7 +15,7 @@
         session_start();
     }
     
-    if (!$_SESSION['tipo'] == "gerenciamento" && $_SESSION['logado']) {
+    if ($_SESSION['tipo'] != "Gerenciamento" && $_SESSION['logado']) {
 
         echo '<a href="abrirChamado.php"><button>Abrir chamado</button></a>';
     }

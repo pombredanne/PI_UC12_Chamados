@@ -1,6 +1,7 @@
 <?php
 
 include_once 'clsConexao.php';
+include_once '../model/clsChamado.php';
 
 class ChamadoDAO {
 
@@ -13,41 +14,42 @@ class ChamadoDAO {
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHora() . "' , "
                 . " '" . $chamado->getStatus() . "' , "
-                . " '" . $chamado->getUsuario() . "' "
+                . " '" . $chamado->getUsuario() . "'  "
                 . ");";
 
         Conexao::executar($sql);
     }
-public static function getChamados(){
-    $sql = " SELECT id, sala, DescricaoProblema, datahora, status, usuario "
-            . " FROM chamados "
-            . " ORDER BY datahora DESC ";
-    
-    $result = Conexao::consultar(sql);
-    $lista = ArrayObject();
-    
-    while ( $list( $sala, $descricaodoproblema, $datahora, $status, $usuario)
-            = mysqli_fetch_row($result)){
-        $chamado = new Chamado();
-        $chamado->setId($id);
-        $chamado->getSala($sala);
-        $chamado->setDescricaoProblema($decricaoProblema);
-        $chamado->getDataHora($datahora);
-        $chamado->setStatus($status);
-        $chamado->setUsuario($usuario);
-        
-        $lista->append($chamado);
-    }
-    return $lista;
-    
-    
-}
-public static function getChamadoById( $id ){
-		$sql = " SELECT p.id, p.nome, p.foto, p.preco, p.quantidade, c.id, c.nome "
-		. " FROM chamados "
-		. "ORDER BY datahora ";
-                
-                
 
-}
+    public static function getChamados() {
+        
+        $sql = " SELECT id, sala, descricaoProblema, dataHora, status, usuario, nivelCriticidade, tecnicoResponsavel "
+                . " FROM chamados "
+                . " ORDER BY datahora DESC ";
+
+        $result = Conexao::consultar($sql);
+        $lista = new ArrayObject();
+
+        while (list($id, $sala, $descricaoProblema, $datahora, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel) = mysqli_fetch_row($result)) {
+            
+            $chamado = new Chamado();
+            $chamado->setId($id);
+            $chamado->setSala($sala);
+            $chamado->setDescricaoProblema($descricaoProblema);
+            $chamado->setDataHora($datahora);
+            $chamado->setStatus($status);
+            $chamado->setUsuario($usuario);
+            $chamado->setNivelCriticidade($nivelCriticidade);
+            $chamado->setTecnicoResponsavel($tecnicoResponsavel);
+
+            $lista->append($chamado);
+        }
+        return $lista;
+    }
+
+    public static function getChamadoById($id) {
+        $sql = " SELECT p.id, p.nome, p.foto, p.preco, p.quantidade, c.id, c.nome "
+                . " FROM chamados "
+                . "ORDER BY datahora ";
+    }
+
 }
