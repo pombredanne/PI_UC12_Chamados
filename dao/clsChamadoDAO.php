@@ -50,3 +50,4 @@ public static function getChamadoById( $id ){
                 
 
 }
+}
