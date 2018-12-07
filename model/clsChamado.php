@@ -2,7 +2,7 @@
 
 class Chamado {
     
-    private $id, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel;
+    private $id, $dataHora, $descricaoProblema, $sala, $status, $nomeUsuario, $nivelCriticidade, $tecnicoResponsavel;
     
     function __construct($id = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null) {
         $this->id = $id;
@@ -10,7 +10,7 @@ class Chamado {
         $this->descricaoProblema = $descricaoProblema;
         $this->sala = $sala;
         $this->status = $status;
-        $this->usuario = $usuario;
+        $this->nomeUsuario = $usuario;
         $this->nivelCriticidade = $nivelCriticidade;
         $this->tecnicoResponsavel = $tecnicoResponsavel;
     }
@@ -32,11 +32,11 @@ class Chamado {
     }
 
     function getUsuario() {
-        return $this->usuario;
+        return $this->nomeUsuario;
     }
 
     function setUsuario($usuario) {
-        $this->usuario = $usuario;
+        $this->nomeUsuario = $usuario;
     }
 
     function getId() {

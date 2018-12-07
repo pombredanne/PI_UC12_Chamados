@@ -14,7 +14,7 @@ class ChamadoDAO {
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHora() . "' , "
                 . " '" . $chamado->getStatus() . "' , "
-                . " '" . $chamado->getUsuario() . "'  "
+                . " '" . $chamado->getUsuarioTecnico() . "'  "
                 . ");";
 
         Conexao::executar($sql);
@@ -22,7 +22,7 @@ class ChamadoDAO {
 
     public static function getChamados() {
         
-        $sql = " SELECT id, sala, descricaoProblema, dataHora, status, usuario, nivelCriticidade, tecnicoResponsavel "
+        $sql = " SELECT id, sala, descricaoProblema, dataHora, status, usuario, nivelCriticidade, tecnicoResponsavel"
                 . " FROM chamados "
                 . " ORDER BY datahora DESC ";
 
@@ -47,9 +47,32 @@ class ChamadoDAO {
     }
 
     public static function getChamadoById($id) {
-        $sql = " SELECT p.id, p.nome, p.foto, p.preco, p.quantidade, c.id, c.nome "
-                . " FROM chamados "
-                . "ORDER BY datahora ";
+        
+        $sql = "SELECT id, sala, descricaoProblema, dataHora, status, usuario,"
+                . " nivelCriticidade, tecnicoResponsavel"
+                . " FROM chamados"
+                . " WHERE id = " . $id;
+        
+        $result = Conexao::consultar($sql);
+        
+        $chamado = new Chamado();
+        
+        if (mysqli_num_rows($result) > 0) {
+            
+            $dados = mysqli_fetch_assoc($result);
+            
+            $chamado->setId($dados['id']);
+            $chamado->setSala($dados['sala']);
+            $chamado->setDescricaoProblema($dados['descricaoProblema']);
+            $chamado->setDataHora($dados['dataHora']);
+            $chamado->setStatus($dados['status']);
+            $chamado->setUsuario($dados['usuario']);
+            $chamado->setNivelCriticidade($dados['nivelCriticidade']);
+            $chamado->setTecnicoResponsavel($dados['tecnicoResponsavel']);
+            
+        }
+        
+        return $chamado;
     }
 
 }

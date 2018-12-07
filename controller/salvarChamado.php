@@ -6,9 +6,10 @@ include_once '../dao/clsConexao.php';
 include_once '../dao/clsChamadoDAO.php';
 include_once '../model/clsChamado.php';
 
+$chamado = new Chamado();
+
 if (isset($_GET['inserir'])) {
     
-    $chamado = new Chamado();
     $chamado->setSala($_POST['selectSala']);
     $chamado->setDescricaoProblema($_POST['taDescricaoProblema']);
     
@@ -20,4 +21,14 @@ if (isset($_GET['inserir'])) {
     ChamadoDAO::inserir($chamado);
     
     header("Location: ../index.php");
+}
+
+if (isset($_GET['editar'])) {
+    
+    $chamado->setSala($_POST['selectSala']);
+//    $chamado->setStatus($_POST['txtStatus']));
+    
+    ChamadoDAO::editar($chamado);
+    
+    header("Location: ../chamados.php");
 }

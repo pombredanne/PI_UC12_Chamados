@@ -28,9 +28,9 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
             <label>Tipo de usuário:</label>
             <select name="selectTipoUsuario">
                 <option>Selecione...</option>
-                <option>Docente</option>
-                <option>Gerenciamento</option>
-                <option>Técnico</option>
+                <option value="Docente">Docente</option>
+                <option value="Gerenciamento">Gerenciamento</option>
+                <option value="Técnico">Técnico</option>
             </select><br><br>
 
             <label>Senha:</label>

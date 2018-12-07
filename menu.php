@@ -15,9 +15,14 @@
         session_start();
     }
     
-    if ($_SESSION['tipo'] != "Gerenciamento" && $_SESSION['logado']) {
+    if ($_SESSION['tipo'] != "Gerenciamento" && $_SESSION['logado'] && !strpos($_SERVER['REQUEST_URI'], 'abrirChamado')) {
 
         echo '<a href="abrirChamado.php"><button>Abrir chamado</button></a>';
+    }
+    
+    if ($_SESSION['tipo'] == "Gerenciamento") {
+        
+        echo '<a href="chamados.php"><button>Chamados</button></a>';
     }
 
     if (isset($_SESSION['logado']) && $_SESSION['logado']) {
