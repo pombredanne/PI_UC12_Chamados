@@ -4,7 +4,7 @@ include_once 'dao/clsConexao.php';
 include_once 'dao/clsUsuarioDAO.php';
 include_once 'model/clsUsuario.php';
 
-$nomeUsuario = $_POST['txtUsuario'];
+$nomeUsuario = $_POST['txtNomeUsuario'];
 $senha = $_POST['txtSenha'];
 $senha = md5($senha);
 
@@ -19,16 +19,15 @@ if ($usuario == null) {
     session_start();
     $_SESSION['logado'] = true;
     $_SESSION['admin'] = $usuario->getAdmin();
-    $_SESSION['id'] = $usuario->getId();
-    $_SESSION['nome'] = $usuario->getNome();
+    $_SESSION['id'] = $usuario->getCodigo();
+    $_SESSION['nomeCompleto'] = $usuario->getNomeCompleto();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
-    $_SESSION['tipo'] = $usuario->getTipo();
     
-    if ($usuario->getTipo() == "Gerenciamento") {
+    if ($usuario->getAdmin() == '') {
         
         header("Location: chamados.php");
         
-    } else if ($usuario->getTipo() == "Docente"){
+    } else if ($usuario->getAdmin() == 0){
         
         header("Location: abrirChamado.php");
         

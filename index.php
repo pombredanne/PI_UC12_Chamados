@@ -20,7 +20,7 @@ require_once 'menu.php';
 
             <form action="entrar.php" method="POST">
                 <label>Usuário:</label>
-                <input type="text" name="txtUsuario" placeholder="Usuário"><br><br>
+                <input type="text" name="txtNomeUsuario" placeholder="Usuário"><br><br>
                 <label>Senha:</label>
                 <input type="password" name="txtSenha" placeholder="Senha">
                 <input type="submit" value="Entrar">

@@ -7,19 +7,16 @@ include_once '../dao/clsUsuarioDAO.php';
 if (isset($_GET['inserir'])) {
     
     $usuario = new Usuario();
-    $usuario->setNome($_POST['txtNome']);
-    $usuario->setNomeUsuario($_POST['txtUsuario']);
+    $usuario->setNomeCompleto($_POST['txtNome']);
+    $usuario->setNomeUsuario($_POST['txtNomeUsuario']);
+    $usuario->setEmail($_POST['txtEmail']);
         
     if (isset($_POST['cbAdmin']))
         $usuario->setAdmin (1);
     else
         $usuario->setAdmin (0);
     
-    $senha = $_POST['txtSenha'];
-    $senha = md5($senha);
-    $usuario->setSenha($senha);
-    
-    $usuario->setTipo($_POST['selectTipoUsuario']);
+    $usuario->setSenha(md5($_POST['txtSenha']));
     
     UsuarioDAO::inserir($usuario);
     

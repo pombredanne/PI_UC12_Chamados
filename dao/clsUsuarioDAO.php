@@ -7,23 +7,23 @@ class UsuarioDAO {
 
     public static function inserir($usuario) {
 
-        $sql = "INSERT INTO usuarios (nome, nomeUsuario, senha, admin, tipo) VALUES"
+        $sql = "INSERT INTO usuarios (nomeCompleto, nomeUsuario, senha, email, admin) VALUES"
                 . "("
-                . " '" . $usuario->getNome() . "' , "
+                . " '" . $usuario->getNomeCompleto() . "' , "
                 . " '" . $usuario->getNomeUsuario() . "' , "
                 . " '" . $usuario->getSenha() . "' , "
-                . " " . $usuario->getAdmin() . " , "
-                . " '" . $usuario->getTipo() . "'  "
+                . " '" . $usuario->getEmail() . "' , "
+                . " " . $usuario->getAdmin() . " "
                 . ");";
 
         Conexao::executar($sql);
     }
     
-    public static function getUsuarioTecnico() {
+    public static function getUsuarioAdmin() {
         
-        $sql = "SELECT id, nome, nomeUsuario, senha, admin, tipo"
+        $sql = "SELECT codigo, nomeCompleto, nomeUsuario, senha, email, admin"
                 . " FROM usuarios"
-                . " WHERE tipo = 'Técnico'";
+                . " WHERE admin = 1";
         
         $result = Conexao::consultar($sql);
         
@@ -31,15 +31,15 @@ class UsuarioDAO {
         
         if ($result != null) {
             
-            while(list($id, $nome, $nomeUsuario, $senha, $admin, $tipo) = mysqli_fetch_row($result)) {
+            while(list($codigo, $nomeCompleto, $nomeUsuario, $senha, $email, $admin) = mysqli_fetch_row($result)) {
                 
                 $usuario = new Usuario();
-                $usuario->setId($id);
-                $usuario->setNome($nome);
+                $usuario->setCodigo($codigo);
+                $usuario->setNomeCompleto($nomeCompleto);
                 $usuario->setNomeUsuario($nomeUsuario);
                 $usuario->setSenha($senha);
+                $usuario->setEmail($email);
                 $usuario->setAdmin($admin);
-                $usuario->setTipo($tipo);
                 
                 $lista->append($usuario);
                 
@@ -52,7 +52,7 @@ class UsuarioDAO {
 
     public static function login($nomeUsuario, $senha) {
 
-        $sql = "SELECT id, nome, nomeUsuario, senha, admin, tipo"
+        $sql = "SELECT codigo, nomeCompleto, nomeUsuario, senha, email, admin"
                 . " FROM usuarios"
                 . " WHERE nomeUsuario = '" . $nomeUsuario . "'"
                 . " AND senha = '" . $senha . "'";
@@ -64,12 +64,12 @@ class UsuarioDAO {
             $dados = mysqli_fetch_assoc($result);
 
             $usuario = new Usuario();
-            $usuario->setId($dados['id']);
-            $usuario->setNome($dados['nome']);
+            $usuario->setCodigo($dados['codigo']);
+            $usuario->setNomeCompleto($dados['nomeCompleto']);
             $usuario->setNomeUsuario($dados['nomeUsuario']);
             $usuario->setSenha($dados['senha']);
+            $usuario->setEmail($dados['email']);
             $usuario->setAdmin($dados['admin']);
-            $usuario->setTipo($dados['tipo']);
 
             return $usuario;
         } else {

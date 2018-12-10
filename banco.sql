@@ -16,3 +16,10 @@ create table chamados
     sala varchar(10),
     descricaoProblema varchar(500)
 );
+
+create table salas
+(
+	id int not null primary key auto_increment,
+ 	numero varchar(10) not null,
+    descricao varchar(200)
+)

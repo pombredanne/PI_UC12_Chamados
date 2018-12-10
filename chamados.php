@@ -49,6 +49,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Solução do problema</th>
                     <th>Tempo utilizado</th>
                     <th>Editar</th>
+                    <th>Excluir</th>
                 </tr>
                 <?php
                 foreach ($lista as $chamado) {
@@ -66,6 +67,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     . '<td></td>'
                     . '<td></td>'
                     . '<td>'
+                    . '<a href="abrirChamado.php?editar&idChamado=' . $chamado->getId() . '"><button>Editar</button></a>'
                     . '<a href="abrirChamado.php?editar&idChamado=' . $chamado->getId() . '"><button>Editar</button></a>'
                     . '</td>'
                     . '</tr>';

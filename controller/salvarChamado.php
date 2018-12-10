@@ -25,8 +25,13 @@ if (isset($_GET['inserir'])) {
 
 if (isset($_GET['editar'])) {
     
+    $chamado->setId($_GET['idChamado']);
     $chamado->setSala($_POST['selectSala']);
-//    $chamado->setStatus($_POST['txtStatus']));
+    $chamado->setDescricaoProblema($_POST['taDescricaoProblema']);
+    $chamado->setStatus($_POST['selectStatus']);
+    $chamado->setNivelCriticidade($_POST['selectNivelCriticidade']);
+    $chamado->setTecnicoResponsavel($_POST['selectTecnicoResponsavel']);
+    $chamado->setSolucaoProblema($_POST['taSolucaoProblema']);
     
     ChamadoDAO::editar($chamado);
     

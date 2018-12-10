@@ -22,16 +22,11 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
             <label>Nome:</label>
             <input type="text" name="txtNome"><br><br>
 
-            <label>Usuário:</label>
-            <input type="text" name="txtUsuario"><br><br>
-
-            <label>Tipo de usuário:</label>
-            <select name="selectTipoUsuario">
-                <option>Selecione...</option>
-                <option value="Docente">Docente</option>
-                <option value="Gerenciamento">Gerenciamento</option>
-                <option value="Técnico">Técnico</option>
-            </select><br><br>
+            <label>Nome de usuário:</label>
+            <input type="text" name="txtNomeUsuario"><br><br>
+            
+            <label>E-mail:</label>
+            <input type="email" name="txtEmail"><br><br>
 
             <label>Senha:</label>
             <input type="password" name="txtSenha"><br><br>

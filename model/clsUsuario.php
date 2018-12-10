@@ -2,23 +2,24 @@
 
 class Usuario {
     
-    private $id, $nome, $nomeUsuario, $senha, $admin, $tipo;
+    private $codigo, $nomeCompleto, $nomeUsuario, $senha, $admin, $email;
 
-    function __construct($id = null, $nome = null, $nomeUsuario = null, $senha = null, $admin = null, $tipo = null) {
+    function __construct($codigo = null, $nomeCompleto = null, $nomeUsuario = null, $senha = null, $admin = null, $email = null) {
         
-        $this->id = $id;
-        $this->nome = $nome;
+        $this->codigo = $codigo;
+        $this->nomeCompleto = $nomeCompleto;
         $this->nomeUsuario = $nomeUsuario;
         $this->senha = $senha;
         $this->admin = $admin;
+        $this->email = $email;
     }
     
-    function getTipo() {
-        return $this->tipo;
+    function getEmail() {
+        return $this->email;
     }
 
-    function setTipo($tipo) {
-        $this->tipo = $tipo;
+    function setEmail($email) {
+        $this->email = $email;
     }
 
     function getAdmin() {
@@ -29,12 +30,16 @@ class Usuario {
         $this->admin = $admin;
     }
 
-    function getId() {
-        return $this->id;
+    function getCodigo() {
+        return $this->codigo;
     }
 
-    function getNome() {
-        return $this->nome;
+    function getNomeCompleto() {
+        return $this->nomeCompleto;
+    }
+
+    function setNomeCompleto($nomeCompleto) {
+        $this->nomeCompleto = $nomeCompleto;
     }
 
     function getNomeUsuario() {
@@ -45,14 +50,10 @@ class Usuario {
         return $this->senha;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setCodigo($codigo) {
+        $this->codigo = $codigo;
     }
-
-    function setNome($nome) {
-        $this->nome = $nome;
-    }
-
+    
     function setNomeUsuario($usuario) {
         $this->nomeUsuario = $usuario;
     }

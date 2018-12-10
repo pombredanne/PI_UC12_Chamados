@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 require_once 'menu.php';
@@ -52,20 +51,17 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <label>Sala:</label>
 
                 <?php
-                
 //                $lista = SalaDAO::getSalas();
-                
+
                 $selected = "";
-                
+
 //                foreach ($lista as $idSala) {
-                    
 //                    if ($idSala == $sala) {
-                        
-                        $selected = "selected";
-                        
+
+                $selected = "selected";
+
 //                    }
 //                }
-                
                 ?>
 
                 <select name="selectSala" <?php echo $selected; ?>>
@@ -76,12 +72,13 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <label>Descrição do Problema:</label><br><br>
                 <textarea name="taDescricaoProblema" placeholder="Descrição do Problema"></textarea><br><br>
 
-                <?php
-                if (isset($_GET['editar']) && $_SESSION['logado'] && $_SESSION['tipo'] != 'Docente') {
-                    ?>
+    <?php
+    if (isset($_GET['editar']) && $_SESSION['logado'] && $_SESSION['tipo'] != 'Docente') {
+        ?>
 
                     <label>Status:</label>
                     <select name="selectStatus">
+                        <option>Selecione...</option>
                         <option>Em aberto</option>
                         <option>Resolvido</option>
                         <option>Cancelado</option>
@@ -90,6 +87,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <label>Nível de criticidade:</label>
 
                     <select name="selectNivelCriticidade">
+                        <option>Selecione...</option>
                         <option>Leve</option>
                         <option>Moderado</option>
                         <option>Crítico</option>
@@ -97,35 +95,39 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                     <label>Técnico Responsável:</label>
                     <select name="selectTecnicoResponsavel">
+                        <option>Selecione...</option>
 
-                        <?php
-                        $lista = UsuarioDAO::getUsuarioTecnico();
+        <?php
+        $lista = UsuarioDAO::getUsuarioAdmin();
 
-                        if ($lista->count() == 0) {
+        if ($lista->count() == 0) {
 
-                            echo '<option>Nenhum técnico cadastrado</option>';
-                        } else {
+            echo '<option>Nenhum técnico cadastrado</option>';
+        } else {
 
-                            foreach ($lista as $tecnico) {
+            foreach ($lista as $tecnico) {
 
-                                echo '<option value="' . $tecnico->getId() . '">' . $tecnico->getNome() . '</option>';
-                            }
-                        }
-                        ?>
-
-                    </select><br><br>
-
-                    <label>Solução do problema:</label>
-                    <input type="text" name="txtSolucaoProblema"><br><br>
-
-                    <input type="submit" value="Enviar">
-
-                </form>
-
-                <?php
+                echo '<option value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeCompleto() . '</option>';
             }
         }
         ?>
+
+                    </select><br><br>
+
+                    <label>Solução do problema:</label><br><br>
+                    <textarea name="taSolucaoProblema" placeholder="Solução do Problema"></textarea><br><br>
+
+        <?php
+    }
+    ?>
+
+                <input type="submit" value="Enviar">
+
+            </form>
+
+                <?php
+            }
+            ?>
 
     </body>
 </html>

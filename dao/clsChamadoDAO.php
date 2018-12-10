@@ -14,22 +14,36 @@ class ChamadoDAO {
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHora() . "' , "
                 . " '" . $chamado->getStatus() . "' , "
-                . " '" . $chamado->getUsuarioTecnico() . "'  "
+                . " '" . $chamado->getUsuario() . "'  "
                 . ");";
 
+        Conexao::executar($sql);
+    }
+    
+    public static function editar($chamado) {
+        
+        $sql = "UPDATE chamados SET"
+                . " sala = '" . $chamado->getSala() . "' , "
+                . " descricaoProblema = '" . $chamado->getDescricaoProblema() . "' , "
+                . " status = '" . $chamado->getStatus() . "' , "
+                . " nivelCriticidade = '" . $chamado->getNivelCriticidade() . "' , "
+                . " tecnicoResponsavel = '" . $chamado->getTecnicoResponsavel() . "' , "
+                . " solucaoProblema = '" . $chamado->getSolucaoProblema() . "' "
+                . " WHERE id = " . $chamado->getId();
+        
         Conexao::executar($sql);
     }
 
     public static function getChamados() {
         
-        $sql = " SELECT id, sala, descricaoProblema, dataHora, status, usuario, nivelCriticidade, tecnicoResponsavel"
+        $sql = " SELECT id, sala, descricaoProblema, dataHora, status, usuario, nivelCriticidade, tecnicoResponsavel, solucaoProblema"
                 . " FROM chamados "
                 . " ORDER BY datahora DESC ";
 
         $result = Conexao::consultar($sql);
         $lista = new ArrayObject();
 
-        while (list($id, $sala, $descricaoProblema, $datahora, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel) = mysqli_fetch_row($result)) {
+        while (list($id, $sala, $descricaoProblema, $datahora, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema) = mysqli_fetch_row($result)) {
             
             $chamado = new Chamado();
             $chamado->setId($id);
@@ -40,6 +54,7 @@ class ChamadoDAO {
             $chamado->setUsuario($usuario);
             $chamado->setNivelCriticidade($nivelCriticidade);
             $chamado->setTecnicoResponsavel($tecnicoResponsavel);
+            $chamado->setSolucaoProblema($solucaoProblema);
 
             $lista->append($chamado);
         }
@@ -49,7 +64,7 @@ class ChamadoDAO {
     public static function getChamadoById($id) {
         
         $sql = "SELECT id, sala, descricaoProblema, dataHora, status, usuario,"
-                . " nivelCriticidade, tecnicoResponsavel"
+                . " nivelCriticidade, tecnicoResponsavel, solucaoProblema"
                 . " FROM chamados"
                 . " WHERE id = " . $id;
         
@@ -69,6 +84,7 @@ class ChamadoDAO {
             $chamado->setUsuario($dados['usuario']);
             $chamado->setNivelCriticidade($dados['nivelCriticidade']);
             $chamado->setTecnicoResponsavel($dados['tecnicoResponsavel']);
+            $chamado->setSolucaoProblema($dados['solucaoProblema']);
             
         }
         
