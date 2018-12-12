@@ -2,11 +2,11 @@
 
 class Sala {
 
-    private $id, $numero, $descricao;
+    private $codigo, $numero, $descricao;
 
-    function __construct($id = null, $numero = null, $descricao = null) {
+    function __construct($codigo = null, $numero = null, $descricao = null) {
 
-        $this->id = $id;
+        $this->codigo = $codigo;
         $this->numero = $numero;
         $this->descricao = $descricao;
     }
@@ -19,16 +19,16 @@ class Sala {
         $this->numero = $numero;
     }
     
-    function getId() {
-        return $this->id;
+    function getCodigo() {
+        return $this->codigo;
     }
 
     function getDescricao() {
         return $this->descricao;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setCodigo($codigo) {
+        $this->codigo = $codigo;
     }
 
     function setDescricao($descricao) {
