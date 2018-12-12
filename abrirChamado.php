@@ -6,34 +6,39 @@ require_once 'menu.php';
 include_once 'dao/clsConexao.php';
 include_once 'dao/clsChamadoDAO.php';
 include_once 'dao/clsUsuarioDAO.php';
+include_once 'dao/clsSalaDAO.php';
 include_once 'model/clsChamado.php';
 include_once 'model/clsUsuario.php';
+include_once 'model/clsSala.php';
+include_once 'model/clsFakeTecnicoResponsavel.php';
 
-$idChamado = 0;
-$sala = "";
+$codigoChamado = 0;
+$codigoSala = 0;
+$codigoTecnicoResponsavel = 0;
+$usuario = 0;
 $descricaoProblema = "";
 $dataHora = "";
 $status = "";
-$usuario = "";
 $nivelCriticidade = "";
-$tecnicoResponsavel = "";
+$solucaoProblema = "";
 $action = "inserir";
 
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
     if (isset($_GET['editar'])) {
 
-        $idChamado = $_GET['idChamado'];
+        $codigoChamado = $_GET['codigoChamado'];
 
-        $chamado = ChamadoDAO::getChamadoById($idChamado);
-        $sala = $chamado->getSala();
+        $chamado = ChamadoDAO::getChamadoByCodigo($codigoChamado);
+
+        $codigoSala = $chamado->getSala()->getCodigo();
         $descricaoProblema = $chamado->getDescricaoProblema();
         $dataHora = $chamado->getDataHora();
         $status = $chamado->getStatus();
-        $usuario = $chamado->getUsuario();
         $nivelCriticidade = $chamado->getNivelCriticidade();
-        $tecnicoResponsavel = $chamado->getTecnicoResponsavel();
-        $action = 'editar&idChamado=' . $idChamado;
+        $codigoTecnicoResponsavel = $chamado->getTecnicoResponsavel()->getCodigo();
+        $solucaoProblema = $chamado->getSolucaoProblema();
+        $action = 'editar&codigoChamado=' . $codigoChamado;
     }
     ?>
 
@@ -48,86 +53,131 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             <img src="fotos/logotipo_senac.jpg">
 
             <form action="controller/salvarChamado.php?<?php echo $action; ?>" method="POST">
+
                 <label>Sala:</label>
+                <select name="selectSala">
+
+                    <?php
+                    $listaSalas = SalaDAO::getSalas();
+
+                    if ($listaSalas->count() == 0) {
+
+                        echo '<option>Nenhuma sala cadastrada</option>';
+                    } else {
+
+                        echo '<option>Selecione...</option>';
+
+                        foreach ($listaSalas as $sala) {
+
+                            $selected = "";
+
+                            if ($sala->getCodigo() == $codigoSala) {
+
+                                $selected = " selected ";
+                            }
+
+                            echo '<option' . $selected . ' value="' . $sala->getCodigo() . '">' . $sala->getNumero() . '</option>';
+                        }
+                    }
+                    ?>
+
+                </select><br><br>
+
+                <label>Descrição do Problema:</label><br><br>
+                <textarea name="taDescricaoProblema" placeholder="Descrição do Problema"><?php echo $descricaoProblema; ?></textarea><br><br>
 
                 <?php
-//                $lista = SalaDAO::getSalas();
-
-                $selected = "";
-
-//                foreach ($lista as $idSala) {
-//                    if ($idSala == $sala) {
-
-                $selected = "selected";
-
-//                    }
-//                }
-                ?>
-
-                <select name="selectSala" <?php echo $selected; ?>>
-                    <option>Selecione...</option>
-                    <option>201</option>
-                    <option>308</option>
-                </select><br><br>
-                <label>Descrição do Problema:</label><br><br>
-                <textarea name="taDescricaoProblema" placeholder="Descrição do Problema"></textarea><br><br>
-
-    <?php
-    if (isset($_GET['editar']) && $_SESSION['logado'] && $_SESSION['tipo'] != 'Docente') {
-        ?>
+                if (isset($_GET['editar']) && $_SESSION['logado'] && $_SESSION['admin'] == 1) {
+                    ?>
 
                     <label>Status:</label>
                     <select name="selectStatus">
-                        <option>Selecione...</option>
-                        <option>Em aberto</option>
-                        <option>Resolvido</option>
-                        <option>Cancelado</option>
+                        <option value="">Selecione...</option>
+
+                        <?php
+                        $arrayStatus = ['Em aberto', 'Resolvido', 'Cancelado'];
+
+                        foreach ($arrayStatus as $itemStatus) {
+
+                            $selected = "";
+
+                            if ($itemStatus == $status) {
+
+                                $selected = " selected ";
+                            }
+
+                            echo '<option' . $selected . ' value="' . $itemStatus . '">' . $itemStatus . '</option>';
+                        }
+                        ?>
+
                     </select><br><br>
 
                     <label>Nível de criticidade:</label>
-
                     <select name="selectNivelCriticidade">
-                        <option>Selecione...</option>
-                        <option>Leve</option>
-                        <option>Moderado</option>
-                        <option>Crítico</option>
+                        <option value="">Selecione...</option>
+
+                        <?php
+                        $arrayNivelCriticidade = ['Leve', 'Moderado', 'Crítico'];
+
+                        foreach ($arrayNivelCriticidade as $itemNivelCriticidade) {
+
+                            $selected = "";
+
+                            if ($itemNivelCriticidade == $nivelCriticidade) {
+                                $selected = " selected ";
+                            }
+
+                            echo '<option' . $selected . ' value="' . $itemNivelCriticidade . '">' . $itemNivelCriticidade . '</option>';
+                        }
+                        ?>
+
                     </select><br><br>
 
                     <label>Técnico Responsável:</label>
                     <select name="selectTecnicoResponsavel">
-                        <option>Selecione...</option>
 
-        <?php
-        $lista = UsuarioDAO::getUsuarioAdmin();
+                        <?php
+                        $listaTecnico = UsuarioDAO::getUsuarioAdmin();
 
-        if ($lista->count() == 0) {
+                        if ($listaTecnico->count() == 0) {
 
-            echo '<option>Nenhum técnico cadastrado</option>';
-        } else {
+                            echo '<option>Nenhum técnico cadastrado</option>';
+                        } else {
 
-            foreach ($lista as $tecnico) {
+                            echo '<option value="">Selecione...</option>';
 
-                echo '<option value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeCompleto() . '</option>';
-            }
-        }
-        ?>
+                            foreach ($listaTecnico as $tecnico) {
+
+                                $selected = "";
+
+                                if ($tecnico->getCodigo() == $codigoTecnicoResponsavel) {
+
+                                    $selected = " selected ";
+                                }
+
+                                echo '<option ' . $selected . ' value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeCompleto() . '</option>';
+                            }
+                        }
+                        ?>
 
                     </select><br><br>
 
                     <label>Solução do problema:</label><br><br>
-                    <textarea name="taSolucaoProblema" placeholder="Solução do Problema"></textarea><br><br>
+                    <textarea name="taSolucaoProblema" placeholder="Solução do Problema"><?php echo $solucaoProblema; ?></textarea><br><br>
 
-        <?php
-    }
-    ?>
+                    <?php
+                }
+                ?>
 
-                <input type="submit" value="Enviar">
+                <input type="submit" value="Salvar">
 
             </form>
 
-                <?php
-            }
-            ?>
+            <?php
+        } else {
+            header("Location: index.php");
+        }
+        ?>
 
     </body>
 </html>

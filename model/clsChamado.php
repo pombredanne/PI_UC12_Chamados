@@ -2,10 +2,10 @@
 
 class Chamado {
     
-    private $id, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema;
+    private $codigo, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema;
     
-    function __construct($id = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null) {
-        $this->id = $id;
+    function __construct($codigo = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null) {
+        $this->codigo = $codigo;
         $this->dataHora = $dataHora;
         $this->descricaoProblema = $descricaoProblema;
         $this->sala = $sala;
@@ -48,8 +48,8 @@ class Chamado {
         $this->usuario = $usuario;
     }
 
-    function getId() {
-        return $this->id;
+    function getCodigo() {
+        return $this->codigo;
     }
 
     function getDataHora() {
@@ -68,8 +68,8 @@ class Chamado {
         return $this->status;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setCodigo($codigo) {
+        $this->codigo = $codigo;
     }
 
     function setDataHora($dataHora) {

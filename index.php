@@ -22,7 +22,7 @@ require_once 'menu.php';
                 <label>Usuário:</label>
                 <input type="text" name="txtNomeUsuario" placeholder="Usuário"><br><br>
                 <label>Senha:</label>
-                <input type="password" name="txtSenha" placeholder="Senha">
+                <input type="password" name="txtSenha" placeholder="Senha"><br><br>
                 <input type="submit" value="Entrar">
             </form><br><br><br>
 

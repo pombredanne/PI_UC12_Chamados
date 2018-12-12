@@ -19,23 +19,12 @@ if ($usuario == null) {
     session_start();
     $_SESSION['logado'] = true;
     $_SESSION['admin'] = $usuario->getAdmin();
-    $_SESSION['id'] = $usuario->getCodigo();
+    $_SESSION['codigo'] = $usuario->getCodigo();
     $_SESSION['nomeCompleto'] = $usuario->getNomeCompleto();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
     
-    if ($usuario->getAdmin() == '') {
-        
         header("Location: chamados.php");
-        
-    } else if ($usuario->getAdmin() == 0){
-        
-        header("Location: abrirChamado.php");
-        
-    }else {
-        
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        
-    }
+  
 }
 
 

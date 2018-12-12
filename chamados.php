@@ -5,11 +5,15 @@ error_reporting(0);
 
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     include_once 'model/clsChamado.php';
+    include_once 'model/clsUsuario.php';
+    include_once 'model/clsSala.php';
+    include_once 'model/clsFakeTecnicoResponsavel.php';
     include_once 'dao/clsChamadoDAO.php';
+    include_once 'dao/clsUsuarioDAO.php';
+    include_once 'dao/clsSalaDAO.php';
     include_once 'dao/clsConexao.php';
     ?>
     <!DOCTYPE html>
-
 
     <html>
         <head>
@@ -28,14 +32,28 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         <br><br>
 
         <?php
-        $lista = ChamadoDAO::getChamados();
+        $lista = new ArrayObject();
+
+        $disabled = "";
+
+        if ($_SESSION['admin'] == 0) {
+
+            $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
+            
+            $disabled = "disabled";
+            
+        } else {
+
+            $lista = ChamadoDAO::getChamados();
+
+        }
 
         if ($lista->count() == 0) {
             echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
         } else {
             ?> 
 
-            <table border="2">
+            <table border="1">
                 <tr>
                     <th>Número</th>
                     <th>Usuário</th>
@@ -55,28 +73,40 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 foreach ($lista as $chamado) {
 
                     echo '<tr>'
-                    . '<td>' . $chamado->getId() . '</td>'
-                    . '<td>' . $chamado->getUsuario() . '</td>'
-                    . '<td>' . $chamado->getSala() . '</td>'
+                    . '<td>' . $chamado->getCodigo() . '</td>'
+                    . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
+                    . '<td>' . $chamado->getSala()->getNumero() . '</td>'
                     . '<td>' . $chamado->getDescricaoProblema() . '</td>'
                     . '<td>' . $chamado->getStatus() . '</td>'
-                    . '<td>' . $chamado->getNivelCriticidade() . '</td>'
-                    . '<td>' . $chamado->getTecnicoResponsavel() . '</td>'
+                    . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+                    
+                    $nomeCompletoTecnico = $chamado->getTecnicoResponsavel()->getNomeCompleto();
+                    
+                    if ($nomeCompletoTecnico == 0) {
+                        $nomeCompletoTecnico = "";
+                    }
+                    
+                    echo '<td>' . $nomeCompletoTecnico . '</td>'
                     . '<td>' . $chamado->getDataHora() . '</td>'
                     . '<td></td>'
+                    . '<td>' . $chamado->getSolucaoProblema() . '</td>'
                     . '<td></td>'
-                    . '<td></td>'
+                    . '<td>';
+
+                    echo '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button ' . $disabled . '>Editar</button></a>'
+                    . '</td>'
                     . '<td>'
-                    . '<a href="abrirChamado.php?editar&idChamado=' . $chamado->getId() . '"><button>Editar</button></a>'
-                    . '<a href="abrirChamado.php?editar&idChamado=' . $chamado->getId() . '"><button>Editar</button></a>'
+                    . '<a href="abrirChamado.php?excluir&codigoChamado=' . $chamado->getCodigo() . '"><button ' . $disabled . '>Excluir</button></a>'
                     . '</td>'
                     . '</tr>';
                 }
+                ?>
+            </table>
+                <?php
             }
-            ?>
-        </table>
-        <?php
-    }
-    ?>
+        } else {
+            header("Location: index.php");
+        }
+        ?>
 </body>
 </html>

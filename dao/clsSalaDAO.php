@@ -1,5 +1,8 @@
 <?php
 
+include_once 'clsConexao.php';
+include_once '../model/clsSala.php';
+
 class SalaDAO {
 
     public static function inserir($sala) {
@@ -16,14 +19,14 @@ class SalaDAO {
     public static function excluir($sala) {
 
         $sql = " DELETE FROM salas"
-                . " WHERE id = " . $sala->getId();
+                . " WHERE codigo = " . $sala->getCodigo();
 
         Conexao::executar($sql);
     }
 
     public static function getSalas() {
 
-        $sql = "SELECT id, numero, descricao"
+        $sql = "SELECT codigo, numero, descricao"
                 . " FROM salas"
                 . " ORDER BY numero";
 
@@ -31,10 +34,10 @@ class SalaDAO {
 
         $lista = new ArrayObject();
 
-        while (list($id, $numero, $descricao) = mysqli_fetch_row($result)) {
+        while (list($codigo, $numero, $descricao) = mysqli_fetch_row($result)) {
 
             $sala = new sala();
-            $sala->setId($id);
+            $sala->setCodigo($codigo);
             $sala->setNumero($numero);
             $sala->setDescricao($descricao);
 
@@ -44,18 +47,18 @@ class SalaDAO {
         return $lista;
     }
 
-    public static function getSalaById($id) {
+    public static function getSalaById($codigo) {
 
-        $sql = "SELECT id, numero, descricao"
+        $sql = "SELECT codigo, numero, descricao"
                 . " FROM salas"
-                . " WHERE id = " . $id;
+                . " WHERE codigo = " . $codigo;
 
         $result = Conexao::consultar($sql);
 
         $dados = mysqli_fetch_assoc($result);
 
         $sala = new Sala();
-        $sala->setId($dados['id']);
+        $sala->setCodigo($dados['codigo']);
         $sala->setNumero($dados['numero']);
         $sala->setDescricao($dados['descricao']);
 
