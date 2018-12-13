@@ -14,19 +14,20 @@
 
         session_start();
     }
-    
+
     if ($_SESSION['admin'] == 1) {
-        
+
         echo '<a href="salas.php"><button>Salas</button></a>';
+        echo ' <a href="cadastrarUsuario.php"><button>Cadastrar Usuário</button></a>';
     }
 
     if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
-        echo '<a href="chamados.php"><button>Chamados</button></a>';
+        echo ' <a href="chamados.php"><button>Chamados</button></a>';
         echo ' <a href="sair.php"><button>Sair</button></a>';
-        echo '<br><br>Olá ' . $_SESSION['nomeCompleto'] . "<br><br>";
+        echo '<br><br>Olá ' . $_SESSION['nomeUsuario'] . "<br><br>";
+        
     }
-    
     ?>
 
 </header>

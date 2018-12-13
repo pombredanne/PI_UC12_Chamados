@@ -8,6 +8,11 @@ class Conexao {
         $local = "senacinfo-db";
         $usuario = "inf_m171";
         $senha = "senacrs";
+        
+//        $nome = "chamados_m171";
+//        $local = "localhost";
+//        $usuario = "root";
+//        $senha = "";
 
         $conn = mysqli_connect($local, $usuario, $senha, $nome);
 

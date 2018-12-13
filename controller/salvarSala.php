@@ -17,3 +17,25 @@ if (isset($_GET['inserir'])) {
     
 }
 
+if (isset($_GET['editar'])) {
+    
+    $codigo = $_GET['codigoSala'];
+    
+    $sala = SalaDAO::getSalaByCodigo($codigo);
+    
+    $sala->setCodigo($codigo);
+    $sala->setNumero($_POST['txtNumero']);
+    $sala->setDescricao($_POST['taDescricaoSala']);
+    
+    SalaDAO::editar($sala);
+    
+    header("Location: ../salas.php");
+}
+
+if (isset($_GET['excluir'])) {
+    
+    SalaDAO::excluir($_GET['codigoSala']);
+    
+    header("Location: ../salas.php");
+}
+

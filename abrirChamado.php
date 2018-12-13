@@ -12,14 +12,13 @@ include_once 'model/clsUsuario.php';
 include_once 'model/clsSala.php';
 include_once 'model/clsFakeTecnicoResponsavel.php';
 
-$codigoChamado = 0;
 $codigoSala = 0;
-$codigoTecnicoResponsavel = 0;
 $usuario = 0;
 $descricaoProblema = "";
 $dataHora = "";
 $status = "";
 $nivelCriticidade = "";
+$tecnicoResponsavel = "";
 $solucaoProblema = "";
 $action = "inserir";
 
@@ -36,7 +35,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         $dataHora = $chamado->getDataHora();
         $status = $chamado->getStatus();
         $nivelCriticidade = $chamado->getNivelCriticidade();
-        $codigoTecnicoResponsavel = $chamado->getTecnicoResponsavel()->getCodigo();
+        $tecnicoResponsavel = $chamado->getTecnicoResponsavel();
         $solucaoProblema = $chamado->getSolucaoProblema();
         $action = 'editar&codigoChamado=' . $codigoChamado;
     }
@@ -150,12 +149,12 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                                 $selected = "";
 
-                                if ($tecnico->getCodigo() == $codigoTecnicoResponsavel) {
+                                if ($tecnico->getNomeCompleto() == $tecnicoResponsavel) {
 
                                     $selected = " selected ";
                                 }
 
-                                echo '<option ' . $selected . ' value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeCompleto() . '</option>';
+                                echo '<option ' . $selected . ' value="' . $tecnico->getNomeUsuario() . '">' . $tecnico->getNomeCompleto() . '</option>';
                             }
                         }
                         ?>

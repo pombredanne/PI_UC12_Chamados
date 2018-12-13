@@ -7,7 +7,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     include_once 'model/clsChamado.php';
     include_once 'model/clsUsuario.php';
     include_once 'model/clsSala.php';
-    include_once 'model/clsFakeTecnicoResponsavel.php';
     include_once 'dao/clsChamadoDAO.php';
     include_once 'dao/clsUsuarioDAO.php';
     include_once 'dao/clsSalaDAO.php';
@@ -32,25 +31,32 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         <br><br>
 
         <?php
-        $lista = new ArrayObject();
+        date_default_timezone_set('America/Sao_Paulo');
+        echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
 
-        $disabled = "";
+        $lista = new ArrayObject();
 
         if ($_SESSION['admin'] == 0) {
 
             $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
-            
-            $disabled = "disabled";
-            
         } else {
 
             $lista = ChamadoDAO::getChamados();
-
         }
+
+        echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
 
         if ($lista->count() == 0) {
             echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
         } else {
+
+            echo '<label>Status: </label>'
+            . '<select id="selectFilterStatus">'
+            . '<option>Selecione...</option>'
+            . '<option value="Em aberto">Em aberto</option>'
+            . '<option value="Resolvido">Resolvido</option>'
+            . '<option value="Cancelado">Cancelado</option>'
+            . '</select><br><br>';
             ?> 
 
             <table border="1">
@@ -69,38 +75,30 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Editar</th>
                     <th>Excluir</th>
                 </tr>
-                <?php
-                foreach ($lista as $chamado) {
+        <?php
+        foreach ($lista as $chamado) {
 
-                    echo '<tr>'
-                    . '<td>' . $chamado->getCodigo() . '</td>'
-                    . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
-                    . '<td>' . $chamado->getSala()->getNumero() . '</td>'
-                    . '<td>' . $chamado->getDescricaoProblema() . '</td>'
-                    . '<td>' . $chamado->getStatus() . '</td>'
-                    . '<td>' . $chamado->getNivelCriticidade() . '</td>';
-                    
-                    $nomeCompletoTecnico = $chamado->getTecnicoResponsavel()->getNomeCompleto();
-                    
-                    if ($nomeCompletoTecnico == 0) {
-                        $nomeCompletoTecnico = "";
-                    }
-                    
-                    echo '<td>' . $nomeCompletoTecnico . '</td>'
-                    . '<td>' . $chamado->getDataHora() . '</td>'
-                    . '<td></td>'
-                    . '<td>' . $chamado->getSolucaoProblema() . '</td>'
-                    . '<td></td>'
-                    . '<td>';
-
-                    echo '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button ' . $disabled . '>Editar</button></a>'
-                    . '</td>'
-                    . '<td>'
-                    . '<a href="abrirChamado.php?excluir&codigoChamado=' . $chamado->getCodigo() . '"><button ' . $disabled . '>Excluir</button></a>'
-                    . '</td>'
-                    . '</tr>';
-                }
-                ?>
+            echo '<tr>'
+            . '<td>' . $chamado->getCodigo() . '</td>'
+            . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
+            . '<td>' . $chamado->getSala()->getNumero() . '</td>'
+            . '<td>' . $chamado->getDescricaoProblema() . '</td>'
+            . '<td>' . $chamado->getStatus() . '</td>'
+            . '<td>' . $chamado->getNivelCriticidade() . '</td>'
+            . '<td>' . $chamado->getTecnicoResponsavel() . '</td>'
+            . '<td>' . $chamado->getDataHora() . '</td>'
+            . '<td></td>'
+            . '<td>' . $chamado->getSolucaoProblema() . '</td>'
+            . '<td></td>'
+            . '<td>'
+            . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
+            . '</td>'
+            . '<td>'
+            . '<a href="controller/salvarChamado.php?excluir&codigoChamado=' . $chamado->getCodigo() . '"><button>Excluir</button></a>'
+            . '</td>'
+            . '</tr>';
+        }
+        ?>
             </table>
                 <?php
             }

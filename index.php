@@ -29,12 +29,6 @@ require_once 'menu.php';
             <?php
         }
 
-        echo '<br><br>';
-
-        if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1) {
-            
-            echo '<a href="cadastrarUsuario.php">Cadastrar usuário</a>';
-        }
         ?>
 
     </body>

@@ -44,7 +44,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
                 . '<td>' . $sala->getNumero() . '</td>'
                 . '<td>' . $sala->getDescricao() . '</td>'
                 . '<td>'
-                . '<a href="controller/salvarSala.php?editar&codigoSala=' . $sala->getCodigo() . '">'
+                . '<a href="cadastrarSala.php?editar&codigoSala=' . $sala->getCodigo() . '">'
                 . '<button>Editar</button></a>'
                 . '</td>'
                 . '<td>'

@@ -15,11 +15,20 @@ class SalaDAO {
 
         Conexao::executar($sql);
     }
-
-    public static function excluir($sala) {
-
-        $sql = " DELETE FROM salas"
+    
+    public static function editar($sala) {
+        
+        $sql = "UPDATE salas SET"
+                . " numero = '" . $sala->getNumero() . "' , "
+                . " descricao = '" . $sala->getDescricao() . "' "
                 . " WHERE codigo = " . $sala->getCodigo();
+        
+        Conexao::executar($sql);
+    }
+
+    public static function excluir($codigo) {
+
+        $sql = " DELETE FROM salas WHERE codigo = " . $codigo;
 
         Conexao::executar($sql);
     }
@@ -47,7 +56,7 @@ class SalaDAO {
         return $lista;
     }
 
-    public static function getSalaById($codigo) {
+    public static function getSalaByCodigo($codigo) {
 
         $sql = "SELECT codigo, numero, descricao"
                 . " FROM salas"
