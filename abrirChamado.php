@@ -10,7 +10,6 @@ include_once 'dao/clsSalaDAO.php';
 include_once 'model/clsChamado.php';
 include_once 'model/clsUsuario.php';
 include_once 'model/clsSala.php';
-include_once 'model/clsFakeTecnicoResponsavel.php';
 
 $codigoSala = 0;
 $usuario = 0;
@@ -18,24 +17,32 @@ $descricaoProblema = "";
 $dataHora = "";
 $status = "";
 $nivelCriticidade = "";
-$tecnicoResponsavel = "";
+$codigoTecnicoResponsavel = 0;
 $solucaoProblema = "";
 $action = "inserir";
 
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
     if (isset($_GET['editar'])) {
-
+   
         $codigoChamado = $_GET['codigoChamado'];
 
-        $chamado = ChamadoDAO::getChamadoByCodigo($codigoChamado);
+        $chamado = ChamadoDAO::getChamadoComTecnicoByCodigo($codigoChamado);
+        
+        if ($chamado != null) {
+            
+            $codigoTecnicoResponsavel = $chamado->getTecnicoResponsavel()->getCodigo();
+            
+        } else {
+            
+            $chamado = ChamadoDAO::getChamadoSemTecnicoByCodigo($codigoChamado);
+        }
 
         $codigoSala = $chamado->getSala()->getCodigo();
         $descricaoProblema = $chamado->getDescricaoProblema();
         $dataHora = $chamado->getDataHora();
         $status = $chamado->getStatus();
         $nivelCriticidade = $chamado->getNivelCriticidade();
-        $tecnicoResponsavel = $chamado->getTecnicoResponsavel();
         $solucaoProblema = $chamado->getSolucaoProblema();
         $action = 'editar&codigoChamado=' . $codigoChamado;
     }
@@ -149,12 +156,12 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                                 $selected = "";
 
-                                if ($tecnico->getNomeCompleto() == $tecnicoResponsavel) {
+                                if ($tecnico->getCodigo() == $codigoTecnicoResponsavel) {
 
                                     $selected = " selected ";
                                 }
 
-                                echo '<option ' . $selected . ' value="' . $tecnico->getNomeUsuario() . '">' . $tecnico->getNomeCompleto() . '</option>';
+                                echo '<option ' . $selected . ' value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
                             }
                         }
                         ?>

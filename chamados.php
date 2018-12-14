@@ -34,21 +34,28 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         date_default_timezone_set('America/Sao_Paulo');
         echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
 
-        $lista = new ArrayObject();
+        $lista1 = new ArrayObject();
 
         if ($_SESSION['admin'] == 0) {
 
-            $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
+            $lista1 = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
         } else {
 
-            $lista = ChamadoDAO::getChamados();
+            $lista1 = ChamadoDAO::getChamadosComTecnico();
+            $lista2 = ChamadoDAO::getChamadosSemTecnico();
+            
+            foreach ($lista2 as $chamado) {
+                
+                $lista1->append($chamado);
+            }
+            
         }
 
-        echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
-
-        if ($lista->count() == 0) {
+        if ($lista1->count() == 0) {
             echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
         } else {
+            
+            echo '<h3>Total de chamados: ' . $lista1->count() . '</h3>';
 
             echo '<label>Status: </label>'
             . '<select id="selectFilterStatus">'
@@ -76,7 +83,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Excluir</th>
                 </tr>
         <?php
-        foreach ($lista as $chamado) {
+        foreach ($lista1 as $chamado) {
 
             echo '<tr>'
             . '<td>' . $chamado->getCodigo() . '</td>'
@@ -85,7 +92,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             . '<td>' . $chamado->getDescricaoProblema() . '</td>'
             . '<td>' . $chamado->getStatus() . '</td>'
             . '<td>' . $chamado->getNivelCriticidade() . '</td>'
-            . '<td>' . $chamado->getTecnicoResponsavel() . '</td>'
+            . '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>'
             . '<td>' . $chamado->getDataHora() . '</td>'
             . '<td></td>'
             . '<td>' . $chamado->getSolucaoProblema() . '</td>'

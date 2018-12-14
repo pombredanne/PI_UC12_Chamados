@@ -24,7 +24,7 @@ if (isset($_GET['inserir'])) {
     $usuario = new Usuario();
     $usuario->setCodigo($_SESSION['codigo']);
     $chamado->setUsuario($usuario);
-
+    
     ChamadoDAO::inserir($chamado);
 
     header("Location: ../chamados.php");
@@ -40,14 +40,19 @@ if (isset($_GET['editar'])) {
     $chamado->setTecnicoResponsavel($_POST['selectTecnicoResponsavel']);
 
     $chamado->setSolucaoProblema($_POST['taSolucaoProblema']);
+    
+    $tecnicoResponsavel = new Usuario();
+    $tecnicoResponsavel->setCodigo($_POST['selectTecnicoResponsavel']);
+    
+    $chamado->setTecnicoResponsavel($tecnicoResponsavel);
 
     $sala->setCodigo($_POST['selectSala']);
     $chamado->setSala($sala);
 
     if ($_SESSION['admin'] == 1)
-        ChamadoDAO::editarAdmin($chamado);
+        ChamadoDAO::editarChamadoAdmin($chamado);
     else
-        ChamadoDAO::editarDocente($chamado);
+        ChamadoDAO::editarChamadoDocente($chamado);
 
 
     header("Location: ../chamados.php");

@@ -17,12 +17,13 @@ create table chamados
     descricaoProblema varchar(500),
     status varchar(50) default 'Em aberto',
     nivelCriticidade varchar(50),
-    tecnicoResponsavel varchar(100),
     solucaoProblema varchar(500),
 fkSala int not null,
 fkUsuario int not null,
+fkTecnicoResponsavel int,
 foreign key (fkSala) references salas (codigo),
-foreign key (fkUsuario) references usuarios (codigo)
+foreign key (fkUsuario) references usuarios (codigo),
+foreign key (fkTecnicoResponsavel) references usuarios (codigo)
 
 );
 

@@ -21,21 +21,21 @@ class ChamadoDAO {
         Conexao::executar($sql);
     }
 
-    public static function editarAdmin($chamado) {
+    public static function editarChamadoAdmin($chamado) {
 
         $sql = "UPDATE chamados SET"
                 . " fkSala = " . $chamado->getSala()->getCodigo() . " , "
                 . " descricaoProblema = '" . $chamado->getDescricaoProblema() . "' , "
                 . " status = '" . $chamado->getStatus() . "' , "
                 . " nivelCriticidade = '" . $chamado->getNivelCriticidade() . "' , "
-                . " tecnicoResponsavel = '" . $chamado->getTecnicoResponsavel() . "' , "
+                . " fkTecnicoResponsavel = " . $chamado->getTecnicoResponsavel()->getCodigo() . " , "
                 . " solucaoProblema = '" . $chamado->getSolucaoProblema() . "' "
                 . " WHERE codigo = " . $chamado->getCodigo();
 
         Conexao::executar($sql);
     }
-    
-    public static function editarDocente($chamado) {
+
+    public static function editarChamadoDocente($chamado) {
 
         $sql = "UPDATE chamados SET"
                 . " fkSala = " . $chamado->getSala()->getCodigo() . " , "
@@ -52,52 +52,165 @@ class ChamadoDAO {
         Conexao::executar($sql);
     }
 
-    public static function getChamados() {
+    public static function getChamadosComTecnico() {
 
         $sql = " SELECT c.codigo, c.descricaoProblema, c.dataHora, c.status,"
-                . " c.nivelCriticidade, c.tecnicoResponsavel, c.solucaoProblema,"
-                . " u.codigo, u.nomeUsuario, s.codigo, s.numero"
+                . " c.nivelCriticidade, c.solucaoProblema,"
+                . " u.codigo, u.nomeUsuario, s.codigo, s.numero, t.codigo, t.nomeUsuario"
                 . " FROM chamados c"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
+                . " INNER JOIN usuarios t ON c.fkTecnicoResponsavel = t.codigo"
                 . " ORDER BY datahora DESC ";
 
         $result = Conexao::consultar($sql);
         $lista = new ArrayObject();
 
-        while (list($codigo, $descricaoProblema, $datahora, $status, $nivelCriticidade,
-        $tecnicoResponsavel, $solucaoProblema, $uCodigo, $uNomeUsuario,
-        $sId, $sNumero, $tCodigo, $tNomeCompleto) = mysqli_fetch_row($result)) {
+        if (mysqli_num_rows($result) > 0) {
 
-            $chamado = new Chamado();
-            $chamado->setCodigo($codigo);
-            $chamado->setDescricaoProblema($descricaoProblema);
-            $chamado->setDataHora($datahora);
-            $chamado->setStatus($status);
-            $chamado->setNivelCriticidade($nivelCriticidade);
-            $chamado->setTecnicoResponsavel($tecnicoResponsavel);
-            $chamado->setSolucaoProblema($solucaoProblema);
+            while (list($codigo, $descricaoProblema, $datahora, $status, $nivelCriticidade,
+            $solucaoProblema, $uCodigo, $uNomeUsuario,
+            $sCodigo, $sNumero, $tCodigo, $tNomeusuario) = mysqli_fetch_row($result)) {
+
+                $chamado = new Chamado();
+                $chamado->setCodigo($codigo);
+                $chamado->setDescricaoProblema($descricaoProblema);
+                $chamado->setDataHora($datahora);
+                $chamado->setStatus($status);
+                $chamado->setNivelCriticidade($nivelCriticidade);
+                $chamado->setSolucaoProblema($solucaoProblema);
+
+                $usuario = new Usuario();
+                $usuario->setCodigo($uCodigo);
+                $usuario->setNomeUsuario($uNomeUsuario);
+
+                $sala = new Sala();
+                $sala->setCodigo($sCodigo);
+                $sala->setNumero($sNumero);
+
+                $tecnicoResponsavel = new Usuario();
+                $tecnicoResponsavel->setCodigo($tCodigo);
+                $tecnicoResponsavel->setNomeUsuario($tNomeusuario);
+
+                $chamado->setUsuario($usuario);
+                $chamado->setSala($sala);
+                $chamado->setTecnicoResponsavel($tecnicoResponsavel);
+
+                $lista->append($chamado);
+            }
+
+            return $lista;
+            
+        } else {
+            
+            return null;
+        }
+    }
+
+    public static function getChamadosSemTecnico() {
+
+        $sql = " SELECT c.codigo, c.descricaoProblema, c.dataHora, c.status,"
+                . " c.nivelCriticidade, c.solucaoProblema,"
+                . " u.codigo, u.nomeUsuario, s.codigo, s.numero"
+                . " FROM chamados c"
+                . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
+                . " INNER JOIN salas s ON c.fkSala = s.codigo"
+                . " ORDER BY datahora DESC";
+
+        $result = Conexao::consultar($sql);
+        $lista = new ArrayObject();
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while (list($codigo, $descricaoProblema, $datahora, $status, $nivelCriticidade,
+            $solucaoProblema, $uCodigo, $uNomeUsuario,
+            $sCodigo, $sNumero) = mysqli_fetch_row($result)) {
+
+                $chamado = new Chamado();
+                $chamado->setCodigo($codigo);
+                $chamado->setDescricaoProblema($descricaoProblema);
+                $chamado->setDataHora($datahora);
+                $chamado->setStatus($status);
+                $chamado->setNivelCriticidade($nivelCriticidade);
+                $chamado->setSolucaoProblema($solucaoProblema);
+
+                $usuario = new Usuario();
+                $usuario->setCodigo($uCodigo);
+                $usuario->setNomeUsuario($uNomeUsuario);
+
+                $sala = new Sala();
+                $sala->setCodigo($sCodigo);
+                $sala->setNumero($sNumero);
+
+                $chamado->setUsuario($usuario);
+                $chamado->setSala($sala);
+
+                $lista->append($chamado);
+            }
+
+            return $lista;
+            
+        } else {
+            
+            return null;
+        }
+    }
+
+    public static function getChamadoComTecnicoByCodigo($codigo) {
+
+        $sql = " SELECT c.codigo, c.descricaoProblema, c.dataHora, c.status, "
+                . " c.nivelCriticidade, c.solucaoProblema, "
+                . " u.codigo, u.nomeUsuario, s.codigo, s.numero, t.codigo, t.nomeUsuario"
+                . " FROM chamados c"
+                . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
+                . " INNER JOIN salas s ON c.fkSala = s.codigo"
+                . " INNER JOIN usuarios t ON c.fkTecnicoResponsavel = t.codigo"
+                . " WHERE c.codigo = " . $codigo;
+
+        $result = Conexao::consultar($sql);
+
+        $chamado = new Chamado();
+
+        if (mysqli_num_rows($result) > 0) {
+
+            list($cCodigo, $cDescricaoProblema, $cDataHora, $cStatus,
+                    $cNivelCriticidade, $cSolucaoProblema,
+                    $uCodigo, $uNomeUsuario, $sCodigo, $sNumero, $tCodigo, $tNomeUsuario) = mysqli_fetch_row($result);
+
+            $chamado->setCodigo($cCodigo);
+            $chamado->setDescricaoProblema($cDescricaoProblema);
+            $chamado->setDataHora($cDataHora);
+            $chamado->setStatus($cStatus);
+            $chamado->setNivelCriticidade($cNivelCriticidade);
+            $chamado->setSolucaoProblema($cSolucaoProblema);
 
             $usuario = new Usuario();
             $usuario->setCodigo($uCodigo);
             $usuario->setNomeUsuario($uNomeUsuario);
 
             $sala = new Sala();
-            $sala->setCodigo($sId);
+            $sala->setCodigo($sCodigo);
             $sala->setNumero($sNumero);
+
+            $tecnicoResponsavel = new Usuario();
+            $tecnicoResponsavel->setCodigo($tCodigo);
+            $tecnicoResponsavel->setNomeUsuario($tNomeUsuario);
 
             $chamado->setUsuario($usuario);
             $chamado->setSala($sala);
+            $chamado->setTecnicoResponsavel($tecnicoResponsavel);
 
-            $lista->append($chamado);
+            return $chamado;
+        } else {
+
+            return null;
         }
-        return $lista;
     }
 
-    public static function getChamadoByCodigo($codigo) {
+    public static function getChamadoSemTecnicoByCodigo($codigo) {
 
         $sql = " SELECT c.codigo, c.descricaoProblema, c.dataHora, c.status, "
-                . " c.nivelCriticidade, c.tecnicoResponsavel, c.solucaoProblema, "
+                . " c.nivelCriticidade, c.solucaoProblema, "
                 . " u.codigo, u.nomeUsuario, s.codigo, s.numero"
                 . " FROM chamados c"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
@@ -111,15 +224,14 @@ class ChamadoDAO {
         if (mysqli_num_rows($result) > 0) {
 
             list($cCodigo, $cDescricaoProblema, $cDataHora, $cStatus,
-                    $cNivelCriticidade, $cTecnicoResponsavel, $cSolucaoProblema,
-                    $uCodigo, $uNomeUsuario, $sCodigo, $sNumero, $tCodigo, $tNomeCompleto) = mysqli_fetch_row($result);
+                    $cNivelCriticidade, $cSolucaoProblema,
+                    $uCodigo, $uNomeUsuario, $sCodigo, $sNumero) = mysqli_fetch_row($result);
 
             $chamado->setCodigo($cCodigo);
             $chamado->setDescricaoProblema($cDescricaoProblema);
             $chamado->setDataHora($cDataHora);
             $chamado->setStatus($cStatus);
             $chamado->setNivelCriticidade($cNivelCriticidade);
-            $chamado->setTecnicoResponsavel($cTecnicoResponsavel);
             $chamado->setSolucaoProblema($cSolucaoProblema);
 
             $usuario = new Usuario();
@@ -132,9 +244,12 @@ class ChamadoDAO {
 
             $chamado->setUsuario($usuario);
             $chamado->setSala($sala);
-        }
 
-        return $chamado;
+            return $chamado;
+        } else {
+
+            return null;
+        }
     }
 
     public static function getChamadosByUsuario($nomeUsuario) {
