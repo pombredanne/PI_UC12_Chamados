@@ -21,11 +21,11 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
 
 
         <?php
-        $lista = SalaDAO::getSalas();
+        $lista3 = SalaDAO::getSalas();
 
         echo '<div align="center"><a href="cadastrarSala.php"><button>Cadastrar sala</button></a></div><br><br><br><br>';
 
-        if ($lista->count() == 0) {
+        if ($lista3->count() == 0) {
 
             echo '<h3>Nenhuma sala cadastrada!</h3><br><br>';
         } else {
@@ -37,7 +37,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
         <th>Editar</th>
         <th>Excluir</th>';
 
-            foreach ($lista as $sala) {
+            foreach ($lista3 as $sala) {
 
                 echo '<tr>'
                 . '<td>' . $sala->getCodigo() . '</td>'

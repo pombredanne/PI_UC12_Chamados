@@ -66,11 +66,11 @@ class ChamadoDAO {
         $result = Conexao::consultar($sql);
         $lista = new ArrayObject();
 
-        if (mysqli_num_rows($result) > 0) {
+        if ($result != null) {
 
             while (list($codigo, $descricaoProblema, $datahora, $status, $nivelCriticidade,
             $solucaoProblema, $uCodigo, $uNomeUsuario,
-            $sCodigo, $sNumero, $tCodigo, $tNomeusuario) = mysqli_fetch_row($result)) {
+            $sCodigo, $sNumero, $tCodigo, $tNomeUsuario) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($codigo);
@@ -90,7 +90,7 @@ class ChamadoDAO {
 
                 $tecnicoResponsavel = new Usuario();
                 $tecnicoResponsavel->setCodigo($tCodigo);
-                $tecnicoResponsavel->setNomeUsuario($tNomeusuario);
+                $tecnicoResponsavel->setNomeUsuario($tNomeUsuario);
 
                 $chamado->setUsuario($usuario);
                 $chamado->setSala($sala);
@@ -120,7 +120,7 @@ class ChamadoDAO {
         $result = Conexao::consultar($sql);
         $lista = new ArrayObject();
 
-        if (mysqli_num_rows($result) > 0) {
+        if ($result != null) {
 
             while (list($codigo, $descricaoProblema, $datahora, $status, $nivelCriticidade,
             $solucaoProblema, $uCodigo, $uNomeUsuario,
@@ -141,9 +141,14 @@ class ChamadoDAO {
                 $sala = new Sala();
                 $sala->setCodigo($sCodigo);
                 $sala->setNumero($sNumero);
+                
+                $tecnicoResponsavel = new Usuario();
+                $tecnicoResponsavel->setCodigo(null);
+                $tecnicoResponsavel->setNomeUsuario(null);
 
                 $chamado->setUsuario($usuario);
                 $chamado->setSala($sala);
+                $chamado->setTecnicoResponsavel($tecnicoResponsavel);
 
                 $lista->append($chamado);
             }
@@ -241,9 +246,14 @@ class ChamadoDAO {
             $sala = new Sala();
             $sala->setCodigo($sCodigo);
             $sala->setNumero($sNumero);
+            
+            $tecnicoResponsavel = new Usuario();
+            $tecnicoResponsavel->setCodigo(null);
+            $tecnicoResponsavel->setNomeUsuario(null);
 
             $chamado->setUsuario($usuario);
             $chamado->setSala($sala);
+            $chamado->setTecnicoResponsavel($tecnicoResponsavel);
 
             return $chamado;
         } else {

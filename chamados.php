@@ -34,31 +34,58 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         date_default_timezone_set('America/Sao_Paulo');
         echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
 
-        $lista1 = new ArrayObject();
+        $lista = new ArrayObject();
+        $lista3 = new ArrayObject();
 
         if ($_SESSION['admin'] == 0) {
 
-            $lista1 = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
+            $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
+
+            foreach ($lista as $chamado) {
+
+                $lista3->append($chamado);
+            }
         } else {
 
-            $lista1 = ChamadoDAO::getChamadosComTecnico();
+            $lista = ChamadoDAO::getChamadosComTecnico();
             $lista2 = ChamadoDAO::getChamadosSemTecnico();
-            
-            foreach ($lista2 as $chamado) {
+
+            if ($lista != null && $lista2 != null) {
+
+                foreach ($lista as $chamado) {
+
+                    $lista3->append($chamado);
+                }
+
+                foreach ($lista2 as $chamado) {
+
+                    $lista3->append($chamado);
+                }
+            } else if ($lista2 == null) {
+
+                foreach ($lista as $chamado) {
+
+                    $lista3->append($chamado);
+                }
+            } else if ($lista == null){
+
+                foreach ($lista2 as $chamado) {
+
+                    $lista3->append($chamado);
+                }
                 
-                $lista1->append($chamado);
             }
-            
+                
         }
 
-        if ($lista1->count() == 0) {
+        if ($lista3->count() == 0) {
             echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
         } else {
-            
-            echo '<h3>Total de chamados: ' . $lista1->count() . '</h3>';
+
+            echo '<h3>Total de chamados: ' . $lista3->count() . '</h3>';
 
             echo '<label>Status: </label>'
-            . '<select id="selectFilterStatus">'
+            . '<select id="selectFiltroStatus">'
             . '<option>Selecione...</option>'
             . '<option value="Em aberto">Em aberto</option>'
             . '<option value="Resolvido">Resolvido</option>'
@@ -83,7 +110,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Excluir</th>
                 </tr>
         <?php
-        foreach ($lista1 as $chamado) {
+        foreach ($lista3 as $chamado) {
 
             echo '<tr>'
             . '<td>' . $chamado->getCodigo() . '</td>'
@@ -91,9 +118,18 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             . '<td>' . $chamado->getSala()->getNumero() . '</td>'
             . '<td>' . $chamado->getDescricaoProblema() . '</td>'
             . '<td>' . $chamado->getStatus() . '</td>'
-            . '<td>' . $chamado->getNivelCriticidade() . '</td>'
-            . '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>'
-            . '<td>' . $chamado->getDataHora() . '</td>'
+            . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+            
+            if ($chamado->getTecnicoResponsavel()->getNomeUsuario() != null) {
+                
+                echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
+                
+            } else {
+                
+                echo '<td></td>';
+            }
+
+            echo '<td>' . $chamado->getDataHora() . '</td>'
             . '<td></td>'
             . '<td>' . $chamado->getSolucaoProblema() . '</td>'
             . '<td></td>'
