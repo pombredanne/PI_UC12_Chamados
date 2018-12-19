@@ -16,6 +16,7 @@ create table chamados
     dataHora datetime,
     descricaoProblema varchar(500),
     status varchar(50) default 'Em aberto',
+    historicoStatus varchar(500),
     nivelCriticidade varchar(50),
     solucaoProblema varchar(500),
 fkSala int not null,

@@ -27,15 +27,12 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
    
         $codigoChamado = $_GET['codigoChamado'];
 
-        $chamado = ChamadoDAO::getChamadoComTecnicoByCodigo($codigoChamado);
+        $chamado = ChamadoDAO::getChamadoByCodigo($codigoChamado);
         
-        if ($chamado != null) {
+        if ($chamado->getTecnicoResponsavel() != null) {
             
             $codigoTecnicoResponsavel = $chamado->getTecnicoResponsavel()->getCodigo();
             
-        } else {
-            
-            $chamado = ChamadoDAO::getChamadoSemTecnicoByCodigo($codigoChamado);
         }
 
         $codigoSala = $chamado->getSala()->getCodigo();
@@ -150,7 +147,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                             echo '<option>Nenhum técnico cadastrado</option>';
                         } else {
 
-                            echo '<option value="">Selecione...</option>';
+                            echo '<option value="null">Selecione...</option>';
 
                             foreach ($listaTecnico as $tecnico) {
 

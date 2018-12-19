@@ -35,54 +35,22 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
 
         $lista = new ArrayObject();
-        $lista3 = new ArrayObject();
 
         if ($_SESSION['admin'] == 0) {
 
             $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
 
-            foreach ($lista as $chamado) {
-
-                $lista3->append($chamado);
-            }
         } else {
+            
+            $lista = ChamadoDAO::getChamados();
 
-            $lista = ChamadoDAO::getChamadosComTecnico();
-            $lista2 = ChamadoDAO::getChamadosSemTecnico();
-
-            if ($lista != null && $lista2 != null) {
-
-                foreach ($lista as $chamado) {
-
-                    $lista3->append($chamado);
-                }
-
-                foreach ($lista2 as $chamado) {
-
-                    $lista3->append($chamado);
-                }
-            } else if ($lista2 == null) {
-
-                foreach ($lista as $chamado) {
-
-                    $lista3->append($chamado);
-                }
-            } else if ($lista == null){
-
-                foreach ($lista2 as $chamado) {
-
-                    $lista3->append($chamado);
-                }
-                
             }
                 
-        }
-
-        if ($lista3->count() == 0) {
+        if ($lista->count() == 0) {
             echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
         } else {
 
-            echo '<h3>Total de chamados: ' . $lista3->count() . '</h3>';
+            echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
 
             echo '<label>Status: </label>'
             . '<select id="selectFiltroStatus">'
@@ -110,7 +78,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Excluir</th>
                 </tr>
         <?php
-        foreach ($lista3 as $chamado) {
+        foreach ($lista as $chamado) {
 
             echo '<tr>'
             . '<td>' . $chamado->getCodigo() . '</td>'
@@ -120,7 +88,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             . '<td>' . $chamado->getStatus() . '</td>'
             . '<td>' . $chamado->getNivelCriticidade() . '</td>';
             
-            if ($chamado->getTecnicoResponsavel()->getNomeUsuario() != null) {
+            if ($chamado->getTecnicoResponsavel() != null) {
                 
                 echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
                 
@@ -128,7 +96,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 
                 echo '<td></td>';
             }
-
+            
             echo '<td>' . $chamado->getDataHora() . '</td>'
             . '<td></td>'
             . '<td>' . $chamado->getSolucaoProblema() . '</td>'

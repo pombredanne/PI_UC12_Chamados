@@ -2,9 +2,9 @@
 
 class Chamado {
     
-    private $codigo, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema;
+    private $codigo, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema, $historicoStatus;
     
-    function __construct($codigo = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null) {
+    function __construct($codigo = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null, $historicoStatus = null) {
         $this->codigo = $codigo;
         $this->dataHora = $dataHora;
         $this->descricaoProblema = $descricaoProblema;
@@ -14,6 +14,7 @@ class Chamado {
         $this->nivelCriticidade = $nivelCriticidade;
         $this->tecnicoResponsavel = $tecnicoResponsavel;
         $this->solucaoProblema = $solucaoProblema;
+        $this->historicoStatus = $historicoStatus;
     }
     
     function getSolucaoProblema() {
@@ -88,4 +89,12 @@ class Chamado {
         $this->status = $status;
     }
     
+    function getHistoricoStatus() {
+        return $this->historicoStatus;
+    }
+
+    function setHistoricoStatus($historicoStatus) {
+        $this->historicoStatus = $historicoStatus;
+    }
+
 }
