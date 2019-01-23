@@ -161,7 +161,8 @@ if (isset($_GET['confirmarRetomar'])) {
     //pegando somente o horario da string com data e hora
     $pausar = substr($pausar, 9);
     $retomar = substr($retomar, 9);
-
+    
+    //transformando em int
     $horaPausar = intval(substr($pausar, 0, 2));
     $minutoPausar = intval(substr($pausar, 2, 2));
     $segundoPausar = intval(substr($pausar, 4, 4));
@@ -170,14 +171,15 @@ if (isset($_GET['confirmarRetomar'])) {
     $minutoRetomar = intval(substr($retomar, 2, 2));
     $segundoRetomar = intval(substr($retomar, 4, 4));
 
+    //TESTES
     $segundoPausar = 21;
     $segundoRetomar = 15;
 
-    $minutoPausar = 25;
-    $minutoRetomar = 17;
+    $minutoPausar = 17;
+    $minutoRetomar = 25;
 
     $horaPausar = 22;
-    $horaRetomar = 24;
+    $horaRetomar = 20;
 
     $diaPausar = 23;
     $diaRetomar = 26;
@@ -188,6 +190,7 @@ if (isset($_GET['confirmarRetomar'])) {
     $anoPausar = 2019;
     $anoRetomar = 2019;
 
+    //total
     $segundosTotais = $segundoRetomar - $segundoPausar . "s";
     $minutosTotais = $minutoRetomar - $minutoPausar . "m ";
     $horasTotais = $horaRetomar - $horaPausar . "h ";
@@ -195,51 +198,65 @@ if (isset($_GET['confirmarRetomar'])) {
     $diasTotais = $diaRetomar - $diaPausar . "d ";
     $mesesTotais = $mesRetomar - $mesPausar . "m ";
     $anosTotais = $anoRetomar - $anoPausar . "a ";
-    
-    //verificando se hora, minuto ou segundo forem iguais
+
+    //verificando se hora, minuto ou segundo pausar/retomar forem iguais
     if ($horaPausar == $horaRetomar) {
 
         $horasTotais = "";
-
-        if ($minutoPausar == $minutoRetomar) {
-
-            $minutosTotais = "";
-
-            if ($segundoPausar == $segundoRetomar) {
-
-                $segundosTotais = "";
-            }
-        }
     }
-    
-    //verificando se ano, mes ou dia forem iguais
+
+    if ($minutoPausar == $minutoRetomar) {
+
+        $minutosTotais = "";
+    }
+
+    if ($segundoPausar == $segundoRetomar) {
+
+        $segundosTotais = "";
+    }
+
+    //verificando se ano, mes ou dia pausar/retomar forem iguais
     if ($anoPausar == $anoRetomar) {
 
         $anosTotais = "";
-
-        if ($mesPausar == $mesRetomar) {
-
-            $mesesTotais = "";
-
-            if ($diaPausar == $diaRetomar) {
-
-                $diasTotais = "";
-            }
-        }
     }
-    
-    //verificacao para quando a soma dos segundos for < 60
+
+    if ($mesPausar == $mesRetomar) {
+
+        $mesesTotais = "";
+    }
+
+    if ($diaPausar == $diaRetomar) {
+
+        $diasTotais = "";
+    }
+
+    //verificacao para quando o segundo em q pausou for > que o q retomou
     if ($segundoPausar > $segundoRetomar) {
-        
-        //- com - da +
+
+        //- com - daria +
         $segundosTotais = 60 + $segundosTotais . "s";
         $minutosTotais = $minutosTotais - 1 . "m ";
     }
     
+//    if ($segundoPausar + $segundoRetomar > 60) {
+//        
+//    } 
+
     if ($minutoPausar > $minutoRetomar) {
-        
+
         $minutosTotais = 60 + $minutosTotais . "m ";
-        $horasTotais = $horasTotais - 1 . "h ";
+        $horasTotais = $horasTotais - 1;
+    }
+    
+    
+    //o contador de dias smp irá contar os dias totais, por isso
+    //a verificacao de se a hr do dia em q pausou for maior, decrescentar 1
+    if ($horaPausar > $horaRetomar) {
+        
+        $horasTotais = 24 + $horasTotais . "h ";
+        $diasTotais = $diasTotais - 1 . "d ";
+
     }
     
 //    if ($minutoPausar > $minutoRetomar) {
