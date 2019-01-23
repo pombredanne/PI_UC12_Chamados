@@ -1,32 +1,67 @@
 <head>
     <meta charset="UTF-8">
-    <title></title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="menu.css">
+
 </head>
 
 <header>
 
-    <a href="index.php"><button>Início</button></a>
+    <!--<div id="divBotoes">-->
 
-    <?php
-    error_reporting(0);
+    <div class="navBar">
 
-    if (session_status() != PHP_SESSION_ACTIVE) {
+        <nav id="navLinks">
 
-        session_start();
-    }
+            <?php
+            error_reporting(0);
 
-    if ($_SESSION['admin'] == 1) {
+            if (session_status() != PHP_SESSION_ACTIVE) {
 
-        echo '<a href="salas.php"><button>Salas</button></a>';
-        echo ' <a href="cadastrarUsuario.php"><button>Cadastrar Usuário</button></a>';
-    }
+                session_start();
+            }
 
-    if (isset($_SESSION['logado']) && $_SESSION['logado']) {
+            if ($_SESSION['admin'] == 1) {
+                ?>
 
-        echo ' <a href="chamados.php"><button>Chamados</button></a>';
-        echo ' <a href="sair.php"><button>Sair</button></a>';
-        echo '<br><br>Olá ' . $_SESSION['nomeUsuario'] . "<br><br>";
-        
+                <a href="salas.php">Salas</a>
+                <a href="cadastrarUsuario.php">Cadastrar Usuário</a>
+
+                <?php
+            }
+            ?>
+
+            <?php
+            if (isset($_SESSION['logado']) && $_SESSION['logado']) {
+                ?>
+
+                <a href="chamados.php">Chamados</a>
+            </nav>
+
+            <!--<a id="linkSair" href="sair.php">Sair</a>-->
+
+            <!--</div>-->
+
+            <!--        $nome = 'Olá ' . $_SESSION['nomeUsuario'];
+                   $nome = "10:20:30";
+                   $nome = str_replace(":", "", $nome);
+                   $nome = substr($nome, 0, 2);
+                    echo '<br><br><div>' . $nome . "</div><br><br>";-->
+
+        </div>
+
+        <div class="divNomeUsuario">
+                <a href="#"><?php echo $_SESSION['nomeUsuario'] ?></a>
+                <a id="aDivSair" href="sair.php">Sair</a>
+
+    <!--<span id="spanNomeUsuario"><?php echo $_SESSION['nomeUsuario'] ?></span><br><br>-->
+
+        </div>
+
+        <?php
     }
     ?>
 

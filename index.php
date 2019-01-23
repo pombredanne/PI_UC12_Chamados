@@ -1,7 +1,9 @@
 <?php
+
 session_start();
 
-require_once 'menu.php';
+error_reporting(0);
+
 ?>
 
 <!DOCTYPE html>
@@ -9,10 +11,11 @@ require_once 'menu.php';
     <head>
         <meta charset="UTF-8">
         <title>Chamados Senac</title>
+        
+        <link rel="stylesheet" type="text/css" href="index.css">
+        
     </head>
     <body>
-
-        <img src="fotos/logotipo_senac.jpg">
 
         <?php
         if (!isset($_SESSION['logado']) && !$_SESSION['logado']) {
@@ -23,7 +26,7 @@ require_once 'menu.php';
                 <input type="text" name="txtNomeUsuario" placeholder="Usuário"><br><br>
                 <label>Senha:</label>
                 <input type="password" name="txtSenha" placeholder="Senha"><br><br>
-                <input type="submit" value="Entrar">
+                <input type="submit" value="Entrar" id="btEntrar">
             </form><br><br><br>
 
             <?php

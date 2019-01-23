@@ -1,0 +1,38 @@
+2 colunas pro botao pause, uma pro horario q pausou e outra pro horario q retomou
+
+tempo total -> pegar do servidor
+
+*carga horária p/ dia
+
+botao pausar/retomar chamado
+
+2 colunas historicoPausar e historicoRetomar
+
+
+
+ONCLICK  botao entrar index msg usuario invalido
+
+
+
+CHAMADOS ATIVOS
+
+
+PLANILHA DE PRODUTIVIDADE
+
+
+
+JAVASCRIPT
+
+3 botoes (em aberto, resolvido, cancelado) pra setar o texto em uma textarea dos status
+
+filtro de chamados (ver folha)
+
+botao visualizar historico status
+
+
+
+
+ano mes dia inserir chamado
+
+
+

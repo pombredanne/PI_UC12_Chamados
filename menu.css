@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#navLinks {
+    margin-left:25%;
+}
+
+.divNomeUsuario {
+    position: fixed;
+}
+
+#aDivSair {
+    visibility: hidden;
+}
+
+.divNomeUsuario a {
+    display: inline-block;
+    color: #0033ff;
+    text-align: center;
+    padding: 30px 8%;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background-color: red;
+    width: 100%;
+}
+
+.divNomeUsuario a:hover {
+    background-color: #0033ff;
+    color: white;
+}
+
+.divNomeUsuario a:hover ~ #aDivSair{
+    visibility: visible;
+}
+
+#aDivSair:hover{
+    visibility: visible;
+}
+
+.navBar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #f8b032;
+    height: 10%;
+    box-shadow: 0 20px 100px black;
+    overflow: hidden;
+}
+
+.navBar a {
+    float: left;
+    color: #0033ff;
+    text-align: center;
+    padding: 30px 8%;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.navBar a:hover {
+    background-color: #0033ff;
+    color: white;
+}

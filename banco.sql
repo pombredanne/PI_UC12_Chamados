@@ -7,7 +7,8 @@ create table usuarios
 	nomeUsuario varchar(100),
 	email varchar(100),
     senha varchar(50),
-	admin boolean
+	admin boolean,
+foto varchar(100)
 );
 
 create table chamados 
@@ -16,12 +17,18 @@ create table chamados
     dataHora datetime,
     descricaoProblema varchar(500),
     status varchar(50) default 'Em aberto',
-    historicoStatus varchar(500),
+    historicoStatus varchar(500) default 'Em aberto',
     nivelCriticidade varchar(50),
     solucaoProblema varchar(500),
+    pausar datetime,
+    retomar datetime,
+    pausado boolean default 0,
+    resolvido boolean,
+    tempoTotal varchar(100),
 fkSala int not null,
 fkUsuario int not null,
 fkTecnicoResponsavel int,
+ativo boolean default 1,
 foreign key (fkSala) references salas (codigo),
 foreign key (fkUsuario) references usuarios (codigo),
 foreign key (fkTecnicoResponsavel) references usuarios (codigo)

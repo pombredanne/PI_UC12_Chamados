@@ -15,7 +15,8 @@ $codigoSala = 0;
 $usuario = 0;
 $descricaoProblema = "";
 $dataHora = "";
-$status = "";
+$statusAtual = "";
+$historicoStatus = "";
 $nivelCriticidade = "";
 $codigoTecnicoResponsavel = 0;
 $solucaoProblema = "";
@@ -24,21 +25,21 @@ $action = "inserir";
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
     if (isset($_GET['editar'])) {
-   
+
         $codigoChamado = $_GET['codigoChamado'];
 
         $chamado = ChamadoDAO::getChamadoByCodigo($codigoChamado);
-        
+
         if ($chamado->getTecnicoResponsavel() != null) {
-            
+
             $codigoTecnicoResponsavel = $chamado->getTecnicoResponsavel()->getCodigo();
-            
         }
 
         $codigoSala = $chamado->getSala()->getCodigo();
         $descricaoProblema = $chamado->getDescricaoProblema();
         $dataHora = $chamado->getDataHora();
-        $status = $chamado->getStatus();
+        $statusAtual = $chamado->getStatus();
+        $historicoStatus = $chamado->getHistoricoStatus();
         $nivelCriticidade = $chamado->getNivelCriticidade();
         $solucaoProblema = $chamado->getSolucaoProblema();
         $action = 'editar&codigoChamado=' . $codigoChamado;
@@ -90,30 +91,42 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <textarea name="taDescricaoProblema" placeholder="Descrição do Problema"><?php echo $descricaoProblema; ?></textarea><br><br>
 
                 <?php
-                if (isset($_GET['editar']) && $_SESSION['logado'] && $_SESSION['admin'] == 1) {
+                if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
                     ?>
 
-                    <label>Status:</label>
-                    <select name="selectStatus">
-                        <option value="">Selecione...</option>
+                <label>Status atual:</label><br><br>
+                <textarea name="taStatusAtual" placeholder="Status atual"><?php echo $statusAtual; ?></textarea><br><br>
+<!--                    <select name="selectStatus">
+                        <option value="">Selecione...</option>-->
 
                         <?php
-                        $arrayStatus = ['Em aberto', 'Resolvido', 'Cancelado'];
-
-                        foreach ($arrayStatus as $itemStatus) {
-
-                            $selected = "";
-
-                            if ($itemStatus == $status) {
-
-                                $selected = " selected ";
-                            }
-
-                            echo '<option' . $selected . ' value="' . $itemStatus . '">' . $itemStatus . '</option>';
-                        }
+//                        $arrayStatus = ['Em aberto', 'Resolvido', 'Cancelado'];
+//
+//                        foreach ($arrayStatus as $itemStatus) {
+//
+//                            $selected = "";
+//
+//                            if ($itemStatus == $status) {
+//
+//                                $selected = " selected ";
+//                            }
+//
+//                            echo '<option' . $selected . ' value="' . $itemStatus . '">' . $itemStatus . '</option>';
+//                        }
+//                        
                         ?>
 
-                    </select><br><br>
+                    <!--</select><br><br>-->
+                    
+                    <label>Histórico de Status:</label><br><br>
+                    <textarea placeholder="Histórico de Status" disabled><?php echo $historicoStatus; ?></textarea><br><br>
+
+                    <?php
+                    
+                }
+
+                if ($_SESSION['admin'] == 1) {
+                    ?>
 
                     <label>Nível de criticidade:</label>
                     <select name="selectNivelCriticidade">
@@ -165,18 +178,24 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                     </select><br><br>
 
-                    <label>Solução do problema:</label><br><br>
-                    <textarea name="taSolucaoProblema" placeholder="Solução do Problema"><?php echo $solucaoProblema; ?></textarea><br><br>
-
                     <?php
+                    if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
+                        ?>
+
+                        <label>Solução do problema:</label><br><br>
+                        <textarea name="taSolucaoProblema" placeholder="Solução do Problema"><?php echo $solucaoProblema; ?></textarea><br><br>
+
+                        <?php
+                    }
+                    
                 }
-                ?>
+                    ?>
 
-                <input type="submit" value="Salvar">
+                    <input type="submit" value="Salvar">
 
-            </form>
+                </form>
 
-            <?php
+                <?php
         } else {
             header("Location: index.php");
         }

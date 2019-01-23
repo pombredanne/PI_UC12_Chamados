@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*uma div que delimita todo o HTML e faz com q os elementos ao dar zoom não
+"scrolle" na página*/
+#wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vh;
+}
+
+form {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
+
+label {
+    font-size: 20px;
+    /*color: #0066ff;*/
+}
+
+#lblAdmin {
+    /*display: block;*/
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    margin-left: 10%;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /*user-select: none;*/
+}
+
+#lblAdmin input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#checkmarkAdmin {
+    position: absolute;
+    left: 5%;
+    height: 25px;
+    width: 25px;
+    background-color: white;
+}
+
+#checkmarkAdmin:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+#lblAdmin:hover input ~ #checkmarkAdmin {
+    background-color: black;
+}
+
+#lblAdmin input:checked ~ #checkmarkAdmin {
+    background-color: black;
+}
+
+#lblAdmin input:checked ~ #checkmarkAdmin:after {
+    display: block;
+}
+
+#lblAdmin #checkmarkAdmin:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid #f8b032;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+body {
+    /*background-image: url(fotos/background_cadastrarUsuario.png);*/
+    background-image: url(fotos/background_cadastrarUsuario.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0% 0%;
+    /*background-size: 100% 110%;*/
+}
+
+h2 {
+    position: relative;
+    width: 100%;
+    min-width: 100%;
+    height: 5%;
+    margin-left: 20%;
+}
+
+.box {
+    position: absolute;
+    top: 20%;
+    left: 38%;
+    /*transform: translate(-10%, -10%);*/
+    width: 60vh;
+    min-width: 60vh;
+    max-width: 60vh;
+    height: 100vh;
+    min-height: 80vh;
+    max-height: 100vh;       
+    background: #ffb44e;
+    padding: 2%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 5px solid rgba(0,0,0,.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    margin-bottom: 5%;
+    /*faz com que os elementos html não "saiam" do elemento pai com a mudança de zoom*/
+    overflow: hidden;
+}
+
+.box input[type="submit"] {
+    position: relative;
+    border-bottom: none;
+    cursor: pointer;
+    background: #1ca0eb;
+    color: black;
+    margin-top: 5%;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.box form {
+    position: relative;
+    transform: translate(-70%, -30%);
+    width: 60%;
+}
+
+.box form div {
+    position: relative;
+}
+
+.box form div label {
+    position: absolute;
+    pointer-events: none;
+    left: 12%;
+    top: 25%;
+    color: #9aafbb;
+    transition: .5s;
+}
+
+.box form input {
+    position: relative;
+    left: 10%;
+    width: 150%;
+    max-height: 70px;
+    height: 70px;
+    font-size: 20px;
+    border-radius: 7px;
+}
+
+/*subindo o label*/
+/*focus -> faz com que o estilo seja aplicado quando clicar no input*/
+.box input:focus ~ label,
+/*valid -> faz com que se estiver escrito algo no input o label
+não desça novamente ao clicar em outro input*/
+.box input:valid ~ label
+{
+    transform: translate(-1%,-120%);
+    /*top: 5px;*/
+    /*left: 30px;*/
+    color: blue;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*borda dos input quando clicados ou quando conter algo escrito*/
+.box input:focus,
+.box input:valid
+{
+    border-bottom: 2px solid black;
+}
+
+/*.box input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}*/

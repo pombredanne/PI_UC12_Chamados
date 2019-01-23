@@ -1,5 +1,8 @@
 <?php
-require_once 'menu.php';
+
+error_reporting(0);
+
+session_start();
 
 include_once 'dao/clsConexao.php';
 include_once 'dao/clsSalaDAO.php';
@@ -13,19 +16,29 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
         <head>
             <meta charset="UTF-8">
             <title>Salas</title>
-
-        <h1 align="center">Salas</h1><br><br>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
+                  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+            
+            <link rel="stylesheet" type="text/css" href="salas.css">
 
     </head>
     <body>
-
+        
+        <?php
+        
+        require_once 'menu.php';
+        
+        ?>
+        
+        <h1 align="center">Salas</h1><br><br>
+        
+        <div><a href="cadastrarSala.php"><button id="btCadastrarSala">Cadastrar sala</button></a></div><br><br><br><br>
 
         <?php
-        $lista3 = SalaDAO::getSalas();
+        $lista = SalaDAO::getSalas();
 
-        echo '<div align="center"><a href="cadastrarSala.php"><button>Cadastrar sala</button></a></div><br><br><br><br>';
-
-        if ($lista3->count() == 0) {
+        if ($lista->count() == 0) {
 
             echo '<h3>Nenhuma sala cadastrada!</h3><br><br>';
         } else {
@@ -37,7 +50,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
         <th>Editar</th>
         <th>Excluir</th>';
 
-            foreach ($lista3 as $sala) {
+            foreach ($lista as $sala) {
 
                 echo '<tr>'
                 . '<td>' . $sala->getCodigo() . '</td>'

@@ -6,6 +6,8 @@ include_once '../dao/clsUsuarioDAO.php';
 
 if (isset($_GET['inserir'])) {
     
+    if ($_POST['txtSenha'] == $_POST['txtConfirmarSenha']){
+        
     $usuario = new Usuario();
     $usuario->setNomeCompleto($_POST['txtNome']);
     $usuario->setNomeUsuario($_POST['txtNomeUsuario']);
@@ -20,5 +22,9 @@ if (isset($_GET['inserir'])) {
     
     UsuarioDAO::inserir($usuario);
     
-    header("Location: ../index.php");
+    header("cadastrarUsuario.php");
+    
+    } else {
+        echo '<script>window.history.back();</script>';
+    }
 }

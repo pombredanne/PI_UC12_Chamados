@@ -1,0 +1,64 @@
+table, td, th, tr{
+    border: 1px solid black;
+}
+
+#btSolicitarNovoChamado {
+    color: white;
+    background-color: #0066ff;
+    border-radius: 20px;
+    font-size: 25px;
+    margin-top: 7%;
+}
+
+#btSolicitarNovoChamado:hover {
+    background-color: #0033ff;
+}
+
+#divLinks {
+    margin-left: 38%;
+}
+
+#spanNomeUsuario {
+    position: absolute;
+    left: 1%;
+    top: 35%;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#linkSair {
+    /*o elemento "desliza" na direção do valor float*/
+    float: right;
+}
+
+.navBar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: #f8b032;
+    height: 10%;
+    box-shadow: 0 20px 100px black;
+    overflow: hidden;
+}
+
+.navBar a {
+    float: left;
+    color: #0033ff;
+    text-align: center;
+    padding: 30px 30px;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.navBar a:hover {
+    background-color: #0033ff;
+    color: white;
+}
+
+.navBar a.active {
+    background-color: brown;
+    color: gray;
+}
+
