@@ -68,7 +68,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             $lista = ChamadoDAO::getChamadosByUsuario($_SESSION['nomeUsuario']);
 
         } else {
-            
+//            mercadobitcoin
             $lista = ChamadoDAO::getChamados();
 
             }
@@ -128,7 +128,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 echo '<td></td>';
             }
             
-            echo '<td>' . $chamado->getDataHora() . '</td>'
+            echo '<td>' . $chamado->getDataHoraAbertura() . '</td>'
             . '<td></td>'
             . '<td>' . $chamado->getSolucaoProblema() . '</td>'
             . '<td></td>'

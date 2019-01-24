@@ -14,7 +14,7 @@ foto varchar(100)
 create table chamados 
 (
     codigo int not null primary key AUTO_INCREMENT,
-    dataHora datetime,
+    dataHoraAbertura datetime,
     descricaoProblema varchar(500),
     status varchar(50) default 'Em aberto',
     historicoStatus varchar(500) default 'Em aberto',
@@ -24,7 +24,9 @@ create table chamados
     retomar datetime,
     pausado boolean default 0,
     resolvido boolean,
+    tempoAtual varchar(100),
     tempoTotal varchar(100),
+    dataHoraEncerramento datetime,
 fkSala int not null,
 fkUsuario int not null,
 fkTecnicoResponsavel int,

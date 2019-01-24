@@ -2,11 +2,45 @@
 
 class Chamado {
 
-    private $codigo, $dataHora, $descricaoProblema, $sala, $status, $usuario, $nivelCriticidade, $tecnicoResponsavel, $solucaoProblema, $historicoStatus, $pausar, $retomar, $pausado, $resolvido, $ativo, $tempoTotal;
+    private $codigo,
+            $dataHoraAbertura,
+            $descricaoProblema,
+            $sala,
+            $status,
+            $usuario,
+            $nivelCriticidade,
+            $tecnicoResponsavel,
+            $solucaoProblema,
+            $historicoStatus,
+            $pausar, 
+            $retomar, 
+            $pausado, 
+            $resolvido, 
+            $ativo, 
+            $tempoTotal,
+            $dataHoraEncerramento;
 
-    function __construct($codigo = null, $dataHora = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null, $historicoStatus = null, $pausar = null, $retomar = null, $pausado = null, $resolvido = null, $ativo = null, $tempoTotal = null) {
+    function __construct(
+            $codigo = null, 
+            $dataHoraAbertura = null, 
+            $descricaoProblema = null, 
+            $sala = null, 
+            $status = null, 
+            $usuario = null, 
+            $nivelCriticidade = null, 
+            $tecnicoResponsavel = null, 
+            $solucaoProblema = null, 
+            $historicoStatus = null, 
+            $pausar = null, 
+            $retomar = null, 
+            $pausado = null, 
+            $resolvido = null, 
+            $ativo = null, 
+            $tempoTotal = null,
+            $dataHoraEncerramento = null) {
+        
         $this->codigo = $codigo;
-        $this->dataHora = $dataHora;
+        $this->dataHoraAbertura = $dataHoraAbertura;
         $this->descricaoProblema = $descricaoProblema;
         $this->sala = $sala;
         $this->status = $status;
@@ -21,8 +55,17 @@ class Chamado {
         $this->resolvido = $resolvido;
         $this->ativo = $ativo;
         $this->tempoTotal = $tempoTotal;
+        $this->dataHoraEncerramento = $dataHoraEncerramento;
     }
     
+    function getDataHoraEncerramento() {
+        return $this->dataHoraEncerramento;
+    }
+
+    function setDataHoraEncerramento($dataHoraEncerramento) {
+        $this->dataHoraEncerramento = $dataHoraEncerramento;
+    }
+
     function getTempoTotal() {
         return $this->tempoTotal;
     }
@@ -107,8 +150,8 @@ class Chamado {
         return $this->codigo;
     }
 
-    function getDataHora() {
-        return $this->dataHora;
+    function getDataHoraAbertura() {
+        return $this->dataHoraAbertura;
     }
 
     function getDescricaoProblema() {
@@ -127,8 +170,8 @@ class Chamado {
         $this->codigo = $codigo;
     }
 
-    function setDataHora($dataHora) {
-        $this->dataHora = $dataHora;
+    function setDataHoraAbertura($dataHoraAbertura) {
+        $this->dataHoraAbertura = $dataHoraAbertura;
     }
 
     function setDescricaoProblema($decricaoProblema) {

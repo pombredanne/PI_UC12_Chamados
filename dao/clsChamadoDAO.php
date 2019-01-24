@@ -9,11 +9,11 @@ class ChamadoDAO {
 
     public static function inserirChamadoAdmin($chamado) {
 
-        $sql = "INSERT INTO chamados (descricaoProblema, dataHora, fkUsuario, fkSala, nivelCriticidade, fkTecnicoResponsavel)"
+        $sql = "INSERT INTO chamados (descricaoProblema, dataHoraAbertura, fkUsuario, fkSala, nivelCriticidade, fkTecnicoResponsavel)"
                 . " VALUES"
                 . "("
                 . " '" . $chamado->getDescricaoProblema() . "' , "
-                . " '" . $chamado->getDataHora() . "' , "
+                . " '" . $chamado->getDataHoraAbertura() . "' , "
                 . " " . $chamado->getUsuario()->getCodigo() . " , "
                 . " " . $chamado->getSala()->getCodigo() . " , "
                 . " '" . $chamado->getNivelCriticidade() . "' , "
@@ -25,11 +25,11 @@ class ChamadoDAO {
     
     public static function inserirChamadoDocente($chamado) {
 
-        $sql = "INSERT INTO chamados (descricaoProblema, dataHora, fkUsuario, fkSala)"
+        $sql = "INSERT INTO chamados (descricaoProblema, dataHoraAbertura, fkUsuario, fkSala)"
                 . " VALUES"
                 . "("
                 . " '" . $chamado->getDescricaoProblema() . "' , "
-                . " '" . $chamado->getDataHora() . "' , "
+                . " '" . $chamado->getDataHoraAbertura() . "' , "
                 . " " . $chamado->getUsuario()->getCodigo() . " , "
                 . " " . $chamado->getSala()->getCodigo() . " "
                 . ");";
@@ -119,6 +119,16 @@ class ChamadoDAO {
         return $dados['pausar'];
     }
     
+    public static function encerrar($chamado) {
+        
+        $sql = "UPDATE chamados SET"
+                . " dataHoraEncerramento = '" . $chamado->getDataHoraEncerramento() . "', "
+                . " ativo = " . $chamado->getAtivo()
+                . " WHERE codigo = " . $chamado->getCodigo();
+        
+        Conexao::executar($sql);
+    }
+    
     public static function getChamados() {
 
         $sql = " SELECT * FROM chamados"
@@ -132,14 +142,14 @@ class ChamadoDAO {
 
         if (mysqli_num_rows($result) > 0) {
 
-            while (list($cCodigo, $cDataHora, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
+            while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
             $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $sFkSala,
             $uFkCodigo, $tFkCodigo, $cAtivo, $sCodigo, $sNumero
             , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($cCodigo);
-                $chamado->setDataHora($cDataHora);
+                $chamado->setDataHoraAbertura($cDataHoraAbertura);
                 $chamado->setDescricaoProblema($cDescricaoProblema);
                 $chamado->setStatus($cStatus);
                 $chamado->setHistoricoStatus($cHistoricoStatus);
@@ -197,7 +207,8 @@ class ChamadoDAO {
                 . " FROM chamados c"
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
-                . " WHERE u.nomeUsuario = '" . $nomeUsuario . "'";
+                . " WHERE u.nomeUsuario = '" . $nomeUsuario . "'"
+                . " AND WHERE chamados.ativo = 1";
 
         $result = Conexao::consultar($sql);
 
@@ -205,14 +216,14 @@ class ChamadoDAO {
 
         if (mysqli_num_rows($result) > 0) {
 
-            while (list($cCodigo, $cDataHora, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
+            while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
             $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
             $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero
             , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($cCodigo);
-                $chamado->setDataHora($cDataHora);
+                $chamado->setDataHoraAbertura($cDataHoraAbertura);
                 $chamado->setDescricaoProblema($cDescricaoProblema);
                 $chamado->setStatus($cStatus);
                 $chamado->setHistoricoStatus($cHistoricoStatus);
@@ -270,14 +281,14 @@ class ChamadoDAO {
 
             $chamado = new Chamado();
 
-            list($cCodigo, $cDataHora, $cDescricaoProblema, $cStatus,
+            list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus,
                     $cHistoricoStatus, $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
                     $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero, $sDescricao,
                     $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result);
 
             $chamado->setCodigo($cCodigo);
             $chamado->setDescricaoProblema($cDescricaoProblema);
-            $chamado->setDataHora($cDataHora);
+            $chamado->setDataHoraAbertura($cDataHoraAbertura);
             $chamado->setStatus($cStatus);
             $chamado->setHistoricoStatus($cHistoricoStatus);
             $chamado->setNivelCriticidade($cNivelCriticidade);

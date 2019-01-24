@@ -24,8 +24,8 @@ if (isset($_GET['inserir'])) {
     $chamado->setDescricaoProblema($_POST['taDescricaoProblema']);
 
     date_default_timezone_set('America/Sao_Paulo');
-    $chamado->setDataHora(date("Y-m-d H:i:s"));
-
+    $chamado->setDataHoraAbertura(date("Y-m-d H:i:s"));
+    
     if ($_SESSION['admin'] == 1) {
 
         $chamado->setNivelCriticidade($_POST['selectNivelCriticidade']);
@@ -131,6 +131,14 @@ if (isset($_GET['retomar'])) {
 }
 
 if (isset($_GET['confirmarRetomar'])) {
+    
+    confirmarRetomar();
+    
+}
+
+function confirmarRetomar() {
+    
+    $chamado = new Chamado();
 
     $chamado->setCodigo($_GET['codigoChamado']);
 
@@ -161,7 +169,7 @@ if (isset($_GET['confirmarRetomar'])) {
     //pegando somente o horario da string com data e hora
     $pausar = substr($pausar, 9);
     $retomar = substr($retomar, 9);
-    
+
     //transformando em int
     $horaPausar = intval(substr($pausar, 0, 2));
     $minutoPausar = intval(substr($pausar, 2, 2));
@@ -171,25 +179,26 @@ if (isset($_GET['confirmarRetomar'])) {
     $minutoRetomar = intval(substr($retomar, 2, 2));
     $segundoRetomar = intval(substr($retomar, 4, 4));
 
-    //TESTES
-    $segundoPausar = 21;
-    $segundoRetomar = 15;
-
-    $minutoPausar = 17;
-    $minutoRetomar = 25;
-
-    $horaPausar = 22;
-    $horaRetomar = 20;
-
-    $diaPausar = 23;
-    $diaRetomar = 26;
-
-    $mesPausar = 1;
-    $mesRetomar = 1;
-
-    $anoPausar = 2019;
-    $anoRetomar = 2019;
-
+//----------------TESTES-------------------------------------
+//    $segundoPausar = 21;
+//    $segundoRetomar = 15;
+//
+//    $minutoPausar = 25;
+//    $minutoRetomar = 17;
+//
+//    $horaPausar = 20;
+//    $horaRetomar = 22;
+//
+//    $diaPausar = 23;
+//    $diaRetomar = 26;
+//
+//    $mesPausar = 3;
+//    $mesRetomar = 1;
+    //O ANO QUE PAUSAR NUNCA SERÁ MAIOR QUE O ANO QUE RETOMAR
+//    $anoPausar = 2019;
+//    $anoRetomar = 2021;
+//----------------FIM-------------------------------------
+//
     //total
     $segundosTotais = $segundoRetomar - $segundoPausar . "s";
     $minutosTotais = $minutoRetomar - $minutoPausar . "m ";
@@ -231,38 +240,66 @@ if (isset($_GET['confirmarRetomar'])) {
         $diasTotais = "";
     }
 
-    //verificacao para quando o segundo em q pausou for > que o q retomou
+    //verificacoes para quando o segundo, minuto ou hora que pausou for maior
     if ($segundoPausar > $segundoRetomar) {
 
         //- com - daria +
         $segundosTotais = 60 + $segundosTotais . "s";
         $minutosTotais = $minutosTotais - 1 . "m ";
+
+        if ($minutosTotais == "0m ") {
+            $minutosTotais = "";
+        }
     }
-    
-//    if ($segundoPausar + $segundoRetomar > 60) {
-//        
-//    } 
 
     if ($minutoPausar > $minutoRetomar) {
 
         $minutosTotais = 60 + $minutosTotais . "m ";
-        $horasTotais = $horasTotais - 1;
+        $horasTotais = $horasTotais - 1 . "h ";
+
+        if ($horasTotais == "0h ") {
+            $horasTotais = "";
+        }
     }
-    
-    
+
     //o contador de dias smp irá contar os dias totais, por isso
     //a verificacao de se a hr do dia em q pausou for maior, decrescentar 1
     if ($horaPausar > $horaRetomar) {
-        
+
         $horasTotais = 24 + $horasTotais . "h ";
         $diasTotais = $diasTotais - 1 . "d ";
 
+        if ($diasTotais == "0d ") {
+            $diasTotais = "";
+        }
     }
-    
-//    if ($minutoPausar > $minutoRetomar) {
-//        
-//        $minutosTotais = 60 - $minutosTotais;
-//    }
+
+    if ($diaPausar > $diaRetomar) {
+
+        $diasTotais = 30 + $diasTotais . "d ";
+        $mesesTotais = $mesesTotais - 1 . "m ";
+
+        if ($mesesTotais == "0m ") {
+            $mesesTotais = "";
+        }
+
+        if (($mesesTotais - 1) % 2 == 0) {
+            
+        }
+    }
+
+    if ($mesPausar > $mesRetomar) {
+
+        $mesesTotais = 12 + $mesesTotais . "m ";
+        $anosTotais = $anosTotais - 1 . "a ";
+
+        if ($anosTotais == "0a ") {
+            $anosTotais = "";
+        }
+    }
+
+    #VERIFICACAO MESES IMPARES/PARES DIA 31/30
+    #EXCECAO FEVEREIRO 28 DIAS
 
     $tempoTotal = $anosTotais . $mesesTotais . $diasTotais . $horasTotais . $minutosTotais . $segundosTotais;
 
@@ -275,6 +312,28 @@ if (isset($_GET['confirmarRetomar'])) {
 
 if (isset($_GET['encerrar'])) {
 
+    $chamado = ChamadoDAO::getChamadoByCodigo($_GET['codigoChamado']);
+
+    echo '<br><br><br><h3>Tem certeza que deseja retomar o chamado '
+    . $chamado->getCodigo() . ' ?</h3><br><hr><br>'
+    . '<a href="../chamados.php"><button>Cancelar</button></a>'
+    . '<a href="?confirmarEncerrar&codigoChamado=' . $_GET['codigoChamado'] . '">'
+    . '<button>Encerrar</button></a>';
+}
+
+if (isset($_GET['confirmarEncerrar'])) {
+    
+    $chamado = ChamadoDAO::getChamadoByCodigo($_GET['codigoChamado']);
+    
     date_default_timezone_set('America/Sao_Paulo');
-    $chamado->setDataHora(date("Y-m-d H:i:s"));
+    $chamado->setDataHoraEncerramento(date("Y-m-d H:i:s"));
+    
+    $chamado->setAtivo(0);
+    
+    ChamadoDAO::encerrar($chamado);
+    
+    confirmarRetomar();
+    
+    header("Location: ../chamados.php");
+    
 }
