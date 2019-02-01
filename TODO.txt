@@ -1,3 +1,27 @@
+quando pausar o tempoTotal será setado com a dataHora desde o ultimo "retomar" 
+até a dataHora do "pausar"
+
+obs: verificacao se tempoTotal == null (primeiro "pausar") o tempoTotal 
+será dado como a dataHora desde a abertura do chamado até a dataHora do "pausar"
+
+
+
+
+no salvarChamado pegar do banco o tempoTotal atual e somar com o tempoTotal já
+existente
+
+quando for 60s irá mostrar minutos - 1 e os 60s ou minutos + 1 e segundos zerados
+
+fazer um if no isset(pause) no arquivo salvarChamado para se a coluna retomar
+do chamado for "null" (ou seja, o primeiro pause) calculo para setar o tempoTotal
+desde a "dataHoraAbertura" até "pausar"
+
+colocar colunas pausar, retomar no final das colunas
+
+historicoPausar e historiRetomar (além do pausar e retomar)
+
+botao mostrar o tempo atual em que o chamado está em aberto (sem coluna)
+
 ONCLICK  botao entrar index msg usuario invalido
 
 CHAMADOS ATIVOS

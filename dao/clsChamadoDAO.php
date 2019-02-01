@@ -22,7 +22,7 @@ class ChamadoDAO {
 
         Conexao::executar($sql);
     }
-    
+
     public static function inserirChamadoDocente($chamado) {
 
         $sql = "INSERT INTO chamados (descricaoProblema, dataHoraAbertura, fkUsuario, fkSala)"
@@ -38,12 +38,12 @@ class ChamadoDAO {
     }
 
     public static function editarChamadoAdmin($chamado) {
-        
+
         $chamado2 = ChamadoDAO::getChamadoByCodigo($chamado->getCodigo());
-        
+
         $historicoStatus = $chamado2->getHistoricoStatus() . ", " . $chamado->getStatus();
         $chamado->setHistoricoStatus($historicoStatus);
-        
+
         $sql = "UPDATE chamados SET"
                 . " fkSala = " . $chamado->getSala()->getCodigo() . " , "
                 . " descricaoProblema = '" . $chamado->getDescricaoProblema() . "' , "
@@ -75,60 +75,82 @@ class ChamadoDAO {
 
         Conexao::executar($sql);
     }
-    
+
     public static function pausar($chamado) {
-        
+
         $sql = "UPDATE chamados SET"
-                . " pausar = '" . $chamado->getPausar(). "' , "
-                . " pausado = " . $chamado->getPausado(). " "
+                . " pausar = '" . $chamado->getPausar() . "' , "
+                . " pausado = " . $chamado->getPausado() . " "
                 . " WHERE codigo = " . $chamado->getCodigo();
-        
+
         Conexao::executar($sql);
-        
     }
-    
+
     public static function retomar($chamado) {
-        
-        $sql = "UPDATE chamados SET"
-                . " retomar = '" . $chamado->getRetomar(). "' , "
-                . " pausado = " . $chamado->getPausado(). " , "
-                . " tempoTotal = '" . $chamado->getTempoTotal(). "' "
+
+        $sql = "UPDATE chamados SET";
+
+        if ($chamado->getDataHoraEncerramento() == null) {
+            
+            $sql = $sql . " retomar = '" . $chamado->getRetomar() . "' , ";
+            
+        } else {
+            
+            $sql = $sql . " retomar = null , "
+                    . "pausar = null , ";
+            
+        }
+
+        $sql = $sql . " pausado = " . $chamado->getPausado() . " , "
+                . " tempoTotal = '" . $chamado->getTempoTotal() . "' "
                 . " WHERE codigo = " . $chamado->getCodigo();
-        
-        Conexao::executar($sql);
-        
-    }
-    
-    public static function tempoTotal($chamado) {
-        
-        $sql = "UPDATE chamados SET"
-                . " tempoTotal = '" . $chamado->getTempoTotal() . "'"
-                . " WHERE codigo = " . $chamado->getCodigo();
-        
+
         Conexao::executar($sql);
     }
-    
-    public static function getPausar($chamado) {
-        
-        $sql = "SELECT pausar FROM chamados WHERE codigo = " . $chamado->getCodigo();
-        
+
+    public static function getTempoTotal($chamado) {
+
+        $sql = "SELECT FROM chamados tempoTotal WHERE codigo = " . $chamado->getCodigo();
+
         $result = Conexao::consultar($sql);
         
         $dados = mysqli_fetch_assoc($result);
         
-        return $dados['pausar'];
+        return $dados['tempoTotal'];
     }
-    
+
+    public static function getRetomar($chamado) {
+
+        $sql = "SELECT retomar FROM chamados WHERE codigo = " . $chamado->getCodigo();
+
+        $result = Conexao::consultar($sql);
+
+        $dados = mysqli_fetch_assoc($result);
+
+        return $dados['retomar'];
+    }
+
     public static function encerrar($chamado) {
-        
+
         $sql = "UPDATE chamados SET"
                 . " dataHoraEncerramento = '" . $chamado->getDataHoraEncerramento() . "', "
                 . " ativo = " . $chamado->getAtivo()
                 . " WHERE codigo = " . $chamado->getCodigo();
-        
+
         Conexao::executar($sql);
     }
     
+    public static function getDataHoraEncerramento($chamado) {
+
+        $sql = "SELECT dataHoraEncerramento FROM chamados WHERE codigo = " . $chamado->getCodigo();
+
+        $result = Conexao::consultar($sql);
+
+        $dados = mysqli_fetch_assoc($result);
+
+        return $dados['dataHoraEncerramento'];
+    }
+
     public static function getChamados() {
 
         $sql = " SELECT * FROM chamados"
@@ -160,7 +182,7 @@ class ChamadoDAO {
                 $chamado->setPausado($cPausado);
                 $chamado->setResolvido($cResolvido);
                 $chamado->setAtivo($cAtivo);
-                
+
                 $usuario = new Usuario();
                 $usuario->setCodigo($uCodigo);
                 $usuario->setNomeUsuario($uNomeUsuario);
