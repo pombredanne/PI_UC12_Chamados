@@ -17,7 +17,7 @@ class Chamado {
             $pausado, 
             $resolvido, 
             $ativo, 
-            $tempoTotal,
+            $tempoPausado,
             $dataHoraEncerramento;
 
     function __construct(
@@ -54,7 +54,7 @@ class Chamado {
         $this->pausado = $pausado;
         $this->resolvido = $resolvido;
         $this->ativo = $ativo;
-        $this->tempoTotal = $tempoTotal;
+        $this->tempoPausado = $tempoTotal;
         $this->dataHoraEncerramento = $dataHoraEncerramento;
     }
     
@@ -66,12 +66,12 @@ class Chamado {
         $this->dataHoraEncerramento = $dataHoraEncerramento;
     }
 
-    function getTempoTotal() {
-        return $this->tempoTotal;
+    function getTempoPausado() {
+        return $this->tempoPausado;
     }
 
-    function setTempoTotal($tempoTotal) {
-        $this->tempoTotal = $tempoTotal;
+    function setTempoPausado($tempoPausado) {
+        $this->tempoPausado = $tempoPausado;
     }
 
     function getAtivo() {

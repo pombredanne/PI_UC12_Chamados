@@ -102,7 +102,7 @@ class ChamadoDAO {
         }
 
         $sql = $sql . " pausado = " . $chamado->getPausado() . " , "
-                . " tempoTotal = '" . $chamado->getTempoTotal() . "' "
+                . " tempoPausado = '" . $chamado->getTempoPausado() . "' "
                 . " WHERE codigo = " . $chamado->getCodigo();
 
         Conexao::executar($sql);
@@ -119,15 +119,15 @@ class ChamadoDAO {
         return $dados['tempoTotal'];
     }
 
-    public static function getRetomar($chamado) {
+    public static function getPausar($chamado) {
 
-        $sql = "SELECT retomar FROM chamados WHERE codigo = " . $chamado->getCodigo();
+        $sql = "SELECT pausar FROM chamados WHERE codigo = " . $chamado->getCodigo();
 
         $result = Conexao::consultar($sql);
 
         $dados = mysqli_fetch_assoc($result);
 
-        return $dados['retomar'];
+        return $dados['pausar'];
     }
 
     public static function encerrar($chamado) {

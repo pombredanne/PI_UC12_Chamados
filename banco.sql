@@ -25,6 +25,7 @@ create table chamados
     pausado boolean default 0,
     resolvido boolean,
     tempoTotal varchar(50),
+    tempoPausado varchar (50),
     dataHoraEncerramento datetime,
 fkSala int not null,
 fkUsuario int not null,
