@@ -12,33 +12,20 @@ class Chamado {
             $tecnicoResponsavel,
             $solucaoProblema,
             $historicoStatus,
-            $pausar, 
-            $retomar, 
-            $pausado, 
-            $resolvido, 
-            $ativo, 
+            $pausar,
+            $retomar,
+            $pausado,
+            $resolvido,
+            $ativo,
             $tempoPausado,
-            $dataHoraEncerramento;
+            $tempoTotal,
+            $dataHoraEncerramento,
+            $historicoPausar,
+            $historicoRetomar;
 
     function __construct(
-            $codigo = null, 
-            $dataHoraAbertura = null, 
-            $descricaoProblema = null, 
-            $sala = null, 
-            $status = null, 
-            $usuario = null, 
-            $nivelCriticidade = null, 
-            $tecnicoResponsavel = null, 
-            $solucaoProblema = null, 
-            $historicoStatus = null, 
-            $pausar = null, 
-            $retomar = null, 
-            $pausado = null, 
-            $resolvido = null, 
-            $ativo = null, 
-            $tempoTotal = null,
-            $dataHoraEncerramento = null) {
-        
+    $codigo = null, $dataHoraAbertura = null, $descricaoProblema = null, $sala = null, $status = null, $usuario = null, $nivelCriticidade = null, $tecnicoResponsavel = null, $solucaoProblema = null, $historicoStatus = null, $pausar = null, $retomar = null, $pausado = null, $resolvido = null, $ativo = null, $tempoPausado = null, $tempoTotal = null, $dataHoraEncerramento = null, $historicoPausar = null, $historicoRetomar = null) {
+
         $this->codigo = $codigo;
         $this->dataHoraAbertura = $dataHoraAbertura;
         $this->descricaoProblema = $descricaoProblema;
@@ -54,11 +41,38 @@ class Chamado {
         $this->pausado = $pausado;
         $this->resolvido = $resolvido;
         $this->ativo = $ativo;
-        $this->tempoPausado = $tempoTotal;
+        $this->tempoTotal = $tempoTotal;
+        $this->tempoPausado = $tempoPausado;
         $this->dataHoraEncerramento = $dataHoraEncerramento;
+        $this->historicoPausar = $historicoPausar;
+        $this->historicoRetomar = $historicoRetomar;
     }
     
-    function getDataHoraEncerramento() {
+    function getTempoTotal() {
+        return $this->tempoTotal;
+    }
+
+    function setTempoTotal($tempoTotal) {
+        $this->tempoTotal = $tempoTotal;
+    }
+
+    function getHistoricoPausar() {
+        return $this->historicoPausar;
+    }
+
+    function getHistoricoRetomar() {
+        return $this->historicoRetomar;
+    }
+
+    function setHistoricoPausar($historicoPausar) {
+        $this->historicoPausar = $historicoPausar;
+    }
+
+    function setHistoricoRetomar($historicoRetomar) {
+        $this->historicoRetomar = $historicoRetomar;
+    }
+
+        function getDataHoraEncerramento() {
         return $this->dataHoraEncerramento;
     }
 

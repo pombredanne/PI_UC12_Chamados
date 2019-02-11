@@ -112,6 +112,20 @@ if (isset($_GET['confirmarPausar'])) {
     date_default_timezone_set('America/Sao_Paulo');
     $chamado->setPausar(date("Y-m-d H:i:s"));
     $chamado->setPausado(1);
+    
+    $historicoPausar = ChamadoDAO::getHistoricoPausar($chamado);
+    
+    if ($historicoPausar == null) {
+        
+        $historicoPausar = $chamado->getPausar();
+        
+    } else {
+        
+        $historicoPausar = $historicoPausar . ", " . $chamado->getPausar();
+        
+    }
+    
+    $chamado->setHistoricoPausar($historicoPausar);
 
     ChamadoDAO::pausar($chamado);
 
@@ -131,7 +145,7 @@ if (isset($_GET['retomar'])) {
 }
 
 if (isset($_GET['confirmarRetomar'])) {
-
+    
     confirmarRetomar();
 }
 
@@ -155,6 +169,20 @@ function confirmarRetomar() {
         $retomar = ChamadoDAO::getDataHoraEncerramento($chamado);
         $chamado->setDataHoraEncerramento($retomar);
     }
+    
+    $historicoRetomar = ChamadoDAO::getHistoricoRetomar($chamado);
+    
+    if ($historicoRetomar == null) {
+        
+        $historicoRetomar = $chamado->getRetomar();
+        
+    } else {
+        
+        $historicoRetomar = $historicoRetomar . ", " . $chamado->getRetomar();
+        
+    }
+    
+    $chamado->setHistoricoRetomar($historicoRetomar);
 
     $chamado->setPausado(0);
 
@@ -190,17 +218,17 @@ function confirmarRetomar() {
     $segundoRetomar = intval(substr($retomar, 4, 4));
 
 //----------------TESTES-------------------------------------
-    $segundoPausar = 18;
-    $segundoRetomar = 15;
-//
-    $minutoPausar = 25;
-    $minutoRetomar = 25;
-//
-    $horaPausar = 20;
-    $horaRetomar = 20;
-//
-    $diaPausar = 23;
-    $diaRetomar = 26;
+//    $segundoPausar = 18;
+//    $segundoRetomar = 15;
+////
+//    $minutoPausar = 28;
+//    $minutoRetomar = 28;
+////
+//    $horaPausar = 20;
+//    $horaRetomar = 20;
+////
+//    $diaPausar = 23;
+//    $diaRetomar = 26;
 //
 //    $mesPausar = 3;
 //    $mesRetomar = 1;
@@ -236,16 +264,15 @@ function confirmarRetomar() {
                 || $mesPausar == $mesRetomar && $anoPausar != $anoRetomar
                 || $anoPausar != $anoRetomar) {
 
-            $horasTotaisPausarRetomar = 60;
+            $segundosTotaisPausarRetomar = 60;
         }
     } else {
         $segundosTotaisPausarRetomar = $segundoRetomar - $segundoPausar;
     }
     
+    
     if ($minutoPausar - $minutoRetomar == 0) {
         
-//        if ($horaPausar != $horaRetomar || $horaPausar == $horaRetomar && $diaPausar != $diaRetomar || $diaPausar != $diaRetomar || $diaPausar == $diaRetomar && $mesPausar != $mesRetomar || $diaPausar == $diaRetomar && $mesPausar == $mesRetomar && $anoPausar != $anoRetomar) {
-
         if ($horaPausar != $horaRetomar 
                 || $horaPausar == $horaRetomar && $diaPausar != $diaRetomar 
                 || $horaPausar == $horaRetomar && $diaPausar == $diaRetomar && $mesPausar != $mesRetomar 
@@ -274,7 +301,7 @@ function confirmarRetomar() {
                 || $mesPausar != $mesRetomar
                 || $mesPausar == $mesRetomar && $anoPausar != $anoRetomar
                 || $anoPausar != $anoRetomar) {
-        
+            
             $horasTotaisPausarRetomar = 24;
         }
     } else {
@@ -343,32 +370,72 @@ function confirmarRetomar() {
         $diasTotaisPausarRetomar = 0;
     }
 
-//verificacoes para quando o segundo, minuto ou hora que pausou for maior
+//---verificacoes para quando o segundo, minuto ou hora que pausou for maior----
+//o contador smp irá contar os totais, por isso a verificacao o contador em que
+//pausar for maior que quando retomar, decrescentar 1
     if ($segundoPausar > $segundoRetomar) {
 
+        
+        //PROBLEMA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //- com - daria +
         $segundosTotaisPausarRetomar = 60 + $segundosTotaisPausarRetomar;
-        $minutosTotaisPausarRetomar = $minutosTotaisPausarRetomar - 1;
+        
+        if ($minutoPausar - $minutoRetomar == 0) {
+            
+            $minutosTotaisPausarRetomar = 0;
+            
+        } else {
+            
+            $minutosTotaisPausarRetomar = $minutosTotaisPausarRetomar - 1;
+            
+        }
+        
     }
 
     if ($minutoPausar > $minutoRetomar) {
 
         $minutosTotaisPausarRetomar = 60 + $minutosTotaisPausarRetomar;
-        $horasTotaisPausarRetomar = $horasTotaisPausarRetomar - 1;
+        
+        if ($horaPausar - $horaRetomar == 0) {
+            
+            $horasTotaisPausarRetomar = 0;
+            
+        } else {
+            
+            $horasTotaisPausarRetomar = $horasTotaisPausarRetomar - 1;
+            
+        }
+        
     }
 
-//o contador de dias smp irá contar os dias totais, por isso
-//a verificacao de se a hr do dia em q pausou for maior, decrescentar 1
     if ($horaPausar > $horaRetomar) {
 
         $horasTotaisPausarRetomar = 24 + $horasTotaisPausarRetomar;
-        $diasTotaisPausarRetomar = $diasTotaisPausarRetomar - 1;
+        
+        if ($diaPausar - $diaRetomar == 0) {
+            
+            $diasTotaisPausarRetomar = 0;
+            
+        } else {
+            
+            $diasTotaisPausarRetomar = $diasTotaisPausarRetomar - 1;
+            
+        }
     }
 
     if ($diaPausar > $diaRetomar) {
 
         $diasTotaisPausarRetomar = 30 + $diasTotaisPausarRetomar;
-        $mesesTotaisPausarRetomar = $mesesTotaisPausarRetomar - 1;
+        
+        if ($mesPausar - $mesRetomar == 0) {
+            
+            $mesesTotaisPausarRetomar = 0;
+            
+        } else {
+            
+            $mesesTotaisPausarRetomar = $mesesTotaisPausarRetomar - 1;
+            
+        }
     }
 
     if ($mesPausar > $mesRetomar) {
@@ -377,7 +444,7 @@ function confirmarRetomar() {
         $anosTotaisPausarRetomar = $anosTotaisPausarRetomar - 1;
     }
     
-//se as horas forem iguais mas nao der 24hrs por causa dos minutos e segundos
+//--se as horas forem iguais mas nao der 24hrs por causa dos minutos e segundos--
     if ($horaPausar - $horaRetomar == 0) {
         
         if ($minutoPausar > $minutoRetomar || $segundoPausar > $segundoRetomar) {
@@ -385,7 +452,6 @@ function confirmarRetomar() {
         }
     }
     
-//se horas == 24, minutos == 60, etc
     if ($segundosTotaisPausarRetomar == 60) {
         
 //        $minutosTotaisPausarRetomar = $minutosTotaisPausarRetomar + 1;
@@ -400,8 +466,15 @@ function confirmarRetomar() {
     
     if ($horasTotaisPausarRetomar == 24) {
         
-//        $diasTotaisPausarRetomar = $diasTotaisPausarRetomar + 1;
-        $horasTotaisPausarRetomar = 0;
+        if ($minutoPausar > $minutoRetomar || $segundoPausar > $segundoRetomar) {
+            
+            $horasTotaisPausarRetomar = $horasTotaisPausarRetomar - 1;
+
+        } else {
+            
+            $horasTotaisPausarRetomar = 0;
+
+        }
     }
     
     if ($diasTotaisPausarRetomar == 30) {
@@ -599,6 +672,19 @@ function confirmarRetomar() {
                 . $minutosTotais . "min " . $segundosTotais . "s";
 
         $chamado->setTempoPausado($tempoPausado);
+    }
+    
+    if (isset($_GET['encerrar'])) {
+        
+        //somar tudo desde dataHoraAbertura até dataHoraEncerramento com as verificacoes
+        //após, descontar do total o $tempoPausado
+        
+        $chamado->setTempoTotal($tempoTotal);
+        
+    } else {
+        
+        $chamado->setTempoTotal(null);
+        
     }
 
     ChamadoDAO::retomar($chamado);

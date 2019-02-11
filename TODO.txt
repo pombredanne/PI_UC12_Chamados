@@ -1,17 +1,12 @@
-quando o chamado for encerrado descontar do tempoTotal o tempoPausado
+PLANILHA DE PRODUTIVIDADE
 
-historicoPausar e historiRetomar (além do pausar e retomar)
+
+
 
 botao mostrar o tempo atual em que o chamado está em aberto (sem coluna)
 
 ONCLICK  botao entrar index msg usuario invalido
 
-CHAMADOS ATIVOS
-
-PLANILHA DE PRODUTIVIDADE
-
-filtro de chamados (ver folha)
-
 botao visualizar historico status
 
-coluna tempoAtual(botao pausar) e tempoTotal (botao encerrar) do chamado 
+filtro de chamados (ver folha)
