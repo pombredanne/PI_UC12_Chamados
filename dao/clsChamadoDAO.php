@@ -67,7 +67,7 @@ class ChamadoDAO {
         Conexao::executar($sql);
     }
 
-    public static function cancelar($codigo) {
+    public static function cancelar($chamado) {
 
         $sql = "UPDATE chamados SET"
                 . " ativo = " . $chamado->getAtivo()
@@ -111,15 +111,15 @@ class ChamadoDAO {
         Conexao::executar($sql);
     }
 
-    public static function getTempoTotal($chamado) {
+    public static function getTempoPausado($chamado) {
 
-        $sql = "SELECT FROM chamados tempoTotal WHERE codigo = " . $chamado->getCodigo();
+        $sql = "SELECT tempoPausado FROM chamados WHERE codigo = " . $chamado->getCodigo();
 
         $result = Conexao::consultar($sql);
         
         $dados = mysqli_fetch_assoc($result);
         
-        return $dados['tempoTotal'];
+        return $dados['tempoPausado'];
     }
 
     public static function getPausar($chamado) {
@@ -131,6 +131,17 @@ class ChamadoDAO {
         $dados = mysqli_fetch_assoc($result);
 
         return $dados['pausar'];
+    }
+    
+    public static function getRetomar($chamado) {
+
+        $sql = "SELECT retomar FROM chamados WHERE codigo = " . $chamado->getCodigo();
+
+        $result = Conexao::consultar($sql);
+
+        $dados = mysqli_fetch_assoc($result);
+
+        return $dados['retomar'];
     }
     
     public static function getHistoricoPausar($chamado) {

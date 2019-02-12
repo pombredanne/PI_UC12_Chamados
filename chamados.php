@@ -50,8 +50,14 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             <?php
             require_once 'menu.php';
             ?>
-            <h1 align="center">Chamados</h1>
-            <br><br>
+            
+            <script src="chamados.js"></script>
+            
+            <button onclick="todosChamados();">Todos os chamados</button>
+            
+            <!--
+            botoes
+            -->
             
             <a href="abrirChamado.php">
                 <h1 align="center"><button id="btSolicitarNovoChamado">Solicitar novo chamado</button></a></h1>

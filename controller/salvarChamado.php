@@ -445,12 +445,12 @@ function confirmarRetomar() {
     }
     
 //--se as horas forem iguais mas nao der 24hrs por causa dos minutos e segundos--
-    if ($horaPausar - $horaRetomar == 0) {
-        
-        if ($minutoPausar > $minutoRetomar || $segundoPausar > $segundoRetomar) {
-            $diasTotaisPausarRetomar = $diasTotaisPausarRetomar - 1;
-        }
-    }
+//    if ($horaPausar - $horaRetomar == 0) {
+//        
+//        if ($minutoPausar > $minutoRetomar || $segundoPausar > $segundoRetomar) {
+//            $diasTotaisPausarRetomar = $diasTotaisPausarRetomar - 1;
+//        }
+//    }
     
     if ($segundosTotaisPausarRetomar == 60) {
         
@@ -497,10 +497,12 @@ function confirmarRetomar() {
             . $horasTotaisPausarRetomar . "h " . $minutosTotaisPausarRetomar . "min "
             . $segundosTotaisPausarRetomar . "s";
 
-    $tempoTotalAtual = ChamadoDAO::getTempoTotal($chamado);
+    $tempoTotalAtual = ChamadoDAO::getTempoPausado($chamado);
+    
+    $getRetomar = ChamadoDAO::getRetomar($chamado);
 
     //verificacao pro primeiro pausar/retomar
-    if ($tempoTotalAtual == null) {
+    if ($getRetomar == null) {
 
         $chamado->setTempoPausado($tempoTotalPausarRetomar);
     } else {
@@ -538,101 +540,101 @@ function confirmarRetomar() {
 //---------------------------------tempoTotalAtual------------------------------    
         if (strpos($tempoTotalAtual, $indexAnoAtual - 2) == " ") {
 
-            $anoTotalAtual = substr($tempoTotalAtual, $indexAnoAtual - 1, $indexAnoAtual - 1);
+            $anoTotalAtual = intval(substr($tempoTotalAtual, $indexAnoAtual - 1, $indexAnoAtual - 1));
         } else {
 
-            $anoTotalAtual = substr($tempoTotalAtual, $indexAnoAtual - 2, $indexAnoAtual - 1);
+            $anoTotalAtual = intval(substr($tempoTotalAtual, $indexAnoAtual - 2, $indexAnoAtual - 1));
         }
 
         //pegando o mes do tempo em aberto até o momento do chamado
         if (strpos($tempoTotalAtual, $indexMesAtual - 2) == " ") {
 
-            $mesTotalAtual = substr($tempoTotalAtual, $indexMesAtual - 1, $indexMesAtual - 1);
+            $mesTotalAtual = intval(substr($tempoTotalAtual, $indexMesAtual - 1, $indexMesAtual - 1));
         } else {
 
-            $mesTotalAtual = substr($tempoTotalAtual, $indexMesAtual - 2, $indexMesAtual - 1);
+            $mesTotalAtual = intval(substr($tempoTotalAtual, $indexMesAtual - 2, $indexMesAtual - 1));
         }
 
         if (strpos($tempoTotalAtual, $indexDiaAtual - 2) == " ") {
 
-            $diaTotalAtual = substr($tempoTotalAtual, $indexDiaAtual - 1, $indexDiaAtual - 1);
+            $diaTotalAtual = intval(substr($tempoTotalAtual, $indexDiaAtual - 1, $indexDiaAtual - 1));
         } else {
 
-            $diaTotalAtual = substr($tempoTotalAtual, $indexDiaAtual - 2, $indexDiaAtual - 1);
+            $diaTotalAtual = intval(substr($tempoTotalAtual, $indexDiaAtual - 2, $indexDiaAtual - 1));
         }
 
         if (strpos($tempoTotalAtual, $indexHoraAtual - 2) == " ") {
 
-            $horaTotalAtual = substr($tempoTotalAtual, $indexHoraAtual - 1, $indexHoraAtual - 1);
+            $horaTotalAtual = intval(substr($tempoTotalAtual, $indexHoraAtual - 1, $indexHoraAtual - 1));
         } else {
 
-            $horaTotalAtual = substr($tempoTotalAtual, $indexHoraAtual - 2, $indexHoraAtual - 1);
+            $horaTotalAtual = intval(substr($tempoTotalAtual, $indexHoraAtual - 2, $indexHoraAtual - 1));
         }
 
         if (strpos($tempoTotalAtual, $indexMinutoAtual - 2) == " ") {
 
-            $minutoTotalAtual = substr($tempoTotalAtual, $indexMinutoAtual - 1, $indexMinutoAtual - 1);
+            $minutoTotalAtual = intval(substr($tempoTotalAtual, $indexMinutoAtual - 1, $indexMinutoAtual - 1));
         } else {
 
-            $minutoTotalAtual = substr($tempoTotalAtual, $indexMinutoAtual - 2, $indexMinutoAtual - 1);
+            $minutoTotalAtual = intval(substr($tempoTotalAtual, $indexMinutoAtual - 2, $indexMinutoAtual - 1));
         }
 
         if (strpos($tempoTotalAtual, $indexSegundoAtual - 2) == " ") {
 
-            $segundoTotalAtual = substr($tempoTotalAtual, $indexSegundoAtual - 1, $indexSegundoAtual - 1);
+            $segundoTotalAtual = intval(substr($tempoTotalAtual, $indexSegundoAtual - 1, $indexSegundoAtual - 1));
         } else {
 
-            $segundoTotalAtual = substr($tempoTotalAtual, $indexSegundoAtual - 2, $indexSegundoAtual - 1);
+            $segundoTotalAtual = intval(substr($tempoTotalAtual, $indexSegundoAtual - 2, $indexSegundoAtual - 1));
         }
 
 //----------------------------------tempoTotalPausarRetomar---------------------
         if (strpos($tempoTotalPausarRetomar, $indexAnoPausarRetomar - 2) == " ") {
 
-            $anoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexAnoPausarRetomar - 1, $indexAnoPausarRetomar - 1);
+            $anoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexAnoPausarRetomar - 1, $indexAnoPausarRetomar - 1));
         } else {
 
-            $anoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexAnoPausarRetomar - 2, $indexAnoPausarRetomar - 1);
+            $anoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexAnoPausarRetomar - 2, $indexAnoPausarRetomar - 1));
         }
 
         //pegando o mes do tempo em aberto até o momento do chamado
         if (strpos($tempoTotalPausarRetomar, $indexMesPausarRetomar - 2) == " ") {
 
-            $mesTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexMesPausarRetomar - 1, $indexMesPausarRetomar - 1);
+            $mesTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexMesPausarRetomar - 1, $indexMesPausarRetomar - 1));
         } else {
 
-            $mesTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexMesPausarRetomar - 2, $indexMesPausarRetomar - 1);
+            $mesTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexMesPausarRetomar - 2, $indexMesPausarRetomar - 1));
         }
 
         if (strpos($tempoTotalPausarRetomar, $indexDiaPausarRetomar - 2) == " ") {
 
-            $diaTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexDiaPausarRetomar - 1, $indexDiaPausarRetomar - 1);
+            $diaTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexDiaPausarRetomar - 1, $indexDiaPausarRetomar - 1));
         } else {
 
-            $diaTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexDiaPausarRetomar - 2, $indexDiaPausarRetomar - 1);
+            $diaTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexDiaPausarRetomar - 2, $indexDiaPausarRetomar - 1));
         }
 
         if (strpos($tempoTotalPausarRetomar, $indexHoraPausarRetomar - 2) == " ") {
 
-            $horaTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexHoraPausarRetomar - 1, $indexHoraPausarRetomar - 1);
+            $horaTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexHoraPausarRetomar - 1, $indexHoraPausarRetomar - 1));
         } else {
 
-            $horaTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexHoraPausarRetomar - 2, $indexHoraPausarRetomar - 1);
+            $horaTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexHoraPausarRetomar - 2, $indexHoraPausarRetomar - 1));
         }
 
         if (strpos($tempoTotalPausarRetomar, $indexMinutoPausarRetomar - 2) == " ") {
 
-            $minutoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexMinutoPausarRetomar - 1, $indexMinutoPausarRetomar - 1);
+            $minutoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexMinutoPausarRetomar - 1, $indexMinutoPausarRetomar - 1));
         } else {
 
-            $minutoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexMinutoPausarRetomar - 2, $indexMinutoPausarRetomar - 1);
+            $minutoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexMinutoPausarRetomar - 2, $indexMinutoPausarRetomar - 1));
         }
 
         if (strpos($tempoTotalPausarRetomar, $indexSegundoPausarRetomar - 2) == " ") {
 
-            $segundoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexSegundoPausarRetomar - 1, $indexSegundoPausarRetomar - 1);
+            $segundoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexSegundoPausarRetomar - 1, $indexSegundoPausarRetomar - 1));
         } else {
 
-            $segundoTotalPausarRetomar = substr($tempoTotalPausarRetomar, $indexSegundoPausarRetomar - 2, $indexSegundoPausarRetomar - 1);
+            $segundoTotalPausarRetomar = intval(substr($tempoTotalPausarRetomar, $indexSegundoPausarRetomar - 2, $indexSegundoPausarRetomar - 1));
         }
 
         $segundosTotais = $segundoTotalAtual + $segundoTotalPausarRetomar;
@@ -673,6 +675,7 @@ function confirmarRetomar() {
 
         $chamado->setTempoPausado($tempoPausado);
     }
+    
     
     if (isset($_GET['encerrar'])) {
         

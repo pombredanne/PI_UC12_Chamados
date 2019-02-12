@@ -14,7 +14,7 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                 <link rel="stylesheet" type="text/css" href="cadastrarUsuario.css">
 
             </head>
-                
+                 
             <?php
             
             if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
