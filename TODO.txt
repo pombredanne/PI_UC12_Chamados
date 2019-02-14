@@ -1,5 +1,12 @@
 PLANILHA DE PRODUTIVIDADE
 
+categoria hardware e software abrirChamado
+coluna categoria banco
+categoria nas funcoes do clsChamadoDAO
+model get/setCategoria
+
+
+
 
 
 
