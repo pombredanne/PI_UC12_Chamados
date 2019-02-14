@@ -9,7 +9,7 @@ class Conexao {
 //        $usuario = "inf_m171";
 //        $senha = "senacrs";
         
-        $nome = "chamados_m171";;
+        $nome = "chamados_m171";
         $local = "localhost";
         $usuario = "root";
         $senha = "";

@@ -186,6 +186,27 @@ class ChamadoDAO {
 
         return $dados['dataHoraEncerramento'];
     }
+    
+    public static function getTecnicos() {
+        
+        $sql = "SELECT nomeUsuario FROM usuarios WHERE admin = 1";
+        
+        $result = Conexao::consultar($sql);
+        
+        $lista = new ArrayObject();
+        
+        while(list($nome) = mysqli_fetch_row($result)) {
+            
+            $tecnico = new Usuario();
+            $tecnico->setNomeUsuario($nome);
+            
+            $lista->append($tecnico);
+            
+        }
+        
+        return $lista;
+
+    }
 
     public static function getChamados() {
 

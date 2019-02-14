@@ -17,86 +17,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     <html>
         <head>
             
-            <script lang="javascript" type="text/javascript">
-            
-            //declarando a variável 'requisicao' como nula que será
-            //responsável por armazenar o objeto de solicitação
-//            var requisicao = null;
-//            
-//            function criarRequisicao() {
-//                
-//                try {
-//                    
-//                    //tentativa de criação do objeto de solicitação
-//                    //XMLHttpRequest é o tipo do objeto de solicitação
-//                    requisicao = new XMLHttpRequest();
-//                    
-//                } catch (excecaoInternetExplorer1) {
-//                    
-//                    try {
-//                        
-//                        //
-//                        requisicao = new ActiveXObject("Msxml2.XMLHTTP");
-//                        
-//                    } catch (excecaoInternetExplorer2) {
-//                        
-//                        try {
-//                            
-//                            requisicao = new ActiveXObject("Microsft.XMLHTTP");
-//                            
-//                        } catch (falha) {
-//                            
-//                            //caso falhe todas tentativas de criação do objeto
-//                            //de solicitação, a variavel 'requisicao' será nula
-//                            requisicao = null;
-//                            
-//                        }
-//                        
-//                    }
-//                    
-//                }
-//                
-//                if (requisicao == null) {
-//                    
-//                    alert("Erro ao criar a requisicão do objeto!");
-//                    
-//                }
-//                
-//            }
-//            
-//            function getDataFromDatabase() {
-//                
-//                //chamando a funcao 'criarRequisicao'
-//                criarRequisicao();
-//                
-//                //URL que será necessária para se conectar e obter os dados
-//                //*deve retornar apenas o dado bruto e não um HTML
-//                var url = "getDataFromDatabase-ajax.php";
-//                //inicialização da conexão e informação ao objeto de
-//                //solicitação de como se conectar ao banco de dados
-//                request.open("GET", url, true);
-//                //recebe a configuração dos valores na página, a função
-//                //atualizaPagina
-//                request.onreadystatechange = atualizaPagina();
-//                //nenhum dado será enviado na solicitação pois o script
-//                //apenas retornará o resultado esperado
-//                request.send(null);                
-//                
-//            }
-//            
-//            function atualizaPagina() {
-//                
-//                if (requisicao.readyState == 4) {
-//                    
-//                    //'responseText' contém a resposta retornada do servidor
-//                    var respostaServidor = requisicao.responseText;
-//                    
-//                }
-//                
-//            }
-            
-            </script>
-            
             <meta charset="UTF-8">
             <title>chamados</title>
             
@@ -134,12 +54,28 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             
-            <script src="chamados.js"></script>
+            <script src="chamados.js"></script>.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
             
             <select id="selectTodosChamados" onchange="changeUrl();">
                 <option value="0">Selecione...</option>
                 <option value="1">Todos chamados</option>
                 <option value="2">Chamados por técnico</option>
+            </select>
+            
+            <select id="selectTecnicos">
+                
+                <?php
+                
+                $lista = ChamadoDAO::getTecnicos();
+                
+                foreach ($lista as $tecnico) {
+                    
+                    echo '<option>' . $tecnico->getNomeUsuario() . '</option>';
+                    
+                }
+                
+                ?>
+                
             </select>
             
             <!--
