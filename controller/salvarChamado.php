@@ -160,15 +160,23 @@ function confirmarRetomar() {
     $retomar = "";
 
 //pra nao colocar o ultimo "retomar" com a mesma data/hora da "dataHoraEncerramento"
-    if (!isset($_GET['confirmarEncerrar'])) {
+    if (isset($_GET['confirmarEncerrar'])) {
 
-        $chamado->setRetomar(date("Y-m-d H:i:s"));
-        $retomar = $chamado->getRetomar();
+        $chamado->setDataHoraEncerramento(date("Y-m-d H:i:s"));
+        
     } else {
-
-        $retomar = ChamadoDAO::getDataHoraEncerramento($chamado);
-        $chamado->setDataHoraEncerramento($retomar);
-    }
+    
+    $retomarTeste = ChamadoDAO::getRetomar($chamado);
+    $historicoTeste = ChamadoDAO::getHistoricoRetomar($chamado); 
+    
+//    if (strpos($historicoTeste, $retomarTeste) !== false) {
+//        
+////        nao executa nd
+//        
+//    } else {
+        
+    $chamado->setRetomar(date("Y-m-d H:i:s"));
+    $retomar = $chamado->getRetomar();
     
     $historicoRetomar = ChamadoDAO::getHistoricoRetomar($chamado);
     
@@ -672,15 +680,474 @@ function confirmarRetomar() {
         $tempoPausado = $anosTotais . "a " . $mesesTotais . "m "
                 . $diasTotais . "d " . $horasTotais . "h "
                 . $minutosTotais . "min " . $segundosTotais . "s";
-
+        
         $chamado->setTempoPausado($tempoPausado);
     }
     
+}
     
-    if (isset($_GET['encerrar'])) {
+    
+    
+    
+    if (isset($_GET['confirmarEncerrar'])) {
         
-        //somar tudo desde dataHoraAbertura até dataHoraEncerramento com as verificacoes
-        //após, descontar do total o $tempoPausado
+        $dataHoraAbertura = ChamadoDAO::getDataHoraAbertura($chamado);
+        $dataHoraEncerramento = ChamadoDAO::getDataHoraEncerramento($chamado);
+        
+        $dataHoraAbertura = str_replace(":", "", $dataHoraAbertura);
+        $dataHoraAbertura = str_replace("-", "", $dataHoraAbertura);
+        $dataHoraEncerramento = str_replace(":", "", $dataHoraEncerramento);
+        $dataHoraEncerramento = str_replace("-", "", $dataHoraEncerramento);
+        
+        $anoAbertura = intval(substr($dataHoraAbertura, 0, 3));
+        $mesAbertura = intval(substr($dataHoraAbertura, 4, 5));
+        $diaAbertura = intval(substr($dataHoraAbertura, 6, 7));
+        
+        $anoEncerramento = intval(substr($dataHoraEncerramento, 0, 3));
+        $mesEncerramento = intval(substr($dataHoraEncerramento, 4, 5));
+        $diaEncerramento = intval(substr($dataHoraEncerramento, 6, 7));
+        
+        $horarioAbertura = substr($dataHoraAbertura, 9);
+        $horarioEncerramento = substr($dataHoraEncerramento, 9);
+        
+        $horaAbertura = intval(substr($horarioAbertura, 0, 2));
+        $minutoAbertura = intval(substr($horarioAbertura, 2, 2));
+        $segundoAbertura = intval(substr($horarioAbertura, 4, 4));
+        
+        $horaEncerramento = intval(substr($horarioEncerramento, 0, 2));
+        $minutoEncerramento = intval(substr($horarioEncerramento, 2, 2));
+        $segundoEncerramento = intval(substr($horarioEncerramento, 4, 4));
+        
+//        KKKKKKKKKK
+
+    $segundosTotaisAberturaEncerramento = "";
+    $minutosTotaisAberturaEncerramento  = "";
+    $horasTotaisAberturaEncerramento  = "";
+    $diasTotaisAberturaEncerramento  = "";
+    $mesesTotaisAberturaEncerramento  = "";
+    
+    //se os segundos, minutos, horas, dias, meses ou anos forem iguais
+    if ($segundoAbertura - $segundoEncerramento == 0) {
+        
+        if ($minutoAbertura != $minutoEncerramento
+                || $minutoAbertura == $minutoEncerramento && $horaAbertura != $horaEncerramento
+                || $minutoAbertura == $minutoEncerramento && $horaAbertura == $horaEncerramento && $diaAbertura != $diaEncerramento
+                || $minutoAbertura == $minutoEncerramento && $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento
+                || $minutoAbertura == $minutoEncerramento && $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $horaAbertura != $horaEncerramento
+                || $horaAbertura == $horaEncerramento && $diaAbertura != $diaEncerramento
+                || $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento 
+                || $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $diaAbertura != $diaEncerramento 
+                || $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento
+                || $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $mesAbertura != $mesEncerramento
+                || $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $anoAbertura != $anoEncerramento) {
+
+            $segundosTotaisAberturaEncerramento = 60;
+        }
+    } else {
+        $segundosTotaisAberturaEncerramento = $segundoEncerramento - $segundoAbertura;
+    }
+    
+    
+    if ($minutoAbertura - $minutoEncerramento == 0) {
+        
+        if ($horaAbertura != $horaEncerramento 
+                || $horaAbertura == $horaEncerramento && $diaAbertura != $diaEncerramento
+                || $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento 
+                || $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $diaAbertura != $diaEncerramento 
+                || $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento 
+                || $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $mesAbertura != $mesEncerramento
+                || $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $anoAbertura != $anoEncerramento) {
+        
+            $minutosTotaisAberturaEncerramento = 60;
+        }
+    } else {
+        
+        $minutosTotaisAberturaEncerramento = $minutoEncerramento - $minutoAbertura;
+    }
+
+    if ($horaAbertura - $horaEncerramento == 0) {
+
+//        if ($diaPausar != $diaRetomar || $diaPausar == $diaRetomar && $mesPausar != $mesRetomar || $mesPausar != $mesRetomar || $diaPausar == $diaRetomar && $mesPausar == $mesRetomar && $anoPausar != $anoRetomar) {
+
+        if ($diaAbertura != $diaEncerramento 
+                || $diaAbertura == $diaEncerramento && $mesAbertura != $mesEncerramento 
+                || $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $mesAbertura != $mesEncerramento
+                || $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $anoAbertura != $anoEncerramento) {
+            
+            $horasTotaisAberturaEncerramento = 24;
+        }
+    } else {
+
+        $horasTotaisAberturaEncerramento = $horaEncerramento - $horaAbertura;
+    }
+    
+    if ($diaAbertura - $diaEncerramento == 0) {
+        
+//        if ($mesPausar != $mesRetomar || $mesPausar == $mesRetomar && $anoPausar != $anoRetomar || $anoPausar != $anoRetomar) {
+
+        if ($mesAbertura != $mesEncerramento
+                || $mesAbertura == $mesEncerramento && $anoAbertura != $anoEncerramento
+                || $anoAbertura != $anoEncerramento) {
+        
+            $diasTotaisAberturaEncerramento = 30;
+        }
+    } else {
+        
+        $diasTotaisAberturaEncerramento = $diaEncerramento - $diaAbertura;
+    }
+    
+    if ($mesAbertura - $mesEncerramento == 0) {
+        
+        if ($anoAbertura != $anoEncerramento) {
+
+            $mesesTotaisAberturaEncerramento = 12;
+        }
+    } else {
+        
+        $mesesTotaisAberturaEncerramento = $mesEncerramento - $mesAbertura;
+    }
+    
+    $anosTotaisAberturaEncerramento = $anoEncerramento - $anoAbertura;
+
+    if ($horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura == $anoEncerramento) {
+
+        $horasTotaisAberturaEncerramento = 0;
+    }
+
+    if ($minutoAbertura == $minutoEncerramento && $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura == $anoEncerramento) {
+
+        $minutosTotaisAberturaEncerramento = 0;
+    }
+
+    if ($segundoAbertura == $segundoEncerramento && $minutoAbertura == $minutoEncerramento && $horaAbertura == $horaEncerramento && $diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura == $anoEncerramento) {
+
+        $segundosTotaisAberturaEncerramento = 0;
+    }
+
+    if ($anoAbertura == $anoEncerramento) {
+
+        $anosTotaisAberturaEncerramento = 0;
+    }
+
+    if ($mesAbertura == $mesEncerramento && $anoAbertura == $anoEncerramento) {
+
+        $mesesTotaisAberturaEncerramento = 0;
+    }
+
+    if ($diaAbertura == $diaEncerramento && $mesAbertura == $mesEncerramento && $anoAbertura == $anoEncerramento) {
+
+        $diasTotaisAberturaEncerramento = 0;
+    }
+
+    if ($segundoAbertura > $segundoEncerramento) {
+
+        $segundosTotaisAberturaEncerramento = 60 + $segundosTotaisAberturaEncerramento;
+        
+        if ($minutoAbertura - $minutoEncerramento == 0) {
+            
+            $minutosTotaisAberturaEncerramento = 0;
+            
+        } else {
+            
+            $minutosTotaisAberturaEncerramento = $minutosTotaisAberturaEncerramento - 1;
+            
+        }
+        
+    }
+
+    if ($minutoAbertura > $minutoEncerramento) {
+
+        $minutosTotaisAberturaEncerramento = 60 + $minutosTotaisAberturaEncerramento;
+        
+        if ($horaAbertura - $horaEncerramento == 0) {
+            
+            $horasTotaisAberturaEncerramento = 0;
+            
+        } else {
+            
+            $horasTotaisAberturaEncerramento = $horasTotaisAberturaEncerramento - 1;
+            
+        }
+        
+    }
+
+    if ($horaAbertura > $horaEncerramento) {
+
+        $horasTotaisAberturaEncerramento = 24 + $horasTotaisAberturaEncerramento;
+        
+        if ($diaAbertura - $diaEncerramento == 0) {
+            
+            $diasTotaisAberturaEncerramento = 0;
+            
+        } else {
+            
+            $diasTotaisAberturaEncerramento = $diasTotaisAberturaEncerramento - 1;
+            
+        }
+    }
+
+    if ($diaAbertura > $diaEncerramento) {
+
+        $diasTotaisAberturaEncerramento = 30 + $diasTotaisAberturaEncerramento;
+        
+        if ($mesAbertura - $mesEncerramento == 0) {
+            
+            $mesesTotaisAberturaEncerramento = 0;
+            
+        } else {
+            
+            $mesesTotaisAberturaEncerramento = $mesesTotaisAberturaEncerramento - 1;
+            
+        }
+    }
+
+    if ($mesAbertura > $mesEncerramento) {
+
+        $mesesTotaisAberturaEncerramento = 12 + $mesesTotaisAberturaEncerramento;
+        $anosTotaisAberturaEncerramento = $anosTotaisAberturaEncerramento - 1;
+    }
+    
+    if ($segundosTotaisAberturaEncerramento == 60) {
+        
+        $segundosTotaisAberturaEncerramento = 0;
+    }
+    
+    if ($minutosTotaisAberturaEncerramento == 60) {
+        
+        $minutosTotaisAberturaEncerramento = 0;
+    }
+    
+    if ($horasTotaisAberturaEncerramento == 24) {
+        
+        if ($minutoAbertura > $minutoEncerramento || $segundoAbertura > $segundoEncerramento) {
+            
+            $horasTotaisAberturaEncerramento = $horasTotaisAberturaEncerramento - 1;
+
+        } else {
+            
+            $horasTotaisAberturaEncerramento = 0;
+
+        }
+    }
+    
+    if ($diasTotaisAberturaEncerramento == 30) {
+        
+        $diasTotaisAberturaEncerramento = 0;
+    }
+    
+    if ($mesesTotaisAberturaEncerramento == 12) {
+        
+        $mesesTotaisAberturaEncerramento = 0;
+    }
+ 
+        if ($segundosTotaisAberturaEncerramento > 60) {
+
+            $segundosTotaisAberturaEncerramento = 60 - $segundosTotaisAberturaEncerramento;
+            $minutosTotaisAberturaEncerramento = $minutosTotaisAberturaEncerramento + 1;
+        }
+
+        if ($minutosTotaisAberturaEncerramento > 60) {
+
+            $minutosTotaisAberturaEncerramento = 60 - $minutosTotaisAberturaEncerramento;
+            $horasTotaisAberturaEncerramento = $horasTotaisAberturaEncerramento + 1;
+        }
+
+        if ($horasTotaisAberturaEncerramento > 24) {
+
+            $horasTotaisAberturaEncerramento = 24 - $horasTotaisAberturaEncerramento;
+            $diasTotaisAberturaEncerramento = $diasTotaisAberturaEncerramento + 1;
+        }
+
+        if ($mesesTotaisAberturaEncerramento > 12) {
+
+            $mesesTotaisAberturaEncerramento = 12 - $mesesTotaisAberturaEncerramento;
+            $anosTotaisAberturaEncerramento = $anosTotaisAberturaEncerramento + 1;
+        }
+    
+        $tempoTotalAberturaEncerramento =  $anosTotaisAberturaEncerramento . "a "
+                . $mesesTotaisAberturaEncerramento . "m "
+                .  $diasTotaisAberturaEncerramento . "d "
+                . $horasTotaisAberturaEncerramento . "h "
+                . $minutosTotaisAberturaEncerramento . "min "
+                . $segundosTotaisAberturaEncerramento . "s";
+        
+//        ---------------------------------------------------------------------
+        
+        $tempoTotalPausado = ChamadoDAO::getTempoPausado($chamado);
+        
+        $indexAnoAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "a");
+        $indexMesAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "m");
+        $indexDiaAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "d");
+        $indexHoraAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "h");
+        $indexMinutoAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "min");
+        $indexSegundoAberturaEncerramento = strpos($tempoTotalAberturaEncerramento, "s");
+
+        $indexAnoPausado = strpos($tempoTotalPausado, "a");
+        $indexMesPausado = strpos($tempoTotalPausado, "m");
+        $indexDiaPausado = strpos($tempoTotalPausado, "d");
+        $indexHoraPausado = strpos($tempoTotalPausado, "h");
+        $indexMinutoPausado = strpos($tempoTotalPausado, "min");
+        $indexSegundoPausado = strpos($tempoTotalPausado, "s");
+
+        $anoTotalAberturaEncerramento = "";
+        $mesTotalAberturaEncerramento = "";
+        $diaTotalAberturaEncerramento = "";
+        $horaTotalAberturaEncerramento = "";
+        $minutoTotalAberturaEncerramento = "";
+        $segundoTotalAberturaEncerramento = "";
+
+        $anoTotalPausado = "";
+        $mesTotalPausado = "";
+        $diaTotalPausado = "";
+        $horaTotalPausado = "";
+        $minutoTotalPausado = "";
+        $segundoTotalPausado = "";
+        
+//        ahdaUHD
+        if (strpos($tempoTotalAberturaEncerramento, $indexAnoAberturaEncerramento - 2) == " ") {
+
+            $anoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexAnoAberturaEncerramento - 1, $indexAnoAberturaEncerramento - 1));
+        } else {
+
+            $anoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexAnoAberturaEncerramento - 2, $indexAnoAberturaEncerramento - 1));
+        }
+
+        if (strpos($tempoTotalAberturaEncerramento, $indexMesAberturaEncerramento - 2) == " ") {
+
+            $mesTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexMesAberturaEncerramento - 1, $indexMesAberturaEncerramento - 1));
+        } else {
+
+            $mesTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexMesAberturaEncerramento - 2, $indexMesAberturaEncerramento - 1));
+        }
+
+        if (strpos($tempoTotalAberturaEncerramento, $indexDiaAberturaEncerramento - 2) == " ") {
+
+            $diaTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexDiaAberturaEncerramento - 1, $indexDiaAberturaEncerramento - 1));
+        } else {
+
+            $diaTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexDiaAberturaEncerramento - 2, $indexDiaAberturaEncerramento - 1));
+        }
+
+        if (strpos($tempoTotalAberturaEncerramento, $indexHoraAberturaEncerramento - 2) == " ") {
+
+            $horaTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexHoraAberturaEncerramento - 1, $indexHoraAberturaEncerramento - 1));
+        } else {
+
+            $horaTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexHoraAberturaEncerramento - 2, $indexHoraAberturaEncerramento - 1));
+        }
+
+        if (strpos($tempoTotalAberturaEncerramento, $indexMinutoAberturaEncerramento - 2) == " ") {
+
+            $minutoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexMinutoAberturaEncerramento - 1, $indexMinutoAberturaEncerramento - 1));
+        } else {
+
+            $minutoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexMinutoAberturaEncerramento - 2, $indexMinutoAberturaEncerramento - 1));
+        }
+
+        if (strpos($tempoTotalAberturaEncerramento, $indexSegundoAberturaEncerramento - 2) == " ") {
+
+            $segundoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexSegundoAberturaEncerramento - 1, $indexSegundoAberturaEncerramento - 1));
+        } else {
+
+            $segundoTotalAberturaEncerramento = intval(substr($tempoTotalAberturaEncerramento, $indexSegundoAberturaEncerramento - 2, $indexSegundoAberturaEncerramento - 1));
+        }
+//        jasdijdaiojfi
+        
+        if (strpos($tempoTotalPausado, $indexAnoPausado - 2) == " ") {
+
+            $anoTotalPausado = intval(substr($tempoTotalPausado, $indexAnoPausado - 1, $indexAnoPausado - 1));
+        } else {
+
+            $anoTotalPausado = intval(substr($tempoTotalPausado, $indexAnoPausado - 2, $indexAnoPausado - 1));
+        }
+
+        if (strpos($tempoTotalPausado, $indexMesPausado - 2) == " ") {
+
+            $mesTotalPausado = intval(substr($tempoTotalPausado, $indexMesPausado - 1, $indexMesPausado - 1));
+        } else {
+
+            $mesTotalPausado = intval(substr($tempoTotalPausado, $indexMesPausado - 2, $indexMesPausado - 1));
+        }
+
+        if (strpos($tempoTotalPausado, $indexDiaPausado - 2) == " ") {
+
+            $diaTotalPausado = intval(substr($tempoTotalPausado, $indexDiaPausado - 1, $indexDiaPausado - 1));
+        } else {
+
+            $diaTotalPausado = intval(substr($tempoTotalPausado, $indexDiaPausado - 2, $indexDiaPausado - 1));
+        }
+
+        if (strpos($tempoTotalPausado, $indexHoraPausado - 2) == " ") {
+
+            $horaTotalPausado = intval(substr($tempoTotalPausado, $indexHoraPausado - 1, $indexHoraPausado - 1));
+        } else {
+
+            $horaTotalPausado = intval(substr($tempoTotalPausado, $indexHoraPausado - 2, $indexHoraPausado - 1));
+        }
+
+        if (strpos($tempoTotalPausado, $indexMinutoPausado - 2) == " ") {
+
+            $minutoTotalPausado = intval(substr($tempoTotalPausado, $indexMinutoPausado - 1, $indexMinutoPausado - 1));
+        } else {
+
+            $minutoTotalPausado = intval(substr($tempoTotalPausado, $indexMinutoPausado - 2, $indexMinutoPausado - 1));
+        }
+
+        if (strpos($tempoTotalPausado, $indexSegundoPausado - 2) == " ") {
+
+            $segundoTotalPausado = intval(substr($tempoTotalPausado, $indexSegundoPausado - 1, $indexSegundoPausado - 1));
+        } else {
+
+            $segundoTotalPausado = intval(substr($tempoTotalPausado, $indexSegundoPausado - 2, $indexSegundoPausado - 1));
+        }
+//        ajdjIOJDJI
+        $segundosTotaisPausadoAberturaEncerramento = $segundoTotalAberturaEncerramento + $segundoTotalPausado;
+        $minutosTotaisPausadoAberturaEncerramento = $minutoTotalAberturaEncerramento + $minutoTotalPausado;
+        $horasTotaisPausadoAberturaEncerramento = $horaTotalAberturaEncerramento + $horaTotalPausado;
+
+        $diasTotaisPausadoAberturaEncerramento = $diaTotalAberturaEncerramento + $diaTotalPausado;
+        $mesesTotaisPausadoAberturaEncerramento = $mesTotalAberturaEncerramento + $mesTotalPausado;
+        $anosTotaisPausadoAberturaEncerramento = $anoTotalAberturaEncerramento + $anoTotalPausado;
+
+        if ($segundosTotaisPausadoAberturaEncerramento > 60) {
+
+            $segundosTotaisPausadoAberturaEncerramento = 60 - $segundosTotaisPausadoAberturaEncerramento;
+            $minutosTotaisPausadoAberturaEncerramento = $minutosTotaisPausadoAberturaEncerramento + 1;
+        }
+
+        if ($minutosTotaisPausadoAberturaEncerramento > 60) {
+
+            $minutosTotaisPausadoAberturaEncerramento = 60 - $minutosTotaisPausadoAberturaEncerramento;
+            $horasTotaisPausadoAberturaEncerramento = $horasTotaisPausadoAberturaEncerramento + 1;
+        }
+
+        if ($horasTotaisPausadoAberturaEncerramento > 24) {
+
+            $horasTotaisPausadoAberturaEncerramento = 24 - $horasTotaisPausadoAberturaEncerramento;
+            $diasTotaisPausadoAberturaEncerramento = $diasTotaisPausadoAberturaEncerramento + 1;
+        }
+
+        if ($mesesTotaisPausadoAberturaEncerramento > 12) {
+
+            $mesesTotaisPausadoAberturaEncerramento = 12 - $mesesTotaisPausadoAberturaEncerramento;
+            $anosTotaisPausadoAberturaEncerramento = $anosTotaisPausadoAberturaEncerramento + 1;
+        }
+        
+        $tempoTotal = $anosTotaisPausadoAberturaEncerramento . "a "
+                . $mesesTotaisPausadoAberturaEncerramento . "m "
+                . $diasTotaisPausadoAberturaEncerramento . "d "
+                . $horasTotaisPausadoAberturaEncerramento . "h "
+                . $minutosTotaisPausadoAberturaEncerramento . "min "
+                . $segundosTotaisPausadoAberturaEncerramento . "s";
         
         $chamado->setTempoTotal($tempoTotal);
         

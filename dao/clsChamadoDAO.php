@@ -110,6 +110,29 @@ class ChamadoDAO {
 
         Conexao::executar($sql);
     }
+    
+    public static function getDataHoraAbertura($chamado) {
+        
+        $sql = "SELECT dataHoraAbertura FROM chamados WHERE codigo = " . $chamado->getCodigo();
+        
+        $result = Conexao::consultar($sql);
+        
+        $dados = mysqli_fetch_assoc($result);
+        
+        return $dados['dataHoraAbertura'];
+        
+    }
+    
+    public static function getDataHoraEncerramento($chamado) {
+
+        $sql = "SELECT dataHoraEncerramento FROM chamados WHERE codigo = " . $chamado->getCodigo();
+
+        $result = Conexao::consultar($sql);
+
+        $dados = mysqli_fetch_assoc($result);
+
+        return $dados['dataHoraEncerramento'];
+    }
 
     public static function getTempoPausado($chamado) {
 
@@ -176,15 +199,25 @@ class ChamadoDAO {
         Conexao::executar($sql);
     }
     
-    public static function getDataHoraEncerramento($chamado) {
-
-        $sql = "SELECT dataHoraEncerramento FROM chamados WHERE codigo = " . $chamado->getCodigo();
-
+    public static function getTecnicos() {
+        
+        $sql = "SELECT nomeUsuario FROM usuarios WHERE admin = 1";
+        
         $result = Conexao::consultar($sql);
+        
+        $lista = new ArrayObject();
+        
+        while(list($nome) = mysqli_fetch_row($result)) {
+            
+            $tecnico = new Usuario();
+            $tecnico->setNomeUsuario($nome);
+            
+            $lista->append($tecnico);
+            
+        }
+        
+        return $lista;
 
-        $dados = mysqli_fetch_assoc($result);
-
-        return $dados['dataHoraEncerramento'];
     }
 
     public static function getChamados() {

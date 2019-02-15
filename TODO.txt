@@ -1,4 +1,11 @@
-PLANILHA DE PRODUTIVIDADE
+encerrar
+somar tempo com verificacoes desde abertura até encerramento
+subtrair do tempo pausado
+*condicao caso o tempo pausado seja maior que o tempo em andamento
+
+
+
+
 
 categoria hardware e software abrirChamado
 coluna categoria banco

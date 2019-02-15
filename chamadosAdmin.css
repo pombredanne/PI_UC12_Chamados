@@ -73,3 +73,8 @@ form {
 #selectTodosChamados {
     position: relative; 
 }
+
+#selectTecnicos {
+    position: relative;
+    visibility: hidden;
+}
