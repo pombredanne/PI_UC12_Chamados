@@ -192,15 +192,16 @@ class ChamadoDAO {
 
     public static function getTecnicos() {
         
-        $sql = "SELECT nomeUsuario FROM usuarios WHERE admin = 1";
+        $sql = "SELECT codigo, nomeUsuario FROM usuarios WHERE admin = 1";
         
         $result = Conexao::consultar($sql);
         
         $lista = new ArrayObject();
         
-        while(list($nome) = mysqli_fetch_row($result)) {
+        while(list($codigo, $nome) = mysqli_fetch_row($result)) {
             
             $tecnico = new Usuario();
+            $tecnico->setCodigo($codigo);
             $tecnico->setNomeUsuario($nome);
             
             $lista->append($tecnico);
