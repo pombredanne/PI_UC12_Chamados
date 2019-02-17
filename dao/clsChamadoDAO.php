@@ -89,23 +89,24 @@ class ChamadoDAO {
 
     public static function retomar($chamado) {
 
-        $sql = "UPDATE chamados SET";
-
-        if ($chamado->getDataHoraEncerramento() == null) {
-            
-            $sql = $sql . " retomar = '" . $chamado->getRetomar() . "' , ";
-            
-        } else {
-            
-            $sql = $sql . " retomar = null , "
-                    . "pausar = null , ";
-            
-        }
-
-        $sql = $sql . " pausado = " . $chamado->getPausado() . " , "
+        $sql = "UPDATE chamados SET"
+                . " retomar = '" . $chamado->getRetomar() . "' , "
+                . " pausado = " . $chamado->getPausado() . " , "
                 . " tempoPausado = '" . $chamado->getTempoPausado() . "' , "
-                . " historicoRetomar = '" . $chamado->getHistoricoRetomar() . "' , "
-                . " tempoTotal = '" . $chamado->getTempoTotal() . "' "
+                . " historicoRetomar = '" . $chamado->getHistoricoRetomar() . "' "
+                . " WHERE codigo = " . $chamado->getCodigo();
+
+        Conexao::executar($sql);
+    }
+    
+    public static function encerrar($chamado) {
+
+        $sql = "UPDATE chamados SET"
+                . " dataHoraEncerramento = '" . $chamado->getDataHoraEncerramento() . "' , "
+                . " pausar = null , "
+                . " retomar = null , "
+                . " tempoTotal = '" . $chamado->getTempoTotal() . "' , "
+                . " ativo = " . $chamado->getAtivo()
                 . " WHERE codigo = " . $chamado->getCodigo();
 
         Conexao::executar($sql);
@@ -189,16 +190,6 @@ class ChamadoDAO {
         return $dados['historicoRetomar'];
     }
 
-    public static function encerrar($chamado) {
-
-        $sql = "UPDATE chamados SET"
-                . " dataHoraEncerramento = '" . $chamado->getDataHoraEncerramento() . "', "
-                . " ativo = " . $chamado->getAtivo()
-                . " WHERE codigo = " . $chamado->getCodigo();
-
-        Conexao::executar($sql);
-    }
-    
     public static function getTecnicos() {
         
         $sql = "SELECT nomeUsuario FROM usuarios WHERE admin = 1";

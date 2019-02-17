@@ -46,7 +46,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             ?>
             
         </head>
-        <body>
+        <body onload="selectInvisible(); selectVisible();">
 
             <?php
             require_once 'menu.php';
@@ -60,7 +60,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <option value="2">Chamados por técnico</option>
             </select>
             
-<!--            <select id="selectTecnicos">
+            <select id="selectTecnicos">
                 
                 <?php
                 
@@ -74,11 +74,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 
                 ?>
                 
-            </select>-->
-            
-            <!--
-            botoes
-            -->
+            </select>
             
             <a href="abrirChamado.php">
                 <h1 align="center"><button id="btSolicitarNovoChamado">Solicitar novo chamado</button></a></h1>
@@ -192,6 +188,10 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             </table>
                 <?php
             }
+            
+        } else if ($_GET['codigo'] == 2) {
+            
+            
         }
 
         } else {
