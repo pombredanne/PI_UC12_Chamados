@@ -1,5 +1,7 @@
 quando abre novo chamado, carregar parametros novamente na url
 
+dps de abrir novo chamado carregar na url as chaves
+
 estilizar botoes tabela
 
 nova tela planilha de produtividade
