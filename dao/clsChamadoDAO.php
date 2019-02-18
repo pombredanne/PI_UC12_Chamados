@@ -98,7 +98,7 @@ class ChamadoDAO {
 
         Conexao::executar($sql);
     }
-    
+
     public static function encerrar($chamado) {
 
         $sql = "UPDATE chamados SET"
@@ -111,19 +111,18 @@ class ChamadoDAO {
 
         Conexao::executar($sql);
     }
-    
+
     public static function getDataHoraAbertura($chamado) {
-        
+
         $sql = "SELECT dataHoraAbertura FROM chamados WHERE codigo = " . $chamado->getCodigo();
-        
+
         $result = Conexao::consultar($sql);
-        
+
         $dados = mysqli_fetch_assoc($result);
-        
+
         return $dados['dataHoraAbertura'];
-        
     }
-    
+
     public static function getDataHoraEncerramento($chamado) {
 
         $sql = "SELECT dataHoraEncerramento FROM chamados WHERE codigo = " . $chamado->getCodigo();
@@ -140,9 +139,9 @@ class ChamadoDAO {
         $sql = "SELECT tempoPausado FROM chamados WHERE codigo = " . $chamado->getCodigo();
 
         $result = Conexao::consultar($sql);
-        
+
         $dados = mysqli_fetch_assoc($result);
-        
+
         return $dados['tempoPausado'];
     }
 
@@ -156,7 +155,7 @@ class ChamadoDAO {
 
         return $dados['pausar'];
     }
-    
+
     public static function getRetomar($chamado) {
 
         $sql = "SELECT retomar FROM chamados WHERE codigo = " . $chamado->getCodigo();
@@ -167,57 +166,80 @@ class ChamadoDAO {
 
         return $dados['retomar'];
     }
-    
+
     public static function getHistoricoPausar($chamado) {
-        
+
         $sql = "SELECT historicoPausar FROM chamados WHERE codigo = " . $chamado->getCodigo();
-        
+
         $result = Conexao::consultar($sql);
-        
+
         $dados = mysqli_fetch_assoc($result);
-        
+
         return $dados['historicoPausar'];
     }
-    
+
     public static function getHistoricoRetomar($chamado) {
-        
+
         $sql = "SELECT historicoRetomar FROM chamados WHERE codigo = " . $chamado->getCodigo();
-        
+
         $result = Conexao::consultar($sql);
-        
+
         $dados = mysqli_fetch_assoc($result);
-        
+
         return $dados['historicoRetomar'];
     }
 
     public static function getTecnicos() {
-        
+
         $sql = "SELECT codigo, nomeUsuario FROM usuarios WHERE admin = 1";
-        
+
         $result = Conexao::consultar($sql);
-        
+
         $lista = new ArrayObject();
-        
-        while(list($codigo, $nome) = mysqli_fetch_row($result)) {
-            
+
+        while (list($codigo, $nome) = mysqli_fetch_row($result)) {
+
             $tecnico = new Usuario();
             $tecnico->setCodigo($codigo);
             $tecnico->setNomeUsuario($nome);
-            
-            $lista->append($tecnico);
-            
-        }
-        
-        return $lista;
 
+            $lista->append($tecnico);
+        }
+
+        return $lista;
     }
 
-    public static function getChamados() {
+    public static function getUsuarios() {
+
+        $sql = "SELECT codigo, nomeUsuario FROM usuarios WHERE admin = 0";
+
+        $result = Conexao::consultar($sql);
+
+        $lista = new ArrayObject();
+
+        while (list($codigo, $nome) = mysqli_fetch_row($result)) {
+
+            $tecnico = new Usuario();
+            $tecnico->setCodigo($codigo);
+            $tecnico->setNomeUsuario($nome);
+
+            $lista->append($tecnico);
+        }
+
+        return $lista;
+    }
+
+    public static function getChamados($status) {
 
         $sql = " SELECT * FROM chamados"
                 . " INNER JOIN salas on fkSala = salas.codigo"
                 . " INNER JOIN usuarios u ON fkUsuario = u.codigo"
                 . " WHERE chamados.ativo = 1";
+
+        if ($status != "todos") {
+
+            $sql = $sql . " AND chamados.status = '" . $status . "'";
+        }
 
         $result = Conexao::consultar($sql);
 
@@ -284,14 +306,95 @@ class ChamadoDAO {
         }
     }
 
-    public static function getChamadosByUsuario($nomeUsuario) {
+    public static function getAllChamadosByUsuario($nomeUsuario, $status) {
 
         $sql = " SELECT *"
                 . " FROM chamados c"
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
-                . " WHERE u.nomeUsuario = '" . $nomeUsuario . "'"
-                . " AND WHERE chamados.ativo = 1";
+                . " WHERE c.ativo = 1"
+                . " AND u.nomeUsuario = '" . $nomeUsuario . "'";
+
+        if ($status != "todos") {
+
+            $sql = $sql . " AND c.status = '" . $status . "'";
+        }
+
+        $result = Conexao::consultar($sql);
+
+        $lista = new ArrayObject();
+
+        if (mysqli_num_rows($result) > 0) {
+
+            while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
+            $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
+            $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero
+            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
+
+                $chamado = new Chamado();
+                $chamado->setCodigo($cCodigo);
+                $chamado->setDataHoraAbertura($cDataHoraAbertura);
+                $chamado->setDescricaoProblema($cDescricaoProblema);
+                $chamado->setStatus($cStatus);
+                $chamado->setHistoricoStatus($cHistoricoStatus);
+                $chamado->setNivelCriticidade($cNivelCriticidade);
+                $chamado->setSolucaoProblema($cSolucaoProblema);
+
+                $usuario = new Usuario();
+                $usuario->setCodigo($uCodigo);
+                $usuario->setNomeUsuario($uNomeUsuario);
+
+                $sala = new Sala();
+                $sala->setCodigo($sCodigo);
+                $sala->setNumero($sNumero);
+
+                if ($tFkCodigo == null) {
+
+                    $chamado->setTecnicoResponsavel(null);
+                } else {
+
+                    $sql = "SELECT * FROM usuarios"
+                            . " WHERE codigo = " . $tFkCodigo;
+
+                    $resultTecnico = Conexao::consultar($sql);
+
+                    list($tCodigo, $tNomeCompleto, $tNomeUsuario, $tEmail, $tSenha, $tAdmin) = mysqli_fetch_row($resultTecnico);
+
+                    $tecnicoResponsavel = new Usuario();
+                    $tecnicoResponsavel->setCodigo($tCodigo);
+                    $tecnicoResponsavel->setNomeUsuario($tNomeUsuario);
+
+                    $chamado->setTecnicoResponsavel($tecnicoResponsavel);
+                }
+
+                $chamado->setUsuario($usuario);
+                $chamado->setSala($sala);
+
+                $lista->append($chamado);
+            }
+        }
+
+        return $lista;
+    }
+
+    public static function getAllChamadosByCodigoTecnico($codigo, $status) {
+
+        $sql = " SELECT *"
+                . " FROM chamados c"
+                . " INNER JOIN salas s ON c.fkSala = s.codigo"
+                . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
+                . " WHERE c.ativo = 1";
+        
+        if ($codigo != "todos") {
+            
+            $sql = $sql . " AND u.codigo = " . $codigo;
+            
+        }
+
+        if ($status != "todos") {
+
+            $sql = $sql . " AND c.status = '" . $status . "'";
+        }
 
         $result = Conexao::consultar($sql);
 

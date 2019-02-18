@@ -1,14 +1,34 @@
+function defaultIndexSelectTecnicos() {
+    
+    var url = new URL(window.location.href);
+    url.searchParams.set('tecnico', 'todos');
+    window.location.href = url.href;
+    
+}
+
+function defaultIndexSelectUsuarios() {
+    
+    var url = new URL(window.location.href);
+    url.searchParams.set('usuario', 'todos');
+    window.location.href = url.href;
+    
+}
+
+function defaultIndexSelectStatus() {
+    
+    var url = new URL(window.location.href);
+    url.searchParams.set('status', 'todos');
+    window.location.href = url.href;
+    
+}
+
 function removeKeysUrl() {
 
-    var antigaUrl = new URL(window.location.href);
+    var selectTodosChamados = document.getElementById("selectTodosChamados");
 
-    var novaUrl = antigaUrl.substring(0, antigaUrl.indexOf('?'));
+    var index = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
 
-//var novaUrl = antigaUrl.split('?')[0];
-
-    window.location.href = novaUrl.href;
-//var selectTecnicos = document.getElementById("selectTecnicos");
-//    selectTecnicos.style.visibility = "hidden";
+    window.location.href = "chamados.php?codigo=" + index;
 
 }
 
@@ -21,7 +41,16 @@ function changeUrlSelectTodosChamados() {
     var url = new URL(window.location.href);
     //nome da var, valor da var
     url.searchParams.set('codigo', index);
+    
+    if (index == 1) {
+        
+       url.searchParams.set('status', 'todos');
+        
+    }
+
     window.location.href = url.href;
+    
+    selectedOptionStatus();
 
 }
 
@@ -32,6 +61,28 @@ function changeUrlSelectTecnicos() {
 
     var url = new URL(window.location.href);
     url.searchParams.set('tecnico', index);
+    window.location.href = url.href;
+
+}
+
+function changeUrlSelectUsuarios() {
+
+    var selectUsuarios = document.getElementById("selectUsuarios");
+    var index = selectUsuarios.options[selectUsuarios.selectedIndex].value;
+
+    var url = new URL(window.location.href);
+    url.searchParams.set('usuario', index);
+    window.location.href = url.href;
+
+}
+
+function changeUrlSelectStatus() {
+
+    var selectStatus = document.getElementById("selectStatus");
+    var index = selectStatus.options[selectStatus.selectedIndex].value;
+
+    var url = new URL(window.location.href);
+    url.searchParams.set('status', index);
     window.location.href = url.href;
 
 }
@@ -49,6 +100,11 @@ function selectVisible() {
         var selectTecnicos = document.getElementById("selectTecnicos");
         selectTecnicos.style.visibility = "visible";
 
+    } else if (codigo == 3) {
+        
+        var selectUsuarios = document.getElementById("selectUsuarios");
+        selectUsuarios.style.visibility = "visible";
+        
     }
 }
 
@@ -56,6 +112,9 @@ function selectInvisible() {
 
     var selectTecnicos = document.getElementById("selectTecnicos");
     selectTecnicos.style.visibility = "hidden";
+    
+    var selectUsuarios = document.getElementById("selectUsuarios");
+    selectUsuarios.style.visibility = "hidden";
 
 }
 
@@ -65,17 +124,17 @@ function selectedOptionTecnicos() {
 
     var url = new URL(urlString);
 
-    var codigo = url.searchParams.get("tecnico");
+    var tecnico = url.searchParams.get("tecnico");
 
     var selectTodosChamados = document.getElementById("selectTecnicos");
 
-    if (codigo == null) {
+    if (tecnico == null) {
 
         selectTodosChamados.value = 0;
 
     } else {
 
-        selectTodosChamados.value = codigo;
+        selectTodosChamados.value = tecnico;
 
     }
 }
@@ -97,6 +156,50 @@ function selectedOptionChamados() {
     } else {
 
         selectTodosChamados.value = codigo;
+
+    }
+
+}
+
+function selectedOptionUsuarios() {
+
+    var urlString = window.location.href;
+
+    var url = new URL(urlString);
+
+    var usuario = url.searchParams.get("usuario");
+
+    var selectUsuarios = document.getElementById("selectUsuarios");
+
+    if (usuario == null) {
+
+        selectUsuarios.value = 0;
+
+    } else {
+
+        selectUsuarios.value = usuario;
+
+    }
+
+}
+
+function selectedOptionStatus() {
+
+    var urlString = window.location.href;
+
+    var url = new URL(urlString);
+
+    var status = url.searchParams.get("status");
+
+    var selectStatus = document.getElementById("selectStatus");
+
+    if (status == null) {
+
+        selectStatus.value = 0;
+
+    } else {
+
+        selectStatus.value = status;
 
     }
 

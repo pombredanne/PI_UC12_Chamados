@@ -77,3 +77,8 @@ form {
 #selectTecnicos {
     position: relative;
 }
+
+#selectUsuarios {
+    position: relative;
+    margin-left: -6%;
+}

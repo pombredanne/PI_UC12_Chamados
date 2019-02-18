@@ -1,4 +1,8 @@
-select tecnicos visible 
+quando abre novo chamado, carregar parametros novamente na url
+
+estilizar botoes tabela
+
+nova tela planilha de produtividade
 
 categoria hardware e software abrirChamado
 coluna categoria banco
@@ -9,7 +13,7 @@ model get/setCategoria
 
 
 
-
+    
 
 
 botao mostrar o tempo atual em que o chamado está em aberto (sem coluna)
