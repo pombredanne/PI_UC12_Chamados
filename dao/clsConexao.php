@@ -31,9 +31,17 @@ class Conexao {
         $conn = self::abrir();
 
         if ($conn) {
-            mysqli_query($conn, $sql);
+            $query = mysqli_query($conn, $sql);
             self::fechar($conn);
+            
+            if ($query) {
+                return true;
+            } else {
+                return false;
+            }
+            
         }
+        
     }
 
     public static function consultar($sql) {

@@ -70,7 +70,9 @@ class ChamadoDAO {
     public static function cancelar($chamado) {
 
         $sql = "UPDATE chamados SET"
-                . " ativo = " . $chamado->getAtivo()
+                . " ativo = " . $chamado->getAtivo() . " , "
+                . " resolvido = '" . $chamado->getResolvido() . "' , "
+                . " pausado = null "
                 . " WHERE codigo = " . $chamado->getCodigo();
 
         Conexao::executar($sql);
@@ -105,8 +107,10 @@ class ChamadoDAO {
                 . " dataHoraEncerramento = '" . $chamado->getDataHoraEncerramento() . "' , "
                 . " pausar = null , "
                 . " retomar = null , "
+                . " pausado = null , "
                 . " tempoTotal = '" . $chamado->getTempoTotal() . "' , "
-                . " ativo = " . $chamado->getAtivo()
+                . " ativo = " . $chamado->getAtivo() . " , "
+                . " resolvido = '" . $chamado->getResolvido() . "' "
                 . " WHERE codigo = " . $chamado->getCodigo();
 
         Conexao::executar($sql);
@@ -248,9 +252,10 @@ class ChamadoDAO {
         if (mysqli_num_rows($result) > 0) {
 
             while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
-            $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $sFkSala,
+            $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $cTempoPausado,
+                    $cTempoTotal, $cDataHoraEncerramento, $cHistoricoPausar, $cHistoricoRetomar, $sFkSala,
             $uFkCodigo, $tFkCodigo, $cAtivo, $sCodigo, $sNumero
-            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
+            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin, $uFoto) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($cCodigo);
@@ -313,13 +318,23 @@ class ChamadoDAO {
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
                 . " WHERE c.ativo = 1"
-                . " AND u.nomeUsuario = '" . $nomeUsuario . "'";
+                . " AND u.admin = 0";
+        
+        if ($nomeUsuario != 'todos') {
+            
+            $sql = $sql . " AND u.nomeUsuario = '" . $nomeUsuario . "'";
+            
+        }    
+            
+        if ($_SESSION['admin'] == 1) {
+            
+            if ($status != "todos") {
 
-        if ($status != "todos") {
-
-            $sql = $sql . " AND c.status = '" . $status . "'";
+                $sql = $sql . " AND c.status = '" . $status . "'";
+            }
+            
         }
-
+        
         $result = Conexao::consultar($sql);
 
         $lista = new ArrayObject();
@@ -327,9 +342,10 @@ class ChamadoDAO {
         if (mysqli_num_rows($result) > 0) {
 
             while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
-            $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
-            $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero
-            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
+            $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $cTempoPausado,
+                    $cTempoTotal, $cDataHoraEncerramento, $cHistoricoPausar, $cHistoricoRetomar, $sFkSala,
+            $uFkCodigo, $tFkCodigo, $cAtivo, $sCodigo, $sNumero
+            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin, $uFoto) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($cCodigo);
@@ -383,7 +399,8 @@ class ChamadoDAO {
                 . " FROM chamados c"
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
-                . " WHERE c.ativo = 1";
+                . " WHERE c.ativo = 1"
+                . " AND u.admin = 1";
         
         if ($codigo != "todos") {
             
@@ -403,9 +420,10 @@ class ChamadoDAO {
         if (mysqli_num_rows($result) > 0) {
 
             while (list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
-            $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
-            $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero
-            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result)) {
+            $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $cTempoPausado,
+                    $cTempoTotal, $cDataHoraEncerramento, $cHistoricoPausar, $cHistoricoRetomar, $sFkSala,
+            $uFkCodigo, $tFkCodigo, $cAtivo, $sCodigo, $sNumero
+            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin, $uFoto) = mysqli_fetch_row($result)) {
 
                 $chamado = new Chamado();
                 $chamado->setCodigo($cCodigo);
@@ -467,10 +485,11 @@ class ChamadoDAO {
 
             $chamado = new Chamado();
 
-            list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus,
-                    $cHistoricoStatus, $cNivelCriticidade, $cSolucaoProblema, $sFkSala,
-                    $uFkCodigo, $tFkCodigo, $ativo, $sCodigo, $sNumero, $sDescricao,
-                    $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin) = mysqli_fetch_row($result);
+            list($cCodigo, $cDataHoraAbertura, $cDescricaoProblema, $cStatus, $cHistoricoStatus,
+            $cNivelCriticidade, $cSolucaoProblema, $cPausar, $cRetomar, $cPausado, $cResolvido, $cTempoPausado,
+                    $cTempoTotal, $cDataHoraEncerramento, $cHistoricoPausar, $cHistoricoRetomar, $sFkSala,
+            $uFkCodigo, $tFkCodigo, $cAtivo, $sCodigo, $sNumero
+            , $sDescricao, $uCodigo, $uNomeCompleto, $uNomeUsuario, $uEmail, $uSenha, $uAdmin, $uFoto) = mysqli_fetch_row($result);
 
             $chamado->setCodigo($cCodigo);
             $chamado->setDescricaoProblema($cDescricaoProblema);

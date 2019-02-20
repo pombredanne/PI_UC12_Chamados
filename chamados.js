@@ -22,44 +22,25 @@ function defaultIndexSelectStatus() {
 
 }
 
-function removeKeysUrl(status = null, tecnico = null, usuario = null) {
+function removeKeysUrl() {
 
     var selectTodosChamados = document.getElementById("selectTodosChamados");
 
     var index = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
 
     var url = new URL(window.location.href);
+    var params = new URLSearchParams(url.search.slice(1));
 
-    url = url + "?codigo=" + index;
-
-//    if (status != null) {
-//        status = url.searchParams.get('status');
-//    } else {
-//        status = "";
-//    }
-//
-//    if (tecnico != null) {
-//        tecnico = url.searchParams.get('tecnico');
-//    } else {
-//        tecnico = "";
-//    }
-//
-//    if (usuario != null) {
-//        usuario = url.searchParams.get('usuario');
-//    } else {
-//        usuario = "";
-//    }
-
-//    if (index != 0) {
-//
-//        url = url + "&status=" + status;
-//
-//        url = url + "&tecnico=" + tecnico;
-//
-//        url = url + "*usuario=" + usuario;
-//    }
-
-    window.location.href = url.href;
+//    url.searchParams.set('codigo', index);
+//    url.searchParams.set('status', 'todos');
+    
+    if (index == 0) {
+        window.location.href = 'chamados.php?codigo=' + index + '&status=todos';
+    } else if (index == 1) {
+        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&tecnico=todos';
+    } else if (index == 2) {
+        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos';
+    }
 
 }
 
@@ -72,13 +53,8 @@ function changeUrlSelectTodosChamados() {
     var url = new URL(window.location.href);
     //nome da var, valor da var
     url.searchParams.set('codigo', index);
-
-    if (index != 0) {
-
-        url.searchParams.set('status', 'todos');
-
-    }
-
+    url.searchParams.set('status', 'todos');
+    
     window.location.href = url.href;
 
     selectedOptionStatus();
@@ -126,12 +102,12 @@ function selectVisible() {
 
     var codigo = url.searchParams.get("codigo");
 
-    if (codigo == 2) {
+    if (codigo == 1) {
 
         var selectTecnicos = document.getElementById("selectTecnicos");
         selectTecnicos.style.visibility = "visible";
 
-    } else if (codigo == 3) {
+    } else if (codigo == 2) {
 
         var selectUsuarios = document.getElementById("selectUsuarios");
         selectUsuarios.style.visibility = "visible";
@@ -141,11 +117,11 @@ function selectVisible() {
 
 function selectInvisible() {
 
-    var selectTecnicos = document.getElementById("selectTecnicos");
-    selectTecnicos.style.visibility = "hidden";
+    var divSelectTecnicos = document.getElementById("divSelectTecnicos");
+    divSelectTecnicos.style.visibility = "hidden";
 
-    var selectUsuarios = document.getElementById("selectUsuarios");
-    selectUsuarios.style.visibility = "hidden";
+    var divSelectUsuarios = document.getElementById("divSelectUsuarios");
+    divSelectUsuarios.style.visibility = "hidden";
 
 }
 

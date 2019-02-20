@@ -2,9 +2,9 @@
 
 class Usuario {
     
-    private $codigo, $nomeCompleto, $nomeUsuario, $senha, $admin, $email;
+    private $codigo, $nomeCompleto, $nomeUsuario, $senha, $admin, $email, $foto;
 
-    function __construct($codigo = null, $nomeCompleto = null, $nomeUsuario = null, $senha = null, $admin = null, $email = null) {
+    function __construct($codigo = null, $nomeCompleto = null, $nomeUsuario = null, $senha = null, $admin = null, $email = null, $foto = null) {
         
         $this->codigo = $codigo;
         $this->nomeCompleto = $nomeCompleto;
@@ -12,8 +12,17 @@ class Usuario {
         $this->senha = $senha;
         $this->admin = $admin;
         $this->email = $email;
+        $this->foto = $foto;
     }
     
+    function getFoto() {
+        return $this->foto;
+    }
+
+    function setFoto($foto) {
+        $this->foto = $foto;
+    }
+
     function getEmail() {
         return $this->email;
     }

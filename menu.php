@@ -17,7 +17,12 @@
         <nav id="navLinks">
 
             <?php
+            
             error_reporting(0);
+            
+            include_once 'dao/clsConexao.php';
+            include_once 'dao/clsUsuarioDAO.php';
+            include_once 'model/clsUsuario.php';
 
             if (session_status() != PHP_SESSION_ACTIVE) {
 
@@ -38,30 +43,24 @@
             if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 ?>
 
-                <a href="chamados.php">Chamados</a>
+                <a href="?codigo=0&status=todos">Chamados</a>
             </nav>
-
-            <!--<a id="linkSair" href="sair.php">Sair</a>-->
-
-            <!--</div>-->
-
-            <!--        $nome = 'Olá ' . $_SESSION['nomeUsuario'];
-                   $nome = "10:20:30";
-                   $nome = str_replace(":", "", $nome);
-                   $nome = substr($nome, 0, 2);
-                    echo '<br><br><div>' . $nome . "</div><br><br>";-->
 
         </div>
 
         <div class="divNomeUsuario">
-                <a href="#"><?php echo $_SESSION['nomeUsuario'] ?></a>
+                <a href=""><?php echo $_SESSION['nomeUsuario']?></a>
                 <a id="aDivSair" href="sair.php">Sair</a>
-
+                
     <!--<span id="spanNomeUsuario"><?php echo $_SESSION['nomeUsuario'] ?></span><br><br>-->
 
         </div>
 
         <?php
+        
+        $usuario = UsuarioDAO::getUsuario($_SESSION['codigo']);
+        
+        echo '<img src="fotos/' . $usuario->getFoto() . '" width="100px"/>';
     }
     ?>
 

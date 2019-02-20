@@ -39,7 +39,7 @@ if (isset($_GET['inserir'])) {
         ChamadoDAO::inserirChamadoDocente($chamado);
     }
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }
 
 if (isset($_GET['editar'])) {
@@ -68,24 +68,24 @@ if (isset($_GET['editar'])) {
 }
 
 if (isset($_GET['cancelar'])) {
-
-    $chamado->setCodigo($_GET['codigoChamado']);
-    $chamado->setResolvido(1);
-    $chamado->setAtivo(0);
-
-    ChamadoDAO::excluir($chamado);
-
-    header("Location: ../chamados.php");
-}
-
-if (isset($_GET['confirmarExcluir'])) {
+    
+    $chamado = ChamadoDAO::getChamadoByCodigo($_GET['codigoChamado']);
+    
+    echo '<br><br><br><h3>Tem certeza que deseja cancelar o chamado ' . $chamado->getCodigo() . ' ?</h3>'
+    . '<br><hr><br>'
+    . '<a href="../chamados.php">'
+    . '<button>Voltar</button></a> '
+    . '<a href="?confirmarCancelar&codigoChamado=' . $_GET['codigoChamado'] . '">'
+    . '<button>Cancelar</button></a>';
     
 }
 
-if (isset($_GET['cancelar'])) {
+if (isset($_GET['confirmarCancelar'])) {
 
     $chamado->setCodigo($_GET['codigoChamado']);
-//    $chamado->setResolvido(0);resolvido ou cancelado?
+    
+    $chamado->setResolvido("Cancelado por " . $_SESSION['nomeUsuario']);
+    
     $chamado->setAtivo(0);
 
     ChamadoDAO::cancelar($chamado);
@@ -100,7 +100,7 @@ if (isset($_GET['pausar'])) {
     echo '<br><br><br><h3>Tem certeza que deseja pausar o chamado ' . $chamado->getCodigo() . ' ?</h3>'
     . '<br><hr><br>'
     . '<a href="../chamados.php">'
-    . '<button>Cancelar</button></a> '
+    . '<button>Voltar</button></a> '
     . '<a href="?confirmarPausar&codigoChamado=' . $_GET['codigoChamado'] . '">'
     . '<button>Pausar</button></a>';
 }
@@ -137,7 +137,7 @@ if (isset($_GET['retomar'])) {
     echo '<br><br><br><h3>Tem certeza que deseja retomar o chamado ' . $chamado->getCodigo() . ' ?</h3>'
     . '<br><hr><br>'
     . '<a href="../chamados.php">'
-    . '<button>Cancelar</button></a> '
+    . '<button>Voltar</button></a> '
     . '<a href="?confirmarRetomar&codigoChamado=' . $_GET['codigoChamado'] . '">'
     . '<button>Retomar</button></a>';
 }
@@ -1072,6 +1072,8 @@ if (isset($_GET['confirmarEncerrar'])) {
             . $segundosTotaisPausadoAberturaEncerramento . "s";
     
     $chamado->setTempoTotal($tempoTotal);
+    
+    $chamado->setResolvido("Resolvido por " . $_SESSION['nomeUsuario']);
     
     ChamadoDAO::encerrar($chamado);
 

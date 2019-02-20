@@ -14,6 +14,8 @@
         
         session_start();
         
+        error_reporting(0);
+        
         require_once 'menu.php';
         include_once 'dao/clsConexao.php';
         include_once 'dao/clsSalaDAO.php';

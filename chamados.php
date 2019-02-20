@@ -44,17 +44,28 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         </head>
 
         <body onload="selectInvisible();
-                    selectVisible();
-                    selectedOptionChamados();
-                    selectedOptionTecnicos();
-                    selectedOptionUsuarios();
-                    selectedOptionStatus();
+                selectVisible();
+                selectedOptionChamados();
+                selectedOptionTecnicos();
+                selectedOptionUsuarios();
+                selectedOptionStatus();
+                
+                <?php
+                
+                if (!isset($_GET['?'])) {
+                    
+//                    header("Location: chamados.php?codigo=0&status=todos");
+                    
+                }
+                
+                ?>
+                
+//                defaultIndexSelectStatus();
 
         <?php
         if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
-            if (isset($_GET['tecnico']) && $_GET['codigo'] != 2
-                    || isset($_GET['usuario']) && $_GET['codigo'] != 3) {
+            if (isset($_GET['tecnico']) && $_GET['codigo'] != 1 || isset($_GET['usuario']) && $_GET['codigo'] != 2) {
 
                 echo 'removeKeysUrl();">';
             } else {
@@ -73,45 +84,55 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 ?>
 
-            <select id="selectTodosChamados" onchange="changeUrlSelectTodosChamados(); removeKeysUrl();">
-                    <option value="0">Selecione...</option>
-                    <option value="1">Todos chamados</option>
-                    <option value="2">Chamados de técnicos</option>
-                    <option value="3">Chamados de docentes</option>
+                <label id="lblFiltroChamados">Filtro de chamados</label>
+                <select id="selectTodosChamados" onchange="changeUrlSelectTodosChamados(); removeKeysUrl();">
+                    <option value="0">Todos chamados</option>
+                    <option value="1">Chamados de técnicos</option>
+                    <option value="2">Chamados de docentes</option>
                 </select>
 
-                <select id="selectTecnicos" onchange="changeUrlSelectTecnicos();">
-                    <option value="0">Selecione...</option>
-                    <option value="todos">Todos</option>
-
-        <?php
-        $lista = ChamadoDAO::getTecnicos();
-
-        foreach ($lista as $tecnico) {
-
-            echo '<option value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
-        }
-        ?>
-
-                </select>
-            
-            <select id="selectUsuarios" onchange="changeUrlSelectUsuarios();">
-                <option value="0">Selecione...</option>
-                <option value="todos">Todos</option>
-                
+            <label id="lblTecnicosUsuarios">
                 <?php
                 
-                $lista = ChamadoDAO::getUsuarios();
-                
-                foreach ($lista as $usuario) {
-                    
-                    echo '<option value="' . $usuario->getNomeUsuario() . '">'. $usuario->getNomeUsuario() . '</option>';
-                    
-                }
+                if (isset($_GET['tecnico']))
+                    echo 'Técnicos';
+                else if(isset($_GET['usuario']))
+                    echo 'Usuários';
                 
                 ?>
+            </label>
                 
-            </select>
+            <div id="divSelectTecnicos">
+                <select id="selectTecnicos" onchange="changeUrlSelectTecnicos();">
+                    <option value="todos">Todos</option>
+
+                    <?php
+                    $lista = ChamadoDAO::getTecnicos();
+
+                    foreach ($lista as $tecnico) {
+
+                        echo '<option value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
+                    }
+                    ?>
+
+                </select>
+            </div>
+
+            <div id="divSelectUsuarios">
+                <select id="selectUsuarios" onchange="changeUrlSelectUsuarios();">
+                    <option value="todos">Todos</option>
+
+                    <?php
+                    $lista = ChamadoDAO::getUsuarios();
+
+                    foreach ($lista as $usuario) {
+
+                        echo '<option value="' . $usuario->getNomeUsuario() . '">' . $usuario->getNomeUsuario() . '</option>';
+                    }
+                    ?>
+
+                </select>
+            </div>
 
                     <?php
                 }
@@ -121,70 +142,61 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <h1 align="center"><button id="btSolicitarNovoChamado">Solicitar novo chamado</button></a></h1>
         <br><br>
 
-            <?php
-            $lista = new ArrayObject();
-            
-            $tecnico = null;
-            $status = null;
-            $nomeUsuario = null;
-            
-            if (isset($_GET['tecnico']))
-                $tecnico = $_GET['tecnico'];
-            
-            if (isset($_GET['status']))
-                $status = $_GET['status'];
-            
-            if (isset($_GET['usuario']))
-                $nomeUsuario = $_GET['usuario'];
+    <?php
+    $lista = new ArrayObject();
 
-            if ($_SESSION['admin'] == 1) {
+    $tecnico = null;
+    $status = null;
+    $nomeUsuario = null;
 
-                if ($_GET['codigo'] == 1) {
+    if (isset($_GET['tecnico']))
+        $tecnico = $_GET['tecnico'];
 
-                    $lista = ChamadoDAO::getChamados($status);
-                    
-                } else if ($_GET['codigo'] == 2) {
+    if (isset($_GET['status']))
+        $status = $_GET['status'];
 
-                    $lista = ChamadoDAO::getAllChamadosByCodigoTecnico($tecnico, $status);
-                    
-                } else if ($_GET['codigo'] == 3) {
-                    
-                    $lista = ChamadoDAO::getAllChamadosByUsuario($nomeUsuario, $status);
-                    
-                }
-                    
-            } else {
+    if (isset($_GET['usuario']))
+        $nomeUsuario = $_GET['usuario'];
 
-                $lista = ChamadoDAO::getAllChamadosByUsuario($_SESSION['nomeUsuario'], $status);
-            }
+    if ($_SESSION['admin'] == 1) {
 
-            date_default_timezone_set('America/Sao_Paulo');
-            echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
-            
-            if (isset($_GET['codigo']) && !$_GET['codigo'] == 0) {
-            
-            ?>
-        
-        <label>Status: </label>
-                <select id="selectStatus" onchange="changeUrlSelectStatus();">
+        if ($_GET['codigo'] == 0) {
+
+            $lista = ChamadoDAO::getChamados($status);
+        } else if ($_GET['codigo'] == 1) {
+
+            $lista = ChamadoDAO::getAllChamadosByCodigoTecnico($tecnico, $status);
+        } else if ($_GET['codigo'] == 2) {
+
+            $lista = ChamadoDAO::getAllChamadosByUsuario($nomeUsuario, $status);
+        }
+    } else {
+
+        $lista = ChamadoDAO::getAllChamadosByUsuario($_SESSION['nomeUsuario'], $status);
+    }
+
+    date_default_timezone_set('America/Sao_Paulo');
+    echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
+
+        ?>
+
+            <label>Status: </label>
+            <select id="selectStatus" onchange="changeUrlSelectStatus();">
                 <option value="0">Selecione...</option>
                 <option value="todos">Todos</option>
                 <option value="Em aberto">Em aberto</option>
                 <option value="Resolvido">Resolvido</option>
                 <option value="Cancelado">Cancelado</option>
-                </select><br><br>
-        
+            </select><br><br>
+
         <?php
-        
-            }
 
-            if ($lista->count() == 0) {
-                echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
-            } else {
+    if ($lista->count() == 0) {
+        echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
+    } else {
 
-                echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
-                
-                ?>
+        echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
+        ?>
 
             <table>
                 <tr>
@@ -197,62 +209,89 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <th>Nível de criticidade</th>
                     <th>Técnico responsável</th>
                     <th>Data e hora de abertura</th>
-                    <th>Data e hora de encerramento</th>
+<!--                    <th>Data e hora de encerramento</th>
                     <th>Solução do problema</th>
-                    <th>Tempo utilizado</th>
-                    <th>Editar</th>
-                    <th>Pausar</th>
-                    <th>Cancelar</th>
-                    <th>Encerrar</th>
-                </tr>
+                    <th>Tempo utilizado</th>-->
+
         <?php
-        foreach ($lista as $chamado) {
+        if ($_SESSION['admin'] == 1) {
+            ?>
 
-            echo '<tr>'
-            . '<td>' . $chamado->getCodigo() . '</td>'
-            . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
-            . '<td>' . $chamado->getSala()->getNumero() . '</td>'
-            . '<td>' . $chamado->getDescricaoProblema() . '</td>'
-            . '<td>' . $chamado->getStatus() . '</td>'
-            . '<td>' . $chamado->getHistoricoStatus() . '</td>'
-            . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+                        <th>Editar</th>
+                        <th>Pausar/Retomar</th>
 
-            if ($chamado->getTecnicoResponsavel() != null) {
-
-                echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
-            } else {
-
-                echo '<td></td>';
-            }
-
-            echo '<td>' . $chamado->getDataHoraAbertura() . '</td>'
-            . '<td></td>'
-            . '<td>' . $chamado->getSolucaoProblema() . '</td>'
-            . '<td></td>'
-            . '<td>'
-            . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
-            . '</td>';
-
-            if ($chamado->getPausado() == 0) {
-
-                echo '<td><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
-                . '</td>';
-            } else {
-
-                echo '<td><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
-                . '</td>';
-            }
-
-            echo '<td>'
-            . '<a href="controller/salvarChamado.php?cancelar&codigoChamado=' . $chamado->getCodigo() . '"><button>Cancelar</button></a>'
-            . '</td>';
-
-            echo '<td>'
-            . '<a href="controller/salvarChamado.php?encerrar&codigoChamado=' . $chamado->getCodigo() . '"><button>Encerrar</button></a>'
-            . '</td>'
-            . '</tr>';
+            <?php
         }
         ?>
+
+                    <th>Cancelar</th>
+
+                    <?php
+                    if ($_SESSION['admin'] == 1) {
+                        ?>
+
+                        <th>Encerrar</th>
+
+                        <?php
+                    }
+                    ?>
+                </tr>
+                    <?php
+                    foreach ($lista as $chamado) {
+
+                        echo '<tr>'
+                        . '<td>' . $chamado->getCodigo() . '</td>'
+                        . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
+                        . '<td>' . $chamado->getSala()->getNumero() . '</td>'
+                        . '<td>' . $chamado->getDescricaoProblema() . '</td>'
+                        . '<td>' . $chamado->getStatus() . '</td>'
+                        . '<td>' . $chamado->getHistoricoStatus() . '</td>'
+                        . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+
+                        if ($chamado->getTecnicoResponsavel() != null) {
+
+                            echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
+                        } else {
+
+                            echo '<td></td>';
+                        }
+
+                        echo '<td>' . $chamado->getDataHoraAbertura() . '</td>';
+//                        . '<td></td>'
+//                        . '<td>' . $chamado->getSolucaoProblema() . '</td>'
+//                        . '<td></td>';
+
+
+                        if ($_SESSION['admin'] == 1) {
+
+                            echo '<td>'
+                            . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
+                            . '</td>';
+
+                            if ($chamado->getPausado() == 0) {
+
+                                echo '<td><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
+                                . '</td>';
+                            } else {
+
+                                echo '<td><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
+                                . '</td>';
+                            }
+                        }
+
+                        echo '<td>'
+                        . '<a href="controller/salvarChamado.php?cancelar&codigoChamado=' . $chamado->getCodigo() . '"><button>Cancelar</button></a>'
+                        . '</td>';
+
+                        if ($_SESSION['admin'] == 1) {
+
+                            echo '<td>'
+                            . '<a href="controller/salvarChamado.php?encerrar&codigoChamado=' . $chamado->getCodigo() . '"><button>Encerrar</button></a>'
+                            . '</td>'
+                            . '</tr>';
+                        }
+                    }
+                    ?>
             </table>
                 <?php
             }

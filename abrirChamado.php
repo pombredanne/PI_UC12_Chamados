@@ -1,28 +1,30 @@
 <?php
+
 session_start();
 
-require_once 'menu.php';
-
-include_once 'dao/clsConexao.php';
-include_once 'dao/clsChamadoDAO.php';
-include_once 'dao/clsUsuarioDAO.php';
-include_once 'dao/clsSalaDAO.php';
-include_once 'model/clsChamado.php';
-include_once 'model/clsUsuario.php';
-include_once 'model/clsSala.php';
-
-$codigoSala = 0;
-$usuario = 0;
-$descricaoProblema = "";
-$dataHora = "";
-$statusAtual = "";
-$historicoStatus = "";
-$nivelCriticidade = "";
-$codigoTecnicoResponsavel = 0;
-$solucaoProblema = "";
-$action = "inserir";
-
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
+
+    error_reporting(0);
+    
+    require_once 'menu.php';
+
+    include_once 'dao/clsConexao.php';
+    include_once 'dao/clsChamadoDAO.php';
+    include_once 'dao/clsUsuarioDAO.php';
+    include_once 'dao/clsSalaDAO.php';
+    include_once 'model/clsChamado.php';
+    include_once 'model/clsUsuario.php';
+    include_once 'model/clsSala.php';
+
+    $codigoSala = 0;
+    $usuario = 0;
+    $descricaoProblema = "";
+    $statusAtual = "";
+    $historicoStatus = "";
+    $nivelCriticidade = "";
+    $codigoTecnicoResponsavel = 0;
+    $solucaoProblema = "";
+    $action = "inserir";
 
     if (isset($_GET['editar'])) {
 
@@ -37,7 +39,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
         $codigoSala = $chamado->getSala()->getCodigo();
         $descricaoProblema = $chamado->getDescricaoProblema();
-        $dataHora = $chamado->getDataHora();
         $statusAtual = $chamado->getStatus();
         $historicoStatus = $chamado->getHistoricoStatus();
         $nivelCriticidade = $chamado->getNivelCriticidade();
@@ -51,10 +52,13 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         <head>
             <meta charset="UTF-8">
             <title>Cadastro de Usuário</title>
+
+            <link rel="stylesheet" type="text/css" href="abrirChamado.css">
+
         </head>
         <body>
 
-            <img src="fotos/logotipo_senac.jpg">
+                <!--<img src="fotos/logotipo_senac.jpg">-->
 
             <form action="controller/salvarChamado.php?<?php echo $action; ?>" method="POST">
 
@@ -94,35 +98,13 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
                     ?>
 
-                <label>Status atual:</label><br><br>
-                <textarea name="taStatusAtual" placeholder="Status atual"><?php echo $statusAtual; ?></textarea><br><br>
-<!--                    <select name="selectStatus">
-                        <option value="">Selecione...</option>-->
+                    <label>Status atual:</label><br><br>
+                    <textarea name="taStatusAtual" placeholder="Status atual"><?php echo $statusAtual; ?></textarea><br><br>
 
-                        <?php
-//                        $arrayStatus = ['Em aberto', 'Resolvido', 'Cancelado'];
-//
-//                        foreach ($arrayStatus as $itemStatus) {
-//
-//                            $selected = "";
-//
-//                            if ($itemStatus == $status) {
-//
-//                                $selected = " selected ";
-//                            }
-//
-//                            echo '<option' . $selected . ' value="' . $itemStatus . '">' . $itemStatus . '</option>';
-//                        }
-//                        
-                        ?>
-
-                    <!--</select><br><br>-->
-                    
                     <label>Histórico de Status:</label><br><br>
                     <textarea placeholder="Histórico de Status" disabled><?php echo $historicoStatus; ?></textarea><br><br>
 
                     <?php
-                    
                 }
 
                 if ($_SESSION['admin'] == 1) {
@@ -132,74 +114,73 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <select name="selectNivelCriticidade">
                         <option value="">Selecione...</option>
 
-                        <?php
-                        $arrayNivelCriticidade = ['Leve', 'Moderado', 'Crítico'];
+        <?php
+        $arrayNivelCriticidade = ['Leve', 'Moderado', 'Crítico'];
 
-                        foreach ($arrayNivelCriticidade as $itemNivelCriticidade) {
+        foreach ($arrayNivelCriticidade as $itemNivelCriticidade) {
 
-                            $selected = "";
+            $selected = "";
 
-                            if ($itemNivelCriticidade == $nivelCriticidade) {
-                                $selected = " selected ";
-                            }
+            if ($itemNivelCriticidade == $nivelCriticidade) {
+                $selected = " selected ";
+            }
 
-                            echo '<option' . $selected . ' value="' . $itemNivelCriticidade . '">' . $itemNivelCriticidade . '</option>';
-                        }
-                        ?>
+            echo '<option' . $selected . ' value="' . $itemNivelCriticidade . '">' . $itemNivelCriticidade . '</option>';
+        }
+        ?>
 
                     </select><br><br>
 
                     <label>Técnico Responsável:</label>
                     <select name="selectTecnicoResponsavel">
 
-                        <?php
-                        $listaTecnico = UsuarioDAO::getUsuarioAdmin();
+        <?php
+        $listaTecnico = UsuarioDAO::getUsuarioAdmin();
 
-                        if ($listaTecnico->count() == 0) {
+        if ($listaTecnico->count() == 0) {
 
-                            echo '<option>Nenhum técnico cadastrado</option>';
-                        } else {
+            echo '<option>Nenhum técnico cadastrado</option>';
+        } else {
 
-                            echo '<option value="null">Selecione...</option>';
+            echo '<option value="null">Selecione...</option>';
 
-                            foreach ($listaTecnico as $tecnico) {
+            foreach ($listaTecnico as $tecnico) {
 
-                                $selected = "";
+                $selected = "";
 
-                                if ($tecnico->getCodigo() == $codigoTecnicoResponsavel) {
+                if ($tecnico->getCodigo() == $codigoTecnicoResponsavel) {
 
-                                    $selected = " selected ";
-                                }
+                    $selected = " selected ";
+                }
 
-                                echo '<option ' . $selected . ' value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
-                            }
-                        }
-                        ?>
+                echo '<option ' . $selected . ' value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
+            }
+        }
+        ?>
 
                     </select><br><br>
 
-                    <?php
-                    if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
-                        ?>
+        <?php
+        if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
+            ?>
 
                         <label>Solução do problema:</label><br><br>
                         <textarea name="taSolucaoProblema" placeholder="Solução do Problema"><?php echo $solucaoProblema; ?></textarea><br><br>
 
-                        <?php
-                    }
-                    
-                }
-                    ?>
-
-                    <input type="submit" value="Salvar">
-
-                </form>
-
-                <?php
-        } else {
-            header("Location: index.php");
+            <?php
         }
-        ?>
+    }
+    ?>
+
+                <input type="submit" value="Salvar">
+
+            </form>
+
+    <?php
+} else {
+    header("Location: index.php");
+}
+?>
 
     </body>
 </html>

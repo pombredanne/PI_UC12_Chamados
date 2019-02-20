@@ -30,6 +30,10 @@ error_reporting(0);
             </form><br><br><br>
 
             <?php
+        } else {
+            
+            header("Location: chamados.php");
+            
         }
 
         ?>

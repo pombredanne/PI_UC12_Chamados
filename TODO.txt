@@ -1,8 +1,10 @@
-quando abre novo chamado, carregar parametros novamente na url
+estilizar tela de confirmacao (copiar a pronta salvarSala.php)
 
-dps de abrir novo chamado carregar na url as chaves
+colocar label e select fiiltro chamados mais pra baixo pra n ficar em cima do 
+"sair"
 
-estilizar botoes tabela
+cutomizar botoes login usuario
+
 
 nova tela planilha de produtividade
 

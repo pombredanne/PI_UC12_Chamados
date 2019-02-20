@@ -8,6 +8,7 @@ table, td, th, tr{
     border-radius: 20px;
     font-size: 25px;
     margin-top: 7%;
+    margin-left: 5%;
 }
 
 #btSolicitarNovoChamado:hover {
@@ -63,3 +64,6 @@ table, td, th, tr{
     color: gray;
 }
 
+table button {
+    width: 100%;
+}

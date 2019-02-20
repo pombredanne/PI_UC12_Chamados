@@ -7,13 +7,14 @@ class UsuarioDAO {
 
     public static function inserir($usuario) {
 
-        $sql = "INSERT INTO usuarios (nomeCompleto, nomeUsuario, senha, email, admin) VALUES"
+        $sql = "INSERT INTO usuarios (nomeCompleto, nomeUsuario, senha, email, admin, foto) VALUES"
                 . "("
                 . " '" . $usuario->getNomeCompleto() . "' , "
                 . " '" . $usuario->getNomeUsuario() . "' , "
                 . " '" . $usuario->getSenha() . "' , "
                 . " '" . $usuario->getEmail() . "' , "
-                . " " . $usuario->getAdmin() . " "
+                . " " . $usuario->getAdmin() . " , "
+                . " '" . $usuario->getFoto() . "' "
                 . ");";
 
         Conexao::executar($sql);
@@ -47,6 +48,34 @@ class UsuarioDAO {
         }
         
         return $lista;
+        
+    }
+    
+    public static function getUsuario($codigo) {
+        
+        $sql = "SELECT codigo, nomeCompleto, nomeUsuario, senha, email, admin, foto"
+                . " FROM usuarios"
+                . " WHERE codigo = " . $codigo;
+        
+        $result = Conexao::consultar($sql);
+        
+        $usuario = new Usuario();
+        
+        if ($result != null) {
+            
+            list($codigo, $nomeCompleto, $nomeUsuario, $senha, $email, $admin, $foto) = mysqli_fetch_row($result); 
+                
+                $usuario->setCodigo($codigo);
+                $usuario->setNomeCompleto($nomeCompleto);
+                $usuario->setNomeUsuario($nomeUsuario);
+                $usuario->setSenha($senha);
+                $usuario->setEmail($email);
+                $usuario->setAdmin($admin);
+                $usuario->setFoto($foto);
+            
+        }
+        
+        return $usuario;
         
     }
 

@@ -29,8 +29,21 @@ class SalaDAO {
     public static function excluir($codigo) {
 
         $sql = " DELETE FROM salas WHERE codigo = " . $codigo;
-
-        Conexao::executar($sql);
+        
+        try {
+            
+            $query = Conexao::executar($sql);
+            
+            if ($query == true) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        } catch (Exception $ex) {
+            
+        }
+        
     }
 
     public static function getSalas() {

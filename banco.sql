@@ -23,7 +23,7 @@ create table chamados
     pausar datetime,
     retomar datetime,
     pausado boolean default 0,
-    resolvido boolean,
+    resolvido varchar(50),
     tempoPausado varchar (50),
     tempoTotal varchar(50),
     dataHoraEncerramento datetime,

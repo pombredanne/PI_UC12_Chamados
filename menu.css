@@ -23,8 +23,9 @@
     text-decoration: none;
     font-size: 25px;
     font-family: "Trebuchet MS", Arial, sans-serif;
-    background-color: red;
+    background-color: #1b1b1b;
     width: 100%;
+    float: left;
 }
 
 .divNomeUsuario a:hover {
@@ -63,4 +64,9 @@
 .navBar a:hover {
     background-color: #0033ff;
     color: white;
+}
+
+img {
+    position: relative;
+    float: right;
 }

@@ -1,5 +1,8 @@
 <?php
+
 session_start();
+
+error_reporting(0);
 
 if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
     ?>
@@ -16,6 +19,8 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
             </head>
                  
             <?php
+            
+            require_once 'menu.php';
             
             if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
                     
@@ -36,7 +41,6 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                 
             }
                 
-                require_once 'menu.php';
                 ?>
                 
                 <div id="wrapper">

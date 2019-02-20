@@ -2,12 +2,21 @@ table, td, th, tr{
     border: 1px solid black;
 }
 
+table th {
+    font-size: 120%;
+}
+
+table td {
+    font-size: 110%;
+}
+
 #btSolicitarNovoChamado {
     color: white;
     background-color: #0066ff;
     border-radius: 20px;
     font-size: 25px;
     margin-top: 7%;
+    margin-left: 5%;
 }
 
 #btSolicitarNovoChamado:hover {
@@ -71,14 +80,60 @@ form {
 }
 
 #selectTodosChamados {
-    position: relative; 
+    position: absolute; 
+    top: 25%;
+    margin-left: 1%;
+    font-size: 110%;
 }
 
-#selectTecnicos {
-    position: relative;
+table button {
+    width: 100%;
+    height: 100%;
+    background-color: #f8b032;
+    color: #0033ff;
+    font-weight: bold;
+}
+
+table button:hover {
+    background-color: #0033ff;
+    color: white;
+}
+
+#divSelectTecnicos {
+    position: absolute; 
+    top: 25%;
+    left: 16%;
+    color: black;
+}
+
+#divSelectUsuarios {
+    position: absolute; 
+    top: 25%;
+    left: 16%;
+    color: black;
 }
 
 #selectUsuarios {
-    position: relative;
-    margin-left: -5%;
+    font-size: 110%;
+}
+
+#selectTecnicos {
+    font-size: 110%;
+}
+
+label {
+    font-weight: bold;
+    font-size: 120%;
+}
+
+#lblTecnicosUsuarios {
+    position: absolute;
+    top: 18%;
+    left: 17%;
+}
+
+#lblFiltroChamados {
+    position: absolute;
+    top: 18%;
+    left: 2%;
 }

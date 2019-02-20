@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(0);
+
 include_once 'dao/clsConexao.php';
 include_once 'dao/clsUsuarioDAO.php';
 include_once 'model/clsUsuario.php';
@@ -23,7 +25,7 @@ if ($usuario == null) {
     $_SESSION['nomeCompleto'] = $usuario->getNomeCompleto();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
     
-        header("Location: chamados.php");
+        header("Location: chamados.php?codigo=0&status=todos");
   
 }
 
