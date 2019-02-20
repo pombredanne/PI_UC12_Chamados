@@ -4,3 +4,16 @@
     background-color: #175bab;
     font-size: 25px;
 }
+
+table button {
+    width: 100%;
+    height: 100%;
+    background-color: #f8b032;
+    color: #0033ff;
+    font-weight: bold;
+}
+
+table button:hover {
+    background-color: #0033ff;
+    color: white;
+}

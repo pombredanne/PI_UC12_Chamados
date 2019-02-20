@@ -64,7 +64,7 @@ if (isset($_GET['editar'])) {
         ChamadoDAO::editarChamadoDocente($chamado);
 
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }
 
 if (isset($_GET['cancelar'])) {
@@ -90,7 +90,7 @@ if (isset($_GET['confirmarCancelar'])) {
 
     ChamadoDAO::cancelar($chamado);
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }
 
 if (isset($_GET['pausar'])) {
@@ -127,7 +127,7 @@ if (isset($_GET['confirmarPausar'])) {
 
     ChamadoDAO::pausar($chamado);
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }
 
 if (isset($_GET['retomar'])) {
@@ -615,7 +615,7 @@ function confirmarRetomar() {
 
     ChamadoDAO::retomar($chamado);
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }
 
 if (isset($_GET['encerrar'])) {
@@ -1077,5 +1077,5 @@ if (isset($_GET['confirmarEncerrar'])) {
     
     ChamadoDAO::encerrar($chamado);
 
-    header("Location: ../chamados.php");
+    header("Location: ../chamados.php?codigo=0&status=todos");
 }

@@ -1,5 +1,9 @@
 <?php
 
+error_reporting(0);
+
+session_start();
+
 include_once '../dao/clsConexao.php';
 include_once '../dao/clsSalaDAO.php';
 include_once '../model/clsSala.php';
@@ -32,7 +36,13 @@ if (isset($_GET['editar'])) {
 }
 
 if (isset($_GET['excluir'])) {
-
+    
+    if (strpos($_SERVER['HTTP_REFERER'], 'confirmarExcluir')) {
+        
+        header("Location: ../salas.php");
+        
+    } else {
+        
     $sala = SalaDAO::getSalaByCodigo($_GET['codigoSala']);
     
     echo '<head>'
@@ -47,8 +57,8 @@ if (isset($_GET['excluir'])) {
     }
     
 button:hover {
-    background-color: #f8b032;
-    color: #0033ff;
+    background-color: #0033ff;
+    color: white;
     }
     
 #btExcluir {
@@ -83,7 +93,9 @@ background-image: url("../fotos/background_cadastrarUsuario.png");
     . '<a href="?confirmarExcluir&codigoSala=' . $_GET['codigoSala'] . '">'
     . '<button id="btExcluir">Excluir</button></a>'
     . '</body>';
+    }
 }
+
 
 if (isset($_GET['confirmarExcluir'])) {
     

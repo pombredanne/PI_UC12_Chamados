@@ -43,7 +43,7 @@
             if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 ?>
 
-                <a href="?codigo=0&status=todos">Chamados</a>
+                <a href="chamados.php?codigo=0&status=todos">Chamados</a>
             </nav>
 
         </div>
@@ -60,7 +60,7 @@
         
         $usuario = UsuarioDAO::getUsuario($_SESSION['codigo']);
         
-        echo '<img src="fotos/' . $usuario->getFoto() . '" width="100px"/>';
+        echo '<img id="imgUsuario" src="fotos/' . $usuario->getFoto() . '" width="100px"/>';
     }
     ?>
 

@@ -1,4 +1,9 @@
 form {
     position: absolute;
     margin-top: 15%;
+    margin-left: 1%;
+}
+
+#btSalvar {
+    margin-bottom: 20%;
 }

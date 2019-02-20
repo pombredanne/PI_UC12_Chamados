@@ -172,7 +172,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     }
     ?>
 
-                <input type="submit" value="Salvar">
+                        <input type="submit" value="Salvar" id="btSalvar">
 
             </form>
 
