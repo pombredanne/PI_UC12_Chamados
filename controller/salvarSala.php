@@ -37,12 +37,8 @@ if (isset($_GET['editar'])) {
 
 if (isset($_GET['excluir'])) {
     
-    if (strpos($_SERVER['HTTP_REFERER'], 'confirmarExcluir')) {
-        
-        header("Location: ../salas.php");
-        
-    } else {
-        
+    setcookie('historyBack', $_SERVER['HTTP_REFERER']);
+    
     $sala = SalaDAO::getSalaByCodigo($_GET['codigoSala']);
     
     echo '<head>'
@@ -54,6 +50,7 @@ if (isset($_GET['excluir'])) {
     color: #0033ff;
     font-weight: bold;
     font-size: 130%;
+    border-radius: 100px;
     }
     
 button:hover {
@@ -93,7 +90,6 @@ background-image: url("../fotos/background_cadastrarUsuario.png");
     . '<a href="?confirmarExcluir&codigoSala=' . $_GET['codigoSala'] . '">'
     . '<button id="btExcluir">Excluir</button></a>'
     . '</body>';
-    }
 }
 
 
@@ -103,11 +99,13 @@ if (isset($_GET['confirmarExcluir'])) {
 
     if ($excluir == false) {
 
-        echo '<body onload="window.history.back();">'
+        echo '<body>'
         . '<script>'
-        . 'alert("Esta sala não pode ser deletada pois pertence a algum chamado!");'
+        . 'alert("Esta sala não pode ser deletada pois pertence a algum chamado!"); '
+        . 'window.location = "' . $_COOKIE['historyBack'] . '"'
         . '</script>'
         . '</body>';
+        
     } else {
 
         header("Location: ../salas.php");

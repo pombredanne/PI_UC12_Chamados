@@ -1,4 +1,4 @@
-* {
+/** {
     margin: 0;
     padding: 0;
 }
@@ -69,4 +69,69 @@
 img {
     position: relative;
     float: right;
+}
+
+#aUsuarios {
+    position: absolute;
+    top: 5%;
+    right: 50%;
+}*/
+
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+div {
+    height: 60%;
+}
+
+.menu {
+    width: 100%;
+    background-color: #f8b032;
+    box-shadow: 0 20px 100px black;
+}
+
+.menu a {
+    color: #0033ff;
+    font-weight: bold;
+    font-size: 170%;
+    margin-left: 40%;
+}
+
+.menu a:hover {
+    background-color: #0033ff;
+    color: white;
+}
+
+.menu, .menu ul li{
+    list-style: none;
+    float: left;
+}
+
+.menu li {
+    position: relative;
+    float: left;
+}
+
+.menu li a:hover {
+    color: white;
+    background-color: #f8b032;
+}
+
+.menu li ul {
+    position: relative;
+    background-color: #f8b032;
+    display: none;
+}
+
+.menu li:hover ul, .menu li.over ul {
+    display: block;
+}
+
+.menu li ul li {
+    border: 1px solid black;
+    display: block;
+    width: 150px;
 }
