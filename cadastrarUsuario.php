@@ -54,8 +54,9 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                             <label>Nome de usuário</label><br><br>
                         </div>
 
-                        <label id="lblAdmin">Admin<input type="checkbox" name="cbAdmin"><span id="checkmarkAdmin"></span></label><br><br>
-
+                        <input id="inputCheckbox" type="checkbox" name="cbAdmin">
+                        <label for="inputCheckbox" id="labelAdmin">Admin</label><br><br>
+                        
                         <div>
                             <input type="email" name="txtEmail" required>
                             <label>E-mail</label><br><br>
@@ -63,13 +64,13 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
 
                         <label for="inputFile" id="labelFile">Foto</label>
                         
-                        <div class="divFile">
-                            <input type="file" name="txtFoto" id="inputFile">
-                        </div>
+                        <!--<div class="divFile">-->
+                        <input type="file" name="txtFoto" id="inputFile">
+                        <!--</div>-->
 
                         <script src="cadastrarUsuario.js"></script>
 
-                        <div>
+                        <div id="divSenha">
                             <input type="password" name="txtSenha" id="inputSenha" onkeyup="verificarSenha();" required>
                             <label>Senha</label><br><br>
                         </div>

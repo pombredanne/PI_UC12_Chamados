@@ -31,9 +31,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
         
         ?>
         
-        <h1 align="center">Salas</h1><br><br>
-        
-        <div><a href="cadastrarSala.php"><button id="btCadastrarSala">Cadastrar sala</button></a></div><br><br><br><br>
+        <button id="btCadastrarSala"><a href="cadastrarSala.php">Cadastrar sala</a></button><br><br><br><br>
 
         <?php
         $lista = SalaDAO::getSalas();

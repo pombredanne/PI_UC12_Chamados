@@ -68,14 +68,10 @@ form input:focus {
     background-color: #353b48;
 }
 
-form div input:focus ~ #labelUsuario, form div input:valid ~ #labelUsuario {
+form div input:focus ~ #labelUsuario, form div input:valid ~ #labelUsuario,
+form div input:focus ~ #labelSenha, form div input:valid ~ #labelSenha{
     transform: translateY(-120%);
     color: green;
-}
-
-form div input:focus ~ #labelSenha, form div input:valid ~ #labelSenha {
-    transform: translateY(-120%);
-    color: red;
 }
 
 form input[type="submit"] {

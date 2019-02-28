@@ -40,15 +40,26 @@
             
         ?>
         
+        <div id="divForm">
+        
         <form action="controller/salvarSala.php?<?php echo $action; ?>" method="POST">
-            <label>Sala:</label>
-            <input type="text" name="txtNumero" placeholder="Número" value="<?php echo $numero; ?>"><br><br><br>
-            <label>Descrição da sala:</label><br><br>
-            <textarea name="taDescricaoSala" placeholder="Descrição da sala"><?php echo $descricao; ?></textarea><br><br>
+            
+            <div>
+            <label id="labelSala">Sala</label>
+            <input type="text" name="txtNumero" value="<?php echo $numero; ?>">
+            </div><br><br>
+            
+            <div>
+                <label id="labelDescricao">Descrição da sala</label>
+            <textarea name="taDescricaoSala"><?php echo $descricao; ?></textarea>
+            </div>
+            
             <input type="submit" value="Cadastrar">
             
             
         </form>
+            
+        </div>
         
         <?php
         

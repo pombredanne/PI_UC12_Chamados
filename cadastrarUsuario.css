@@ -10,15 +10,16 @@ input[type='file'] {
 
 /*personalizando o fake input file*/
 #labelFile {
+    /*position: relative;*/
     background-color: #1E90FF;
     border-radius: 10px;
     color: white;
     cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 90px;
+    margin-bottom: -20px;
     width: 150%;
     padding: 20px;
-    margin-left: 10%;
+    margin-left: 11%;
     text-align: center;
 }
 
@@ -26,8 +27,12 @@ input[type='file'] {
     background-color: #1E64FF;
 }
 
+#divSenha {
+    margin-top: -10px;
+}
+
 /*uma div que delimita todo o HTML e faz com q os elementos ao dar zoom não
-"scrolle" na página*/
+"scroll" na página*/
 #wrapper {
     margin-left: auto;
     margin-right: auto;
@@ -39,61 +44,52 @@ label {
     /*color: #0066ff;*/
 }
 
-#lblAdmin {
-    /*display: block;*/
-    position: relative;
-    padding-left: 35px;
-    cursor: pointer;
-    margin-left: 10%;
-    font-size: 22px;    
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    /*user-select: none;*/
-}
-
-#lblAdmin input {
+.box #labelAdmin
+{
     position: absolute;
-    opacity: 0;
-    cursor: pointer;
+    left: 50%;
+    top: 28.5%;
+    color: black;
+    font-size: 20px;
 }
 
-#checkmarkAdmin {
+.box input[type="checkbox"]
+{
+    /*position: relative;*/
+    width: 80px;
+    height: 40px;
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+    transition: .5s;
+}
+
+input:checked[type="checkbox"]
+{
+    background: black;
+}
+
+input[type="checkbox"]:before
+{
+    content: '';
     position: absolute;
-    left: 5%;
-    height: 25px;
-    width: 25px;
-    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    transition: .5s;
 }
 
-#checkmarkAdmin:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-#lblAdmin:hover input ~ #checkmarkAdmin {
-    background-color: black;
-}
-
-#lblAdmin input:checked ~ #checkmarkAdmin {
-    background-color: black;
-}
-
-#lblAdmin input:checked ~ #checkmarkAdmin:after {
-    display: block;
-}
-
-#lblAdmin #checkmarkAdmin:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid orange;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+input:checked[type="checkbox"]:before
+{
+    left: 40px;
+    background: #1E64FF;
 }
 
 body {
@@ -116,7 +112,7 @@ h2 {
     top: 20%;
     left: 38%;
     /*transform: translate(-10%, -10%);*/
-    width: 60vh;
+        width: 60vh;
     background-color: #ffb44e;
     padding: 4vh;
 /*    background-color: #171617;*/
@@ -194,5 +190,5 @@ não desça novamente ao clicar em outro input
 .box input:focus,
 .box input:valid
 {
-    border-bottom: 2px solid black;
+    /*border-bottom: 2px solid black;*/
 }
