@@ -1,3 +1,6 @@
+trocar texto menu para Usuarios e na tela de usuarios exibir
+a opcao de cadastrarUsuario
+
 estilizar tela de confirmacao (copiar a pronta salvarSala.php)
 
 colocar label e select fiiltro chamados mais pra baixo pra n ficar em cima do 

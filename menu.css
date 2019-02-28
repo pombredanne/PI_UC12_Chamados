@@ -1,137 +1,123 @@
-/** {
-    margin: 0;
-    padding: 0;
-}
-
-#navLinks {
-    margin-left:25%;
-}
-
-.divNomeUsuario {
-    position: fixed;
-}
-
-#aDivSair {
-    visibility: hidden;
-}
-
-.divNomeUsuario a {
-    display: inline-block;
-    color: #0033ff;
-    text-align: center;
-    padding: 30px 8%;
-    text-decoration: none;
-    font-size: 25px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    background-color: #1b1b1b;
-    width: 100%;
-    float: left;
-}
-
-.divNomeUsuario a:hover {
-    background-color: #0033ff;
-    color: white;
-}
-
-.divNomeUsuario a:hover ~ #aDivSair{
-    visibility: visible;
-}
-
-#aDivSair:hover{
-    visibility: visible;
-}
-
-.navBar {
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: #f8b032;
-    height: 10%;
-    box-shadow: 0 20px 100px black;
-    overflow: hidden;
-}
-
-.navBar a {
-    float: left;
-    color: #0033ff;
-    text-align: center;
-    padding: 30px 8%;
-    text-decoration: none;
-    font-size: 25px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-}
-
-.navBar a:hover {
-    background-color: #0033ff;
-    color: white;
-}
-
-img {
-    position: relative;
-    float: right;
-}
-
-#aUsuarios {
-    position: absolute;
-    top: 5%;
-    right: 50%;
-}*/
-
 * {
     margin: 0;
     padding: 0;
-
 }
 
-div {
-    height: 60%;
-}
-
-.menu {
-    width: 100%;
-    background-color: #f8b032;
-    box-shadow: 0 20px 100px black;
-}
-
-.menu a {
-    color: #0033ff;
-    font-weight: bold;
-    font-size: 170%;
-    margin-left: 40%;
-}
-
-.menu a:hover {
-    background-color: #0033ff;
-    color: white;
-}
-
-.menu, .menu ul li{
-    list-style: none;
-    float: left;
-}
-
-.menu li {
-    position: relative;
-    float: left;
-}
-
-.menu li a:hover {
-    color: white;
-    background-color: #f8b032;
-}
-
-.menu li ul {
-    position: relative;
-    background-color: #f8b032;
+label[for="cbMenu"] {
+    padding: 5px;
+    background-color: #222;
+    color: #fff;
+    font-family: "Trebuchet MS";
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
     display: none;
 }
 
-.menu li:hover ul, .menu li.over ul {
-    display: block;
+#cbMenu {
+    display: none;
 }
 
-.menu li ul li {
-    border: 1px solid black;
+@media(max-width: 800px) {
+    
+    label[for="cbMenu"] {
+        display: block;
+    }
+    
+    #cbMenu:checked ~.menu {
+        margin-left: 0;
+    }
+    
+    .menu {
+        margin-top: 5px;
+        margin-left: -100%;
+        transition: all .1s;
+    }
+    
+    .menu a {
+        margin-left: 0;
+    }
+    
+    .menu ul li {
+        width: 100%;
+        float: none;
+    }
+    
+    .menu ul ul {
+        position: static;
+        overflow: hidden;
+        max-height: 0;
+        transition: all .4s;
+    }
+    
+    .menu ul li:hover ul {
+        height: auto;
+        max-height: 200px;
+    }
+} 
+
+.menu {
+    position: fixed;
+    width: 100%;
+    height: 10%;
+    background-color: #191919;
+    z-index: 2;
+}
+
+.menu ul {
+    position: relative;
+    list-style: none;
+}
+
+.menu ul li{
+    width: 200px;
+    float: left;
+}
+
+.menu a {
     display: block;
-    width: 150px;
+    color: #1E90FF;
+    text-decoration: none;
+    text-align: center;
+    padding: 19px 8%;
+    font-size: 25px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background-color: #191919;
+}
+
+.menu #liSalas {
+    margin-left: 45vh;
+}
+
+.menu .ulPrimaria {
+    transition: 0.5s;
+}
+
+.menu a:hover {
+    background-color: #1E64FF;
+    color: white;
+}
+
+.menu ul ul {
+    position: absolute;
+    visibility: hidden;
+}
+
+.menu ul li:hover ul{
+    visibility: visible;
+}
+
+.menu ul ul li {
+    float: none;
+}
+
+.menu img {
+    float: right;
+    margin-top: 3px;
+}
+
+.menu img:hover ~ #aDivSair{
+    visibility: visible;
 }

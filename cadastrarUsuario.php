@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 error_reporting(0);
@@ -10,40 +9,33 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
     <!DOCTYPE html>
 
     <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Cadastrar usuario</title>
+        <head>
+            <meta charset="UTF-8">
+            <title>Cadastrar usuario</title>
 
-                <link rel="stylesheet" type="text/css" href="cadastrarUsuario.css">
+            <link rel="stylesheet" type="text/css" href="cadastrarUsuario.css">
 
-            </head>
-                 
-            <?php
-            
-            require_once 'menu.php';
-            
-            if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
-                    
+        </head>
+
+        <?php
+        require_once 'menu.php';
+
+        if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
             ?>
-            
+
             <body onload="enviarSenha();">
-                
-                <?php
-                
-            } else {
-                
-                ?>
-                
+
+        <?php
+    } else {
+        ?>
+
             <body>
 
-
                 <?php
-                
             }
-                
-                ?>
-                
-                <div id="wrapper">
+            ?>
+
+            <div id="wrapper">
 
                 <div class="box">
 
@@ -68,9 +60,11 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                             <input type="email" name="txtEmail" required>
                             <label>E-mail</label><br><br>
                         </div>
+
+                        <label for="inputFile" id="labelFile">Foto</label>
                         
-                        <div>
-                            <input type="file" name="txtFoto">
+                        <div class="divFile">
+                            <input type="file" name="txtFoto" id="inputFile">
                         </div>
 
                         <script src="cadastrarUsuario.js"></script>
@@ -99,8 +93,8 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
 }
 ?>
 
-        </body>
+    </body>
 
-    </div>
+</div>
 
 </html>

@@ -4,39 +4,95 @@
 }
 
 body {
-    background-image: url(fotos/body_index.png);
-    background-size: cover;
+    background-image: url("fotos/background_cadastrarUsuario.png");
+    background-attachment: fixed;
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 form {
+    font-family: "Trebuchet MS", sans-serif;
+    width: 400px;
+    padding: 40px;
     position: absolute;
     top: 50%;
-    left: 40%;
-}
-
-input{
-    font-size: 25px;
-    background-color: #f8b032;
-}
-
-label {
-    font-size: 25px;
-    color: #245add;
-}
-
-#btEntrar {
-    position: relative;
-    top: 60px;
-    left: 150px;
-    background-color: #0066ff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #191919;
+    text-align: center;
     color: white;
-    border-radius: 4px;
-    border-color: #999999;
-    box-shadow:0 3px 10px black;
-    font-size: 30px;
+    border-radius: 10px;
 }
 
-#btEntrar:hover {
-    background-color: #0033ff;
+form div {
+    /*Faz com que as medidas de distancia dos elementos dentro das 'divs' sejam
+    relativos a cada uma delas*/
+    position: relative;
+}
+
+form div label {
+    position: absolute;
+    display: inline-block;
+    left: 43%;
+    top: 20%;
+    transition: .5s;
+    /*Previne que o label possa ser selecionado com o mouse ou outros tipos
+    de eventos*/
+    pointer-events: none;
+}
+
+form img {
+    margin-left: -10%;
+    margin-bottom: 10%;
+}
+
+form input {
+    background: none #191919;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px 0;
+    width: 200px;
+    height: 60px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    font-size: 130%;
+}
+
+form input:focus {
+    width: 280px;
+    border-color: #2ecc71;
+    background-color: #353b48;
+}
+
+form div input:focus ~ #labelUsuario, form div input:valid ~ #labelUsuario {
+    transform: translateY(-120%);
+    color: green;
+}
+
+form div input:focus ~ #labelSenha, form div input:valid ~ #labelSenha {
+    transform: translateY(-120%);
+    color: red;
+}
+
+form input[type="submit"] {
+    background: none #191919;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+form input[type="submit"]:focus, form input[type="submit"]:hover  {
+    background-color: #2ecc71;
 }

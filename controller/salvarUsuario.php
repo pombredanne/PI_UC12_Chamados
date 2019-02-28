@@ -19,7 +19,7 @@ if (isset($_GET['inserir'])) {
         else
             $usuario->setAdmin(0);
 
-        $usuario->setSenha(md5($_POST['txtSenha']));
+        $usuario->setSenha(crypt($_POST['txtSenha']), 'uz');
 
         UsuarioDAO::inserir($usuario);
         
