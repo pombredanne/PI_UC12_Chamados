@@ -296,7 +296,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <?php
             }
         } else {
-            header("Location: index.php");
+            header("Location: login.php");
         }
         ?>
 

@@ -31,6 +31,7 @@
     <nav class="menu">
         <ul class="ulPrimaria">
             <li><a href=""><?php echo $_SESSION['nomeUsuario']; ?></a></li>
+            <!--<li><a id="aDivSair" href="sair.php">Sair</a></li>-->
 
             <?php
             if ($_SESSION['admin'] == 1) {

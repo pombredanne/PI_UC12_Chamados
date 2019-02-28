@@ -16,6 +16,8 @@ if ($usuario == null) {
 
     echo '<body onload="window.history.back()">';
     
+    setcookie('login', 0);
+    
 } else {
 
     session_start();
@@ -25,7 +27,7 @@ if ($usuario == null) {
     $_SESSION['nomeCompleto'] = $usuario->getNomeCompleto();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
     
-        header("Location: chamados.php?codigo=0&status=todos");
+    header("Location: chamados.php?codigo=0&status=todos");
   
 }
 
