@@ -19,7 +19,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
             <meta charset="UTF-8">
             <title>chamados</title>
-
+            
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
                   integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
@@ -38,6 +38,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <?php
             }
             ?>
+                
 
             <script src="chamados.js"></script>
 
@@ -68,16 +69,27 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
             <?php
             require_once 'menu.php';
+            
+            ?>
+            
+            
+                <h1><button id="btSolicitarNovoChamado"><a href="abrirChamado.php">Solicitar novo chamado</a></button></h1>
+        <br><br>    
+            
+            <?php
 
             if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 ?>
 
                 <label id="lblFiltroChamados">Filtro de chamados</label>
+                
+                <div id="divSelectTodosChamados">
                 <select id="selectTodosChamados" onchange="changeUrlSelectTodosChamados(); removeKeysUrl();">
                     <option value="0">Todos chamados</option>
                     <option value="1">Chamados de técnicos</option>
                     <option value="2">Chamados de docentes</option>
                 </select>
+                </div><br><br>
 
             <label id="lblTecnicosUsuarios">
                 <?php
@@ -89,8 +101,9 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 
                 ?>
             </label>
-                
+
             <div id="divSelectTecnicos">
+                
                 <select id="selectTecnicos" onchange="changeUrlSelectTecnicos();">
                     <option value="todos">Todos</option>
 
@@ -104,7 +117,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     ?>
 
                 </select>
-            </div>
+            </div><br><br>
 
             <div id="divSelectUsuarios">
                 <select id="selectUsuarios" onchange="changeUrlSelectUsuarios();">
@@ -125,10 +138,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <?php
                 }
                 ?>
-
-            <a href="abrirChamado.php">
-                <h1 align="center"><button id="btSolicitarNovoChamado">Solicitar novo chamado</button></a></h1>
-        <br><br>
 
     <?php
     $lista = new ArrayObject();
@@ -165,14 +174,16 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
         ?>
 
-            <label>Status: </label>
+        <label id="lblStatus">Status</label>
+            <div id="divSelectStatus">
             <select id="selectStatus" onchange="changeUrlSelectStatus();">
                 <option value="0">Selecione...</option>
                 <option value="todos">Todos</option>
                 <option value="Em aberto">Em aberto</option>
                 <option value="Resolvido">Resolvido</option>
                 <option value="Cancelado">Cancelado</option>
-            </select><br><br>
+            </select>
+            </div><br><br>
 
         <?php
 
@@ -180,7 +191,15 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
     } else {
 
-        echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
+        if ($_GET['status'] == 'todos')
+            echo '<h3>Total de chamados: ' . $lista->count() . '</h3>';
+        else if ($_GET['status'] == 'Em aberto')
+            echo '<h3>Chamados em aberto: ' . $lista->count() . '</h3>';
+        else if ($_GET['status'] == 'Resolvido')
+            echo '<h3>Chamados resolvidos: ' . $lista->count() . '</h3>';
+        else if ($_GET['status'] == 'Cancelado')
+            echo '<h3>Chamados cancelados: ' . $lista->count() . '</h3>';
+        
         ?>
 
             <table>

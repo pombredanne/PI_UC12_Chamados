@@ -23,7 +23,7 @@ label[for="cbMenu"] {
 
 @media(max-width: 800px) {
     
-    label[for="cbMenu"] {
+    label[for="cbMenu"]{
         display: block;
     }
     
@@ -33,7 +33,7 @@ label[for="cbMenu"] {
     
     .menu {
         margin-top: 5px;
-        margin-left: -100%;
+        margin-left: -300%;
         transition: all .1s;
     }
     
@@ -41,8 +41,14 @@ label[for="cbMenu"] {
         margin-left: 0;
     }
     
+    .menu ul
+    {
+        display: block;
+    }
+    
     .menu ul li {
         width: 100%;
+        display: block;
         float: none;
     }
     

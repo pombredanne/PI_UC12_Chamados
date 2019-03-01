@@ -45,8 +45,12 @@
 table {
     background-color: #191919;
     color: orange;
-    font-size: 18px;
     width: 100%;
+}
+
+table td
+{
+    font-size: 110%;
 }
 
 table td, table th {
@@ -59,6 +63,7 @@ table th {
     animation: animate 30s linear infinite;
     background-size: 400%;
     color: black;
+    font-size: 120%;
 }
 
 table button {

@@ -1,10 +1,205 @@
-#btSolicitarNovoChamado {
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+#lblFiltroChamados {
+    position: absolute;
+    top: 27%;
+    left: 28%;
+    float: left;
+}
+
+#lblStatus
+{
+    position: absolute;
+    top: 27%;
+    left: 50%;
+}
+
+#lblTecnicosUsuarios
+{
+    position: relative;
+    margin-top: 4.3%;
+    margin-left: 51%;
+}
+
+h3
+{
+    position: absolute;
+    top: 16%;
+    left: 1%;
+    /*background: #191919;*/
+}
+
+#divSelectTecnicos
+{
+    position: absolute;
+    margin-top: 4.3%;
+    margin-left: 48%;
+}
+
+#divSelectTecnicos select {
+    background-color: #0563af;
     color: white;
+    padding: 10px;
+    width: 250px;
+    height: 50px;
+    border: none;
+    font-size: 17px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    -webkit-appearance: button;
+    outline: none;
+}
+
+#divSelectTecnicos:before {
+    content: '';
+    position: absolute;
+    margin-top: 50px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #007ce0;
+    pointer-events: none;
+}
+
+#divSelectTecnicos:hover:before
+{
+    background-color: #0472ca;
+}
+
+#divSelectTecnicos:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 22px;
+    right: 18px;
+    color: white;
+    font-size: 20px;
+    border-style: solid;
+    border-width: 10px 7px 0;
+    border-color: white transparent;
+    background-color: #007ce0;
+    pointer-events: none;
+}
+
+#divSelectStatus
+{
+    position: absolute;
+    top: 34%;
+    left: 45%;
+}
+
+#divSelectStatus select {
+    background-color: #0563af;
+    color: white;
+    padding: 10px;
+    width: 250px;
+    height: 50px;
+    border: none;
+    font-size: 17px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    -webkit-appearance: button;
+    outline: none;
+}
+
+#divSelectStatus:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #007ce0;
+    pointer-events: none;
+}
+
+#divSelectStatus:hover:before
+{
+    background-color: #0472ca;
+}
+
+#divSelectStatus:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 22px;
+    right: 18px;
+    color: white;
+    font-size: 20px;
+    border-style: solid;
+    border-width: 10px 7px 0;
+    border-color: white transparent;
+    background-color: #007ce0;
+    pointer-events: none;
+}
+
+#divSelectTodosChamados
+{
+    position: absolute;
+    top: 34%;
+    left: 26%;
+}
+
+#divSelectTodosChamados select {
+    background-color: #0563af;
+    color: white;
+    padding: 10px;
+    width: 250px;
+    height: 50px;
+    border: none;
+    font-size: 17px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    -webkit-appearance: button;
+    outline: none;
+}
+
+#divSelectTodosChamados:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -250px;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #007ce0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#divSelectTodosChamados:hover:before
+{
+    background-color: #0472ca;
+}
+
+#divSelectTodosChamados:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 22px;
+    right: -232px;
+    color: white;
+    font-size: 20px;
+    border-style: solid;
+    border-width: 10px 7px 0;
+    border-color: white transparent;
+    background-color: #007ce0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#btSolicitarNovoChamado {
     background-color: #0066ff;
     border-radius: 20px;
     font-size: 25px;
     margin-top: 7%;
-    margin-left: 5%;
+    margin-left: 44%;
     font-family: "Trebuchet MS", sans-serif;
     background: linear-gradient(90deg, #191919, #1E64FF, #191919);
     background-size: 300%;
@@ -14,6 +209,12 @@
     border-style: none;
     text-align: center;
     cursor: pointer;
+}
+
+#btSolicitarNovoChamado a
+{
+    color: white;
+    text-decoration: none;
 }
 
 #btSolicitarNovoChamado:hover {
@@ -103,16 +304,17 @@ form {
 }
 
 body {
-    background-image: url("fotos/background_cadastrarUsuario.png");
+    background-image: url("fotos/background_cadastrarUsuario_semlogo.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: cover; 
 }
 
 table {
     background-color: #191919;
     color: orange;
     width: 100%;
+    margin-top: 2%;
 }
 
 table th {
@@ -197,10 +399,4 @@ label {
     position: absolute;
     top: 18%;
     left: 17%;
-}
-
-#lblFiltroChamados {
-    position: absolute;
-    top: 18%;
-    left: 2%;
 }
