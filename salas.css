@@ -45,10 +45,20 @@
 table {
     background-color: #191919;
     color: orange;
+    font-size: 18px;
+    width: 100%;
 }
 
 table td, table th {
     border-color: orange;
+    padding: 10px;
+}
+
+table th {
+    background: linear-gradient(90deg, #191919, orange, #191919);
+    animation: animate 30s linear infinite;
+    background-size: 400%;
+    color: black;
 }
 
 table button {

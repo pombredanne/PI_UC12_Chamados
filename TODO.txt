@@ -1,5 +1,8 @@
-trocar texto menu para Usuarios e na tela de usuarios exibir
-a opcao de cadastrarUsuario
+customValidity
+
+border-image
+
+ripple effect button
 
 estilizar tela de confirmacao (copiar a pronta salvarSala.php)
 

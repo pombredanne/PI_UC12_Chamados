@@ -1,7 +1,3 @@
-table, td, th, tr{
-    border: 1px solid black;
-}
-
 #btSolicitarNovoChamado {
     color: white;
     background-color: #0066ff;
@@ -9,10 +5,38 @@ table, td, th, tr{
     font-size: 25px;
     margin-top: 7%;
     margin-left: 5%;
+    font-family: "Trebuchet MS", sans-serif;
+    background: linear-gradient(90deg, #191919, #1E64FF, #191919);
+    background-size: 300%;
+    outline: none;
+    padding: 10px;
+    border-radius: 30px;
+    border-style: none;
+    text-align: center;
+    cursor: pointer;
 }
 
 #btSolicitarNovoChamado:hover {
-    background-color: #0033ff;
+    animation: animate 8s linear infinite;
+}
+
+#btSolicitarNovoChamado:active
+{
+    transform: translateY(4px);
+    background: linear-gradient(180deg, #191919, #1E64FF, #191919);
+}
+
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0%;
+    }
+
+    100%
+    {
+        background-position: 400%;
+    }
 }
 
 #divLinks {
@@ -64,6 +88,66 @@ table, td, th, tr{
     color: gray;
 }
 
+body {
+    background-image: url("fotos/background_cadastrarUsuario.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+table {
+    background-color: #191919;
+    color: orange;
+    width: 100%;
+}
+
+table th {
+    background: linear-gradient(90deg, #191919, orange, #191919);
+    animation: animate 30s linear infinite;
+    background-size: 400%;
+    color: black;
+    font-size: 120%;
+}
+
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0%;
+    }
+
+    100%
+    {
+        background-position: 400%;
+    }
+}
+
+table td {
+    font-size: 110%;
+}
+
+table td, th {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid orange;
+
+}
+
+table .tdBotao {
+    padding: 0;
+}
+
 table button {
     width: 100%;
+    height: 100%;
+    background-color: #191919;
+    color: #1E90FF;
+    font-weight: bold;
+    border-style: none;
+}
+
+table button:hover {
+    background-color: #1E64FF;
+    color: white;
+    font-size: 20px;
 }

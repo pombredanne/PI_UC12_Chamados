@@ -12,51 +12,52 @@ error_reporting(0);
 
         <link rel="stylesheet" type="text/css" href="login.css">
 
-        <script src="login.js"></script>
-
     </head>
 
-<?php
-if (!isset($_SESSION['logado']) && !$_SESSION['logado']) {
-    ?>
+    <?php
+    if (!isset($_SESSION['logado']) || !$_SESSION['logado']) {
+        ?>
 
         <body>
+
+            <script type="text/javascript" src="login.js"></script>
 
             <form action="entrar.php" method="POST">
                 <img src="fotos/senac_logo.png">
 
                 <div>
-                    <input type="text" id="inputUsuario" name="txtNomeUsuario" required><br><br>
+                    <input type="text" id="inputUsuario" name="txtNomeUsuario" required 
+                           oninvalid="validacaoUsuario(this);"
+                           oninput="this.setCustomValidity('')"><br><br>
+
                     <label id="labelUsuario">Usuário</label>
                 </div>
 
                 <div>
-                    <input type="password" id="inputSenha" name="txtSenha" required><br><br>
+                    <input type="password" id="inputSenha" name="txtSenha" required
+                           oninvalid="validacaoSenha(this);" 
+                           oninput="this.setCustomValidity('')"><br><br>
                     <label id="labelSenha">Senha</label>
                 </div>
-
-    <?php
-    
-    if ($_COOKIE['login'] == 0) {
-        
-        echo '<script>'
-        . 'loginInvalido();'
-        . '</script>';
-        
-        setcookie('login', null);
-    }
-    
-    ?>
 
                 <span id="spanLoginInvalido"></span>
 
                 <input type="submit" value="Entrar" id="btEntrar">
             </form><br><br><br>
 
-    <?php
+            <?php
+            if ($_COOKIE['logado'] == 2) {
+                ?>
+
+                <script type="text/javascript">
+                    loginInvalido();
+                </script>
+
+        <?php
+    }
 } else {
 
-    header("Location: login.php");
+    header("Location: chamados.php");
 }
 ?>
 

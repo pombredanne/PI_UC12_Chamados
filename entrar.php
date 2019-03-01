@@ -13,10 +13,11 @@ $senha = md5($senha);
 $usuario = UsuarioDAO::login($nomeUsuario, $senha);
 
 if ($usuario == null) {
+    
+//    2 -> não logado
+    setcookie("logado", 2, time()+1);
 
     echo '<body onload="window.history.back()">';
-    
-    setcookie('login', 0);
     
 } else {
 

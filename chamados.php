@@ -50,18 +50,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 selectedOptionUsuarios();
                 selectedOptionStatus();
                 
-                <?php
-                
-                if (!isset($_GET['?'])) {
-                    
-//                    header("Location: chamados.php?codigo=0&status=todos");
-                    
-                }
-                
-                ?>
-                
-//                defaultIndexSelectStatus();
-
         <?php
         if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
@@ -175,9 +163,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         $lista = ChamadoDAO::getAllChamadosByUsuario($_SESSION['nomeUsuario'], $status);
     }
 
-    date_default_timezone_set('America/Sao_Paulo');
-    echo '<h2 align="center">' . date("d/m/Y") . "</h2><br><br>";
-
         ?>
 
             <label>Status: </label>
@@ -264,28 +249,28 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                         if ($_SESSION['admin'] == 1) {
 
-                            echo '<td>'
+                            echo '<td class="tdBotao">'
                             . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
                             . '</td>';
 
                             if ($chamado->getPausado() == 0) {
 
-                                echo '<td><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
+                                echo '<td class="tdBotao"><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
                                 . '</td>';
                             } else {
 
-                                echo '<td><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
+                                echo '<td class="tdBotao"><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
                                 . '</td>';
                             }
                         }
 
-                        echo '<td>'
+                        echo '<td class="tdBotao">'
                         . '<a href="controller/salvarChamado.php?cancelar&codigoChamado=' . $chamado->getCodigo() . '"><button>Cancelar</button></a>'
                         . '</td>';
 
                         if ($_SESSION['admin'] == 1) {
 
-                            echo '<td>'
+                            echo '<td class="tdBotao">'
                             . '<a href="controller/salvarChamado.php?encerrar&codigoChamado=' . $chamado->getCodigo() . '"><button>Encerrar</button></a>'
                             . '</td>'
                             . '</tr>';
