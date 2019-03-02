@@ -393,7 +393,7 @@ class ChamadoDAO {
         return $lista;
     }
 
-    public static function getAllChamadosByCodigoTecnico($codigo, $status) {
+    public static function getAllChamadosByNomeUsuarioTecnico($nomeUsuario, $status) {
 
         $sql = " SELECT *"
                 . " FROM chamados c"
@@ -402,9 +402,9 @@ class ChamadoDAO {
                 . " WHERE c.ativo = 1"
                 . " AND u.admin = 1";
         
-        if ($codigo != "todos") {
+        if ($nomeUsuario != "todos") {
             
-            $sql = $sql . " AND u.codigo = " . $codigo;
+            $sql = $sql . " AND u.nomeUsuario  = '" . $nomeUsuario . "'";
             
         }
 

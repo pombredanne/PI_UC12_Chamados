@@ -1,3 +1,5 @@
+busca (ativo) status resolvido, cancelado
+
 customValidity
 
 border-image

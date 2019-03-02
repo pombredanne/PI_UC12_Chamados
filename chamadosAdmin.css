@@ -30,17 +30,16 @@ h3
     position: absolute;
     top: 16%;
     left: 1%;
-    /*background: #191919;*/
 }
 
-#divSelectTecnicos
+#divSelectTecnicosUsuarios
 {
     position: absolute;
     margin-top: -0.55%;
     margin-left: 64%;
 }
 
-#divSelectTecnicos select {
+#divSelectTecnicosUsuarios select {
     background-color: #0563af;
     visibility: visible;
     color: white;
@@ -54,7 +53,7 @@ h3
     outline: none;
 }
 
-#divSelectTecnicos:before {
+#divSelectTecnicosUsuarios:before {
     content: '';
     position: absolute;
     visibility: visible;
@@ -67,12 +66,12 @@ h3
     pointer-events: none;
 }
 
-#divSelectTecnicos:hover:before
+#divSelectTecnicosUsuarios:hover:before
 {
     background-color: #0472ca;
 }
 
-#divSelectTecnicos:after {
+#divSelectTecnicosUsuarios:after {
     content: '';
     visibility: visible;
     position: absolute;

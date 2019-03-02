@@ -1,3 +1,3 @@
-function onload(){
-   window.location.href = 'loading.php';
-};
+//function onload(){
+//   window.location.href = 'loading.php';
+//};

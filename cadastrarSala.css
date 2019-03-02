@@ -1,3 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    background-image: url("fotos/background_cadastrarUsuario_semlogo.png");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 #divForm {
     position: absolute;
     top: 50%;
@@ -10,29 +23,20 @@
     width: 40vh;
 }
 
+label {
+    position: absolute;
+    pointer-events: none;
+    left: 12%;
+    top: 25%;
+    color: #9aafbb;
+    transition: .5s;
+}
+
 div {
     position: relative;
 }
 
-#labelSala {
-    position: absolute;
-    color: white;
-    left: 8%;
-    top: 10%;
-    pointer-events: none;
-    transition: .5s;
-}
-
-#labelDescricao {
-    position: absolute;
-    color: white;
-    left: 8%;
-    top: 48%;
-    pointer-events: none;
-    transition: .5s;
-}
-
-input[type="text"] {
+input {
     height: 50px;
     width: 30%;
     margin-bottom: -100px;
@@ -43,23 +47,12 @@ textarea {
     width: 100%;
 }
 
-input:focus ~ #labelSala{
-    /*transform: translate(-30%, -30%);*/
+input:focus ~ label, input:valid ~ label{
+    transform: translate(-30%, -30%);
     color: blue;
 }
 
-body 
-{
-    background-image: url("fotos/background_cadastrarUsuario.png");
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-input[type="text"], textarea {
-    background-color: #191919;
-}
-
-input[type="text"]:focus, textarea:focus {
-    background-color: #353b48;
+textarea:focus + label{
+    transform: translate(-30%, -30%);
+    color: blue;
 }

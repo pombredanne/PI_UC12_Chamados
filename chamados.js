@@ -1,92 +1,34 @@
-function onload(){
-   window.location.href = 'loading.php';
-};
-
-function defaultIndexSelectTecnicos() {
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('usuario', 'todos');
-    url.searchParams.set('tipo', 'tecnico');
-    window.location.href = url.href;
-
-}
-
-function defaultIndexSelectUsuarios() {
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('usuario', 'todos');
-    url.searchParams.set('tipo', 'docente');
-    window.location.href = url.href;
-
-}
-
-function defaultIndexSelectStatus() {
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('status', 'todos');
-    window.location.href = url.href;
-
-}
-
-function removeKeysUrl() {
-
-    var selectTodosChamados = document.getElementById("selectTodosChamados");
-
-    var index = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
-
-    var url = new URL(window.location.href);
-    var params = new URLSearchParams(url.search.slice(1));
-
-//    url.searchParams.set('codigo', index);
-//    url.searchParams.set('status', 'todos');
-    
-    if (index == 0) {
-        window.location.href = 'chamados.php?codigo=' + index + '&status=todos';
-    } else if (index == 1) {
-        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos&tipo=tecnico';
-    } else if (index == 2) {
-        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos&tipo=docente';
-    }
-
-}
-
 function changeUrlSelectTodosChamados() {
 
-    //pegando o select
     var selectTodosChamados = document.getElementById("selectTodosChamados");
+
     var index = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
 
-    var url = new URL(window.location.href);
-    //nome da var, valor da var
-    url.searchParams.set('codigo', index);
-    url.searchParams.set('status', 'todos');
+    var baseUrl = 'chamados.php?codigo=' + index + '&status=todos';
+
+    if (index == 0) {
+        window.location.href = baseUrl;
+    } else {
+
+        baseUrl = baseUrl + '&usuario=todos';
+
+        if (index == 1) {
+            window.location.href = baseUrl + '&tipo=tecnico';
+        } else if (index == 2) {
+            window.location.href = baseUrl + '&tipo=docente';
+        }
+    }
     
-    window.location.href = url.href;
-
-    selectedOptionStatus();
-
 }
 
-function changeUrlSelectTecnicos() {
+function changeUrlSelectTecnicosUsuarios() {
 
-    var selectTecnicos = document.getElementById("selectTecnicos");
-    var index = selectTecnicos.options[selectTecnicos.selectedIndex].value;
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('usuario', index);
-    url.searchParams.set('tipo', 'tecnico');
-    window.location.href = url.href;
-
-}
-
-function changeUrlSelectUsuarios() {
-
-    var selectUsuarios = document.getElementById("selectUsuarios");
-    var index = selectUsuarios.options[selectUsuarios.selectedIndex].value;
+    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
+    var index = selectTecnicosUsuarios.options[selectTecnicosUsuarios.selectedIndex].value;
 
     var url = new URL(window.location.href);
+    
     url.searchParams.set('usuario', index);
-    url.searchParams.set('tipo', 'usuario');
     window.location.href = url.href;
 
 }
@@ -110,46 +52,39 @@ function selectVisible() {
 
     var codigo = url.searchParams.get("codigo");
 
-    if (codigo == 1) {
+    if (codigo != 0) {
 
-        var selectTecnicos = document.getElementById("selectTecnicos");
-        selectTecnicos.style.visibility = "visible";
-
-    } else if (codigo == 2) {
-
-        var selectUsuarios = document.getElementById("selectUsuarios");
-        selectUsuarios.style.visibility = "visible";
+        var selectTecnicosUsuarios = document.getElementById("divSelectTecnicosUsuarios");
+        selectTecnicosUsuarios.style.display = "block";    
 
     }
+
 }
 
 function selectInvisible() {
 
-    var divSelectTecnicos = document.getElementById("divSelectTecnicos");
-    divSelectTecnicos.style.visibility = "hidden";
-
-    var divSelectUsuarios = document.getElementById("divSelectUsuarios");
-    divSelectUsuarios.style.visibility = "hidden";
+    var divSelectTecnicosUsuarios = document.getElementById("divSelectTecnicosUsuarios");
+    divSelectTecnicosUsuarios.style.display = "none";
 
 }
 
-function selectedOptionTecnicos() {
+function selectedOptionTecnicosUsuarios() {
 
     var urlString = window.location.href;
 
     var url = new URL(urlString);
 
-    var tecnico = url.searchParams.get("usuario");
+    var tecnicoUsuario = url.searchParams.get("usuario");
 
-    var selectTodosChamados = document.getElementById("selectTecnicos");
+    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
 
-    if (tecnico == null) {
+    if (tecnicoUsuario == null) {
 
-        selectTodosChamados.value = 0;
+        selectTecnicosUsuarios.value = 'todos';
 
     } else {
 
-        selectTodosChamados.value = tecnico;
+        selectTecnicosUsuarios.value = tecnicoUsuario;
 
     }
 }
@@ -176,28 +111,6 @@ function selectedOptionChamados() {
 
 }
 
-function selectedOptionUsuarios() {
-
-    var urlString = window.location.href;
-
-    var url = new URL(urlString);
-
-    var usuario = url.searchParams.get("usuario");
-
-    var selectUsuarios = document.getElementById("selectUsuarios");
-
-    if (usuario == null) {
-
-        selectUsuarios.value = 0;
-
-    } else {
-
-        selectUsuarios.value = usuario;
-
-    }
-
-}
-
 function selectedOptionStatus() {
 
     var urlString = window.location.href;
@@ -210,7 +123,7 @@ function selectedOptionStatus() {
 
     if (status == null) {
 
-        selectStatus.value = 0;
+        selectStatus.value = 'todos';
 
     } else {
 

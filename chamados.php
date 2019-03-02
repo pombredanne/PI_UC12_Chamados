@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(0);
 
 session_start();
@@ -20,7 +19,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
             <meta charset="UTF-8">
             <title>chamados</title>
-            
+
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
                   integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
@@ -39,25 +38,24 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <?php
             }
             ?>
-                
+
 
             <script src="chamados.js"></script>
 
         </head>
 
         <body onload="selectInvisible();
-                selectVisible();
-                selectedOptionChamados();
-                selectedOptionTecnicos();
-                selectedOptionUsuarios();
-                selectedOptionStatus();
-                
+                    selectVisible();
+                    selectedOptionChamados();
+                    selectedOptionTecnicosUsuarios();
+                    selectedOptionStatus();
+
         <?php
         if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
-            if (isset($_GET['tecnico']) && $_GET['codigo'] != 1 || isset($_GET['usuario']) && $_GET['codigo'] != 2) {
+            if ($_GET['tipo'] == 'tecnico' && $_GET['codigo'] != 1 || $_GET['usuario'] == 'docente' && $_GET['codigo'] != 2) {
 
-                echo 'removeKeysUrl();">';
+                echo 'changeUrlSelectTodosChamados();">';
             } else {
                 ?>
 
@@ -70,80 +68,70 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
             <?php
             require_once 'menu.php';
-            
             ?>
-            
-            
-                <h1><button id="btSolicitarNovoChamado"><a href="abrirChamado.php">Solicitar novo chamado</a></button></h1>
-        <br><br>    
-            
-            <?php
 
-            if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                ?>
+
+            <h1><button id="btSolicitarNovoChamado"><a href="abrirChamado.php">Solicitar novo chamado</a></button></h1>
+            <br><br>    
+
+    <?php
+    if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+        ?>
 
                 <label id="lblFiltroChamados">Filtro de chamados</label>
-                
+
                 <div id="divSelectTodosChamados">
-                <select id="selectTodosChamados" onchange="changeUrlSelectTodosChamados(); removeKeysUrl();">
-                    <option value="0">Todos chamados</option>
-                    <option value="1">Chamados de técnicos</option>
-                    <option value="2">Chamados de docentes</option>
-                </select>
+                    <select id="selectTodosChamados" onchange="changeUrlSelectTodosChamados();">
+                        <option value="0">Todos chamados</option>
+                        <option value="1">Chamados de técnicos</option>
+                        <option value="2">Chamados de docentes</option>
+                    </select>
                 </div><br><br>
 
-            <label id="lblTecnicosUsuarios">
+                <label id="lblTecnicosUsuarios">
+        <?php
+        if ($_GET['tipo'] == 'tecnico')
+            echo 'Técnicos';
+        else if ($_GET['tipo'] == 'docente')
+            echo 'Usuários';
+        ?>
+                </label>
+
+                <div id="divSelectTecnicosUsuarios">
+
+                    <select id="selectTecnicosUsuarios" onchange="changeUrlSelectTecnicosUsuarios();">
+                        <option value="todos">Todos</option>
+
+        <?php
+        if ($_GET['tipo'] == 'tecnico') {
+
+            $lista = ChamadoDAO::getTecnicos();
+
+            foreach ($lista as $tecnico) {
+
+                echo '<option value="' . $tecnico->getNomeUsuario() . '">' . $tecnico->getNomeUsuario() . '</option>';
+            }
+        } else if ($_GET['tipo'] == 'docente') {
+
+            $lista = ChamadoDAO::getUsuarios();
+            
+            foreach ($lista as $usuario) {
+
+                echo '<option value="' . $usuario->getNomeUsuario() . '">' . $usuario->getNomeUsuario() . '</option>';
+            }
+        }
+        ?>
+
+                    </select>
+                </div><br><br>
+
                 <?php
-                
-                if (isset($_GET['tecnico']))
-                    echo 'Técnicos';
-                else if(isset($_GET['usuario']))
-                    echo 'Usuários';
-                
-                ?>
-            </label>
-
-            <div id="divSelectTecnicos">
-                
-                <select id="selectTecnicos" onchange="changeUrlSelectTecnicos();">
-                    <option value="todos">Todos</option>
-
-                    <?php
-                    $lista = ChamadoDAO::getTecnicos();
-
-                    foreach ($lista as $tecnico) {
-
-                        echo '<option value="' . $tecnico->getCodigo() . '">' . $tecnico->getNomeUsuario() . '</option>';
-                    }
-                    ?>
-
-                </select>
-            </div><br><br>
-
-            <div id="divSelectDocentes">
-                <select id="selectUsuarios" onchange="changeUrlSelectUsuarios();">
-                    <option value="todos">Todos</option>
-
-                    <?php
-                    $lista = ChamadoDAO::getUsuarios();
-
-                    foreach ($lista as $usuario) {
-
-                        echo '<option value="' . $usuario->getNomeUsuario() . '">' . $usuario->getNomeUsuario() . '</option>';
-                    }
-                    ?>
-
-                </select>
-            </div>
-
-                    <?php
-                }
-                ?>
+            }
+            ?>
 
     <?php
     $lista = new ArrayObject();
 
-    $tecnico = null;
     $status = null;
     $nomeUsuario = null;
 
@@ -151,11 +139,8 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         $status = $_GET['status'];
 
     if (isset($_GET['tipo'])) {
-        
-        if ($_GET['tipo'] == 'tecnico')
-            $tecnico = $_GET['usuario'];
-        else if ($_GET['tipo'] == 'docente')
-            $nomeUsuario = $_GET['usuario'];
+
+        $nomeUsuario = $_GET['usuario'];
     }
 
     if ($_SESSION['admin'] == 1) {
@@ -165,7 +150,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             $lista = ChamadoDAO::getChamados($status);
         } else if ($_GET['codigo'] == 1) {
 
-            $lista = ChamadoDAO::getAllChamadosByCodigoTecnico($tecnico, $status);
+            $lista = ChamadoDAO::getAllChamadosByNomeUsuarioTecnico($nomeUsuario, $status);
         } else if ($_GET['codigo'] == 2) {
 
             $lista = ChamadoDAO::getAllChamadosByUsuario($nomeUsuario, $status);
@@ -174,22 +159,19 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
         $lista = ChamadoDAO::getAllChamadosByUsuario($_SESSION['nomeUsuario'], $status);
     }
+    ?>
 
-        ?>
-
-        <label id="lblStatus">Status</label>
+            <label id="lblStatus">Status</label>
             <div id="divSelectStatus">
-            <select id="selectStatus" onchange="changeUrlSelectStatus();">
-                <option value="0">Selecione...</option>
-                <option value="todos">Todos</option>
-                <option value="Em aberto">Em aberto</option>
-                <option value="Resolvido">Resolvido</option>
-                <option value="Cancelado">Cancelado</option>
-            </select>
+                <select id="selectStatus" onchange="changeUrlSelectStatus();">
+                    <option value="todos">Todos</option>
+                    <option value="Em aberto">Em aberto</option>
+                    <option value="Resolvido">Resolvido</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
             </div><br><br>
 
-        <?php
-
+    <?php
     if ($lista->count() == 0) {
         echo '<h3><b>Nenhuma solicitação de chamado</b></h3>';
     } else {
@@ -202,113 +184,112 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             echo '<h3>Chamados resolvidos: ' . $lista->count() . '</h3>';
         else if ($_GET['status'] == 'Cancelado')
             echo '<h3>Chamados cancelados: ' . $lista->count() . '</h3>';
-        
         ?>
 
-            <table>
-                <tr>
-                    <th>Número</th>
-                    <th>Usuário</th>
-                    <th>Sala</th>
-                    <th>Descrição do problema</th>
-                    <th>Status atual</th>
-                    <th>Histórico de Status</th>
-                    <th>Nível de criticidade</th>
-                    <th>Técnico responsável</th>
-                    <th>Data e hora de abertura</th>
-<!--                    <th>Data e hora de encerramento</th>
-                    <th>Solução do problema</th>
-                    <th>Tempo utilizado</th>-->
+                <table>
+                    <tr>
+                        <th>Número</th>
+                        <th>Usuário</th>
+                        <th>Sala</th>
+                        <th>Descrição do problema</th>
+                        <th>Status atual</th>
+                        <th>Histórico de Status</th>
+                        <th>Nível de criticidade</th>
+                        <th>Técnico responsável</th>
+                        <th>Data e hora de abertura</th>
+        <!--                    <th>Data e hora de encerramento</th>
+                        <th>Solução do problema</th>
+                        <th>Tempo utilizado</th>-->
 
         <?php
         if ($_SESSION['admin'] == 1) {
             ?>
 
-                        <th>Editar</th>
-                        <th>Pausar/Retomar</th>
+                            <th>Editar</th>
+                            <th>Pausar/Retomar</th>
 
             <?php
         }
         ?>
 
-                    <th>Cancelar</th>
-
-                    <?php
-                    if ($_SESSION['admin'] == 1) {
-                        ?>
-
-                        <th>Encerrar</th>
+                        <th>Cancelar</th>
 
                         <?php
-                    }
-                    ?>
-                </tr>
-                    <?php
-                    foreach ($lista as $chamado) {
+                        if ($_SESSION['admin'] == 1) {
+                            ?>
 
-                        echo '<tr>'
-                        . '<td>' . $chamado->getCodigo() . '</td>'
-                        . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
-                        . '<td>' . $chamado->getSala()->getNumero() . '</td>'
-                        . '<td>' . $chamado->getDescricaoProblema() . '</td>'
-                        . '<td>' . $chamado->getStatus() . '</td>'
-                        . '<td>' . $chamado->getHistoricoStatus() . '</td>'
-                        . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+                            <th>Encerrar</th>
 
-                        if ($chamado->getTecnicoResponsavel() != null) {
-
-                            echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
-                        } else {
-
-                            echo '<td></td>';
+                            <?php
                         }
+                        ?>
+                    </tr>
+                        <?php
+                        foreach ($lista as $chamado) {
 
-                        echo '<td>' . $chamado->getDataHoraAbertura() . '</td>';
+                            echo '<tr>'
+                            . '<td>' . $chamado->getCodigo() . '</td>'
+                            . '<td>' . $chamado->getUsuario()->getNomeUsuario() . '</td>'
+                            . '<td>' . $chamado->getSala()->getNumero() . '</td>'
+                            . '<td>' . $chamado->getDescricaoProblema() . '</td>'
+                            . '<td>' . $chamado->getStatus() . '</td>'
+                            . '<td>' . $chamado->getHistoricoStatus() . '</td>'
+                            . '<td>' . $chamado->getNivelCriticidade() . '</td>';
+
+                            if ($chamado->getTecnicoResponsavel() != null) {
+
+                                echo '<td>' . $chamado->getTecnicoResponsavel()->getNomeUsuario() . '</td>';
+                            } else {
+
+                                echo '<td></td>';
+                            }
+
+                            echo '<td>' . $chamado->getDataHoraAbertura() . '</td>';
 //                        . '<td></td>'
 //                        . '<td>' . $chamado->getSolucaoProblema() . '</td>'
 //                        . '<td></td>';
 
 
-                        if ($_SESSION['admin'] == 1) {
+                            if ($_SESSION['admin'] == 1) {
+
+                                echo '<td class="tdBotao">'
+                                . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
+                                . '</td>';
+
+                                if ($chamado->getPausado() == 0) {
+
+                                    echo '<td class="tdBotao"><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
+                                    . '</td>';
+                                } else {
+
+                                    echo '<td class="tdBotao"><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
+                                    . '</td>';
+                                }
+                            }
 
                             echo '<td class="tdBotao">'
-                            . '<a href="abrirChamado.php?editar&codigoChamado=' . $chamado->getCodigo() . '"><button>Editar</button></a>'
+                            . '<a href="controller/salvarChamado.php?cancelar&codigoChamado=' . $chamado->getCodigo() . '"><button>Cancelar</button></a>'
                             . '</td>';
 
-                            if ($chamado->getPausado() == 0) {
+                            if ($_SESSION['admin'] == 1) {
 
-                                echo '<td class="tdBotao"><a href="controller/salvarChamado.php?pausar&codigoChamado=' . $chamado->getCodigo() . '"><button>Pausar</button></a>'
-                                . '</td>';
-                            } else {
-
-                                echo '<td class="tdBotao"><a href="controller/salvarChamado.php?retomar&codigoChamado=' . $chamado->getCodigo() . '"><button>Retomar</button></a>'
-                                . '</td>';
+                                echo '<td class="tdBotao">'
+                                . '<a href="controller/salvarChamado.php?encerrar&codigoChamado=' . $chamado->getCodigo() . '"><button>Encerrar</button></a>'
+                                . '</td>'
+                                . '</tr>';
                             }
                         }
-
-                        echo '<td class="tdBotao">'
-                        . '<a href="controller/salvarChamado.php?cancelar&codigoChamado=' . $chamado->getCodigo() . '"><button>Cancelar</button></a>'
-                        . '</td>';
-
-                        if ($_SESSION['admin'] == 1) {
-
-                            echo '<td class="tdBotao">'
-                            . '<a href="controller/salvarChamado.php?encerrar&codigoChamado=' . $chamado->getCodigo() . '"><button>Encerrar</button></a>'
-                            . '</td>'
-                            . '</tr>';
-                        }
-                    }
-                    ?>
-            </table>
-                <?php
+                        ?>
+                </table>
+                    <?php
+                }
+            } else {
+                header("Location: login.php");
             }
-        } else {
-            header("Location: login.php");
-        }
-        ?>
+            ?>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-</body>
+    </body>
 </html>
