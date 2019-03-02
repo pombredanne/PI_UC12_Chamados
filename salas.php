@@ -2,6 +2,31 @@
 
 error_reporting(0);
 
+if (!isset($_COOKIE['redirect'])) {
+    
+    setcookie('redirect', 'salas.php', time() + 20);
+
+?>
+
+<script src="salas.js"></script>
+
+<script>
+
+    onload();
+
+</script>
+
+<?php
+
+} else {
+    setcookie('redirect', '', time() - 3600);
+    unset($_COOKIE['redirect']);
+}
+
+?>
+
+<?php
+
 session_start();
 
 include_once 'dao/clsConexao.php';
@@ -22,6 +47,8 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
             
             <link rel="stylesheet" type="text/css" href="salas.css">
 
+            <script src="jquery.js"></script>
+            
     </head>
     <body>
         

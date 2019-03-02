@@ -1,3 +1,7 @@
+function onload(){
+   window.location.href = 'loading.php';
+};
+
 var inputFile = document.getElementById('inputFile');
 var labelFile = document.getElementById('labelFile');
 

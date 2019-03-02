@@ -1,7 +1,12 @@
+function onload(){
+   window.location.href = 'loading.php';
+};
+
 function defaultIndexSelectTecnicos() {
 
     var url = new URL(window.location.href);
-    url.searchParams.set('tecnico', 'todos');
+    url.searchParams.set('usuario', 'todos');
+    url.searchParams.set('tipo', 'tecnico');
     window.location.href = url.href;
 
 }
@@ -10,6 +15,7 @@ function defaultIndexSelectUsuarios() {
 
     var url = new URL(window.location.href);
     url.searchParams.set('usuario', 'todos');
+    url.searchParams.set('tipo', 'docente');
     window.location.href = url.href;
 
 }
@@ -37,9 +43,9 @@ function removeKeysUrl() {
     if (index == 0) {
         window.location.href = 'chamados.php?codigo=' + index + '&status=todos';
     } else if (index == 1) {
-        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&tecnico=todos';
+        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos&tipo=tecnico';
     } else if (index == 2) {
-        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos';
+        window.location.href = 'chamados.php?codigo=' + index + '&status=todos&usuario=todos&tipo=docente';
     }
 
 }
@@ -67,7 +73,8 @@ function changeUrlSelectTecnicos() {
     var index = selectTecnicos.options[selectTecnicos.selectedIndex].value;
 
     var url = new URL(window.location.href);
-    url.searchParams.set('tecnico', index);
+    url.searchParams.set('usuario', index);
+    url.searchParams.set('tipo', 'tecnico');
     window.location.href = url.href;
 
 }
@@ -79,6 +86,7 @@ function changeUrlSelectUsuarios() {
 
     var url = new URL(window.location.href);
     url.searchParams.set('usuario', index);
+    url.searchParams.set('tipo', 'usuario');
     window.location.href = url.href;
 
 }
@@ -131,7 +139,7 @@ function selectedOptionTecnicos() {
 
     var url = new URL(urlString);
 
-    var tecnico = url.searchParams.get("tecnico");
+    var tecnico = url.searchParams.get("usuario");
 
     var selectTodosChamados = document.getElementById("selectTecnicos");
 

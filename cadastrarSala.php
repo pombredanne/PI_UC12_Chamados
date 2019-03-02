@@ -1,3 +1,30 @@
+<?php
+
+error_reporting(0);
+
+if (!isset($_COOKIE['redirect'])) {
+    
+    setcookie('redirect', 'cadastrarSala.php', time() + 20);
+
+?>
+
+<script src="cadastrarSala.js"></script>
+
+<script>
+
+    onload();
+
+</script>
+
+<?php
+
+} else {
+    setcookie('redirect', '', time() - 3600);
+    unset($_COOKIE['redirect']);
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -7,14 +34,15 @@
         
         <link rel="stylesheet" type="text/css" href="cadastrarSala.css">
         
+        <script src="jquery.js"></script>
+        <script src="cadastrarSala.js"></script>
+        
     </head>
     <body>
         
         <?php
         
         session_start();
-        
-        error_reporting(0);
         
         require_once 'menu.php';
         include_once 'dao/clsConexao.php';

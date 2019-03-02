@@ -20,9 +20,9 @@
 
 #lblTecnicosUsuarios
 {
-    position: relative;
-    margin-top: 4.3%;
-    margin-left: 51%;
+    position: absolute;
+    top: 27%;
+    left: 68%;
 }
 
 h3
@@ -36,12 +36,13 @@ h3
 #divSelectTecnicos
 {
     position: absolute;
-    margin-top: 4.3%;
-    margin-left: 48%;
+    margin-top: -0.55%;
+    margin-left: 64%;
 }
 
 #divSelectTecnicos select {
     background-color: #0563af;
+    visibility: visible;
     color: white;
     padding: 10px;
     width: 250px;
@@ -56,8 +57,9 @@ h3
 #divSelectTecnicos:before {
     content: '';
     position: absolute;
-    margin-top: 50px;
-    margin-right: 10px;
+    visibility: visible;
+    top: 0;
+    right: 0;
     width: 50px;
     height: 50px;
     color: white;
@@ -72,11 +74,12 @@ h3
 
 #divSelectTecnicos:after {
     content: '';
+    visibility: visible;
     position: absolute;
     width: 0;
     height: 0;
     top: 22px;
-    right: 18px;
+    right: 20px;
     color: white;
     font-size: 20px;
     border-style: solid;
@@ -253,11 +256,6 @@ h3
     font-size: 150%;
 }
 
-#linkSair {
-    /*o elemento "desliza" na direção do valor float*/
-    float: right;
-}
-
 .navBar {
     position: absolute;
     left: 0;
@@ -289,10 +287,6 @@ h3
 }
 
 form {
-    position: relative;
-}
-
-#divTeste {
     position: relative;
 }
 
@@ -368,35 +362,7 @@ table button:hover {
     font-size: 20px;
 }
 
-#divSelectTecnicos {
-    position: absolute; 
-    top: 25%;
-    left: 16%;
-    color: black;
-}
-
-#divSelectUsuarios {
-    position: absolute; 
-    top: 25%;
-    left: 16%;
-    color: black;
-}
-
-#selectUsuarios {
-    font-size: 110%;
-}
-
-#selectTecnicos {
-    font-size: 110%;
-}
-
 label {
     font-weight: bold;
     font-size: 120%;
-}
-
-#lblTecnicosUsuarios {
-    position: absolute;
-    top: 18%;
-    left: 17%;
 }

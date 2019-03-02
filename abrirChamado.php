@@ -1,11 +1,36 @@
 <?php
 
+error_reporting(0);
+
+if (!isset($_COOKIE['redirect'])) {
+    
+    setcookie('redirect', 'abrirChamado.php', time() + 20);
+
+?>
+
+<script src="abrirChamado.js"></script>
+
+<script>
+
+    onload();
+
+</script>
+
+<?php
+
+} else {
+    setcookie('redirect', '', time() - 3600);
+    unset($_COOKIE['redirect']);
+}
+
+?>
+
+<?php
+
 session_start();
 
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
-    error_reporting(0);
-    
     require_once 'menu.php';
 
     include_once 'dao/clsConexao.php';

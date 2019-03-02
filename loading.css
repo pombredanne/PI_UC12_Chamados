@@ -1,0 +1,142 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background-color: #ffc107;
+    font-family: Verdana, "Trebuchet MS", sans-serif;
+}
+
+img
+{
+    position: absolute;
+    top: 5%;
+    left: 40%;
+}
+
+ul
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*skew: modifica o angulo da ul*/
+    transform: translate(-50%,-50%) skew(-25deg);
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: 4px solid #ff0;
+    box-shadow: 0px 20px 10px rgba(0,0,0,.2);
+}
+
+ul li
+{
+    position: relative;
+    list-style: none;
+    width: 80px;
+    height: 80px;
+    background-color: #ff0;
+    font-size: 3em;
+    color: rgba(0,0,0,.1);
+    text-align: center;
+    line-height: 80px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0 -1px;
+}
+
+ul li:before
+{
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #262626;
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate 
+{
+    0%
+    {
+        top: -100%;
+    }
+    
+    20%
+    {
+        top: 0%;
+        background: transparent;
+        color: #262626;
+    }
+    
+    40%
+    {
+        top: 0%;
+        background: #262626;
+        color: #ff0;
+    }
+    
+    60%
+    {
+        top: 0%;
+        background: transparent;
+        color: #262626;
+    }
+    
+    80%
+    {
+        top: -20%;
+        background: transparent;
+        color: #262626;
+    }
+    
+    100%
+    {
+        top: 100%;
+    }
+}
+
+ul li:nth-child(1):before
+{
+    animation-delay: 0s;
+}
+ul li:nth-child(2):before
+{
+    animation-delay: 0.1s;
+}
+ul li:nth-child(3):before
+{
+    animation-delay: 0.2s;
+}
+ul li:nth-child(4):before
+{
+    animation-delay: 0.3s;
+}
+ul li:nth-child(5):before
+{
+    animation-delay: 0.4s;
+}
+ul li:nth-child(6):before
+{
+    animation-delay: 0.5s;
+}
+ul li:nth-child(7):before
+{
+    animation-delay: 0.6s;
+}
+ul li:nth-child(8):before
+{
+    animation-delay: 0.7s;
+}
+ul li:nth-child(9):before
+{
+    animation-delay: 0.8s;
+}
+ul li:nth-child(10):before
+{
+    animation-delay: 0.9s;
+}

@@ -1,7 +1,8 @@
 <?php
-session_start();
 
 error_reporting(0);
+
+session_start();
 
 if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     include_once 'model/clsChamado.php';
@@ -119,7 +120,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 </select>
             </div><br><br>
 
-            <div id="divSelectUsuarios">
+            <div id="divSelectDocentes">
                 <select id="selectUsuarios" onchange="changeUrlSelectUsuarios();">
                     <option value="todos">Todos</option>
 
@@ -146,14 +147,16 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
     $status = null;
     $nomeUsuario = null;
 
-    if (isset($_GET['tecnico']))
-        $tecnico = $_GET['tecnico'];
-
     if (isset($_GET['status']))
         $status = $_GET['status'];
 
-    if (isset($_GET['usuario']))
-        $nomeUsuario = $_GET['usuario'];
+    if (isset($_GET['tipo'])) {
+        
+        if ($_GET['tipo'] == 'tecnico')
+            $tecnico = $_GET['usuario'];
+        else if ($_GET['tipo'] == 'docente')
+            $nomeUsuario = $_GET['usuario'];
+    }
 
     if ($_SESSION['admin'] == 1) {
 
