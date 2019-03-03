@@ -14,8 +14,8 @@ img
 }
 
 /*personalizando o fake input file*/
-#labelFile {
-    /*position: relative;*/
+/*#labelFile {
+    position: relative;
     background-color: #1E90FF;
     border-radius: 10px;
     color: white;
@@ -37,7 +37,7 @@ img
 #labelFile:active
 {
     transform: translate(-3px, -65px);
-}
+}*/
 
 img
 {

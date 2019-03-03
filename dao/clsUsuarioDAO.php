@@ -34,6 +34,26 @@ class UsuarioDAO {
         
     }
     
+    public static function excluir($codigoUsuario) {
+        
+        $sql = "DELETE FROM usuarios WHERE codigo = " . $codigoUsuario;
+        
+        try {
+            
+            $query = Conexao::executar($sql);
+            
+            if ($query == true) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        } catch (Exception $ex) {
+            
+        }
+        
+    }
+    
     public static function getAllUsuarios($admin) {
         
         $sql = "SELECT codigo, nomeCompleto, nomeUsuario, email, admin, foto"

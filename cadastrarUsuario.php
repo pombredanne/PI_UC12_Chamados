@@ -125,31 +125,17 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                         
                         if (!isset($_GET['editar'])) {
                         
+                            $foto = "sem_foto.png";
+                        }
+                            
                         ?>
 
-                        <label for="inputFile" id="labelFile">Foto</label>
+                        <img id="imgFile" src="fotos/<?php echo $foto; ?>" width="200px">
 
                         <!--<div class="divFile">-->
                         <input type="file" name="txtFoto" id="inputFile">
                         <!--</div>-->
                         
-                        <?php
-                        
-                        } else {
-                            
-                            $foto = "fotos/$foto";
-                            
-                        ?>
-                        
-                        <img id="imgFile" src="<?php echo $foto; ?>" width="200px">
-                        <input type="file" name="txtFoto" id="inputFile">
-                        
-                        <?php
-                        
-                        }
-                        
-                        ?>
-
                         <script src="cadastrarUsuario.js"></script>
 
                         <?php

@@ -1,3 +1,5 @@
+'alert' pra excluir ao inves de mandar pra outra pagina
+
 encriptacao crypt salvarusuario (criar regra)
 
 busca (ativo) status resolvido, cancelado
