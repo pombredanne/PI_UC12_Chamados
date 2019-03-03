@@ -3,7 +3,7 @@ error_reporting(0);
 
 //if (!isset($_COOKIE['redirect'])) {
 //    
-//    setcookie('redirect', 'cadastrarSala.php', time() + 20);
+//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
 //
 //
 ?>

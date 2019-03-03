@@ -8,6 +8,11 @@ input[type='file'] {
     display: none;
 }
 
+img
+{
+    cursor: pointer;
+}
+
 /*personalizando o fake input file*/
 #labelFile {
     /*position: relative;*/
@@ -21,12 +26,26 @@ input[type='file'] {
     padding: 20px;
     margin-left: 11%;
     text-align: center;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+
 }
 
 #labelFile:hover {
     background-color: #1E64FF;
 }
 
+#labelFile:active
+{
+    transform: translate(-3px, -65px);
+}
+
+img
+{
+    margin-left: 12vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+    
 #divSenha {
     margin-top: -10px;
 }
@@ -46,9 +65,10 @@ label {
 
 .box #labelAdmin
 {
-    position: absolute;
-    left: 50%;
-    top: 28.5%;
+    position: relative;
+    left: 20%;
+    top: -15px;
+    display: inline;
     color: black;
     font-size: 20px;
 }
@@ -140,6 +160,11 @@ h2 {
 .box input[type="submit"]:hover {
     box-shadow: 0.2px 0.2px 2px 2px rgba(20,20,20,.80);
     background-color: rgb(10,10,10);
+}
+
+.box input[type="submit"]:active
+{
+    transform: translateY(4px);
 }
 
 .box form {

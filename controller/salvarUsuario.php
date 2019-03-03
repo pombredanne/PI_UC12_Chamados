@@ -9,7 +9,7 @@ if (isset($_GET['inserir'])) {
     if ($_POST['txtSenha'] == $_POST['txtConfirmarSenha']) {
 
         $usuario = new Usuario();
-        $usuario->setNomeCompleto($_POST['txtNome']);
+        $usuario->setNomeCompleto($_POST['txtNomeCompleto']);
         $usuario->setNomeUsuario($_POST['txtNomeUsuario']);
         $usuario->setEmail($_POST['txtEmail']);
         $usuario->setFoto(salvarFoto());
@@ -25,14 +25,31 @@ if (isset($_GET['inserir'])) {
         
         header("Location: ../cadastrarUsuario.php");
         
-        
-        
     } else {
         echo '<body onload="window.history.back();">'
         . '<script>'
         . 'alert("As senhas não coincidem!");'
         . '</script></body>';
     }
+}
+
+if (isset($_GET['editar'])) {
+    
+    $usuario = UsuarioDAO::getUsuarioByCodigo($_GET['codigoUsuario']);
+    
+    $usuario->setNomeCompleto($_POST['txtNomeCompleto']);
+    $usuario->setNomeUsuario($_POST['txtNomeUsuario']);
+    $usuario->setEmail($_POST['txtEmail']);
+    $usuario->setFoto(salvarFoto());
+    
+    if (isset($_POST['cbAdmin']))
+        $usuario->setAdmin(1);
+    else
+        $usuario->setAdmin (0);
+    
+    UsuarioDAO::editar($usuario);
+    
+    header("Location: ../usuarios.php");
 }
 
 function salvarFoto()

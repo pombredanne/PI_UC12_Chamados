@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("fotos/background_cadastrarUsuario_semlogo.png");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#btCadastrarUsuario {
+    margin-top: 10%;
+    margin-left: 47%;
+    font-size: 25px;
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, #191919, #1E64FF, #191919);
+    background-size: 300%;
+    border-radius: 30px;
+    border-style: none;
+    z-index: 1;
+    padding: 10px;
+    outline: none;
+}
+
+#btCadastrarUsuario a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#btCadastrarUsuario:hover
+{
+    animation: animate 4s linear infinite;
+}
+
+#btCadastrarUsuario:active {
+    transform: translateY(4px);
+    background: linear-gradient(180deg, #191919, #1E64FF, #191919);
+}
+
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0%;
+    }
+    
+    100%
+    {
+        background-position: 400%;
+    }
+}
+
+table {
+    position: relative;
+    margin-top: 100px;
+    background-color: #191919;
+    color: orange;
+    width: 100%;
+    text-align: center;
+}
+
+table td
+{
+    font-size: 110%;
+}
+
+table td, table th {
+    border-color: orange;
+    padding: 10px;
+}
+
+table th {
+    background: linear-gradient(90deg, #191919, orange, #191919);
+    animation: animate 30s linear infinite;
+    background-size: 400%;
+    color: black;
+    font-size: 120%;
+}
+
+table button {
+    width: 100%;
+    height: 100%;
+    background-color: #191919;
+    color: #1E90FF;
+    font-weight: bold;
+    border-style: none;
+}
+
+table button:hover {
+    background-color: #1E64FF;
+    color: white;
+    font-size: 20px;
+}

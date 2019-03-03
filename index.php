@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['logado']) && !$_SESSION['logado']) {
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,5 +35,15 @@
             </h1>
         </section>
         
+        <?php
+
+} else {
+ 
+    header("Location: chamados.php?codigo=0&status=todos");
+}
+
+?>
+        
     </body>
+    
 </html>

@@ -1,34 +1,56 @@
 <?php
-
-error_reporting(0);
-
-if (!isset($_COOKIE['redirect'])) {
-    
-    setcookie('redirect', 'cadastrarUsuario.php', time() + 20);
-
+//error_reporting(0);
+//
+//if (!isset($_COOKIE['redirect'])) {
+//    
+//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
 ?>
 
 <script src="cadastrarUsuario.js"></script>
-
+<!--
 <script>
 
     onload();
 
-</script>
+</script>-->
 
 <?php
-
-} else {
-    setcookie('redirect', '', time() - 3600);
-    unset($_COOKIE['redirect']);
-}
-
+//} else {
+//    setcookie('redirect', '', time() - 3600);
+//    unset($_COOKIE['redirect']);
+//}
 ?>
 
 <?php
+error_reporting(0);
+
 session_start();
 
 if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
+
+    include_once 'dao/clsConexao.php';
+    include_once 'dao/clsUsuarioDAO.php';
+    include_once 'model/clsUsuario.php';
+
+    $nomeCompleto = "";
+    $nomeUsuario = "";
+    $admin = "";
+    $email = "";
+    $foto = "";
+    $action = "inserir";
+
+    if (isset($_GET['editar'])) {
+
+        $usuario = UsuarioDAO::getUsuarioByCodigo($_GET['codigoUsuario']);
+
+        $nomeCompleto = $usuario->getNomeCompleto();
+        $nomeUsuario = $usuario->getNomeUsuario();
+        $admin = $usuario->getAdmin();
+        $email = $usuario->getEmail();
+        $foto = $usuario->getFoto();
+        
+        $action = "editar&codigoUsuario=" . $_GET['codigoUsuario'];
+    }
     ?>
 
     <!DOCTYPE html>
@@ -42,23 +64,26 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
 
         </head>
 
-        <?php
-        require_once 'menu.php';
+    <?php
+    require_once 'menu.php';
 
-        if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
-            ?>
+    //NAO TA FUNCIONANDO
+    if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
+        ?>
 
             <body onload="enviarSenha();">
 
-        <?php
-    } else {
-        ?>
+            <?php
+        } else {
+            ?>
 
             <body>
 
                 <?php
             }
             ?>
+                
+                <script type="text/javascript" src="jquery.js"></script>
 
             <div id="wrapper">
 
@@ -66,35 +91,73 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
 
                     <h2>Cadastro de usuário</h2><br><br>
 
-                    <form action="controller/salvarUsuario.php?inserir" method="POST"
+                    <form action="controller/salvarUsuario.php?<?php echo $action; ?>" method="POST"
                           enctype="multipart/form-data" id="formCadastrarUsuario">
 
                         <div>
-                            <input type="text" name="txtNome" required>
+                            <input type="text" name="txtNomeCompleto" value="<?php echo $nomeCompleto; ?>" required>
                             <label>Nome</label><br><br>
                         </div>
 
                         <div>
-                            <input type="text" name="txtNomeUsuario" required>
+                            <input type="text" name="txtNomeUsuario" value="<?php echo $nomeUsuario; ?>" required>
                             <label>Nome de usuário</label><br><br>
                         </div>
 
-                        <input id="inputCheckbox" type="checkbox" name="cbAdmin">
-                        <label for="inputCheckbox" id="labelAdmin">Admin</label><br><br>
+                        <?php
                         
+                        $checked = "";
+                        
+                        if ($admin == 1)
+                            $checked = "checked";
+                        
+                        ?>
+                        
+                        <input id="inputCheckbox" <?php echo $checked; ?> type="checkbox" name="cbAdmin">
+                        <label for="inputCheckbox" id="labelAdmin">Admin</label><br><br>
+
                         <div>
-                            <input type="email" name="txtEmail" required>
+                            <input type="email" name="txtEmail" value="<?php echo $email; ?>" required>
                             <label>E-mail</label><br><br>
                         </div>
+                        
+                        <?php
+                        
+                        if (!isset($_GET['editar'])) {
+                        
+                        ?>
 
                         <label for="inputFile" id="labelFile">Foto</label>
-                        
+
                         <!--<div class="divFile">-->
                         <input type="file" name="txtFoto" id="inputFile">
                         <!--</div>-->
+                        
+                        <?php
+                        
+                        } else {
+                            
+                            $foto = "fotos/$foto";
+                            
+                        ?>
+                        
+                        <img id="imgFile" src="<?php echo $foto; ?>" width="200px">
+                        <input type="file" name="txtFoto" id="inputFile">
+                        
+                        <?php
+                        
+                        }
+                        
+                        ?>
 
                         <script src="cadastrarUsuario.js"></script>
 
+                        <?php
+                        
+                        if (!isset($_GET['editar'])) {
+                            
+                        ?>
+                        
                         <div id="divSenha">
                             <input type="password" name="txtSenha" id="inputSenha" onkeyup="verificarSenha();" required>
                             <label>Senha</label><br><br>
@@ -106,8 +169,20 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                         </div>
 
                         <span id="txtSenhaIncorreta"></span>
+                        
+                        <?php
+                        
+                        }
+                        
+                        if (isset($_GET['editar'])) 
+                            $value = "Salvar";
+                        else
+                            $value = "Cadastrar";
+                                
+                        ?>
 
-                        <input type="submit" value="Cadastrar">
+                        <input type="submit" value="<?php echo $value; ?>">
+                        
                     </form>
 
                 </div>

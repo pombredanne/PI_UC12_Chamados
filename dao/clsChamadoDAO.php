@@ -14,7 +14,7 @@ class ChamadoDAO {
                 . "("
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHoraAbertura() . "' , "
-                . " " . $chamado->getUsuario()->getCodigo() . " , "
+                . " " . $chamado->getUsuarioByCodigo()->getCodigo() . " , "
                 . " " . $chamado->getSala()->getCodigo() . " , "
                 . " '" . $chamado->getNivelCriticidade() . "' , "
                 . " " . $chamado->getTecnicoResponsavel()->getCodigo() . "  "
@@ -30,7 +30,7 @@ class ChamadoDAO {
                 . "("
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHoraAbertura() . "' , "
-                . " " . $chamado->getUsuario()->getCodigo() . " , "
+                . " " . $chamado->getUsuarioByCodigo()->getCodigo() . " , "
                 . " " . $chamado->getSala()->getCodigo() . " "
                 . ");";
 

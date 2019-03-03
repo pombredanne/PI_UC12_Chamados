@@ -62,7 +62,7 @@
                 <?php
             }
 
-            $usuario = UsuarioDAO::getUsuario($_SESSION['codigo']);
+            $usuario = UsuarioDAO::getUsuarioByCodigo($_SESSION['codigo']);
             ?>
 
             <img src="fotos/senac_logo.png" width="200px"/>
