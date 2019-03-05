@@ -213,6 +213,8 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 else if ($_GET['status'] == 'Cancelado')
                     echo '<h3>Chamados cancelados: ' . $lista->count() . '</h3>';
                 ?>
+            
+        <div id="divTable"></div>
 
                 <table id="tableChamados">
                     <tr>
@@ -252,16 +254,19 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                         }
                         ?>
                     </tr>
+                    
+                    <tbody id="tBodyArray">
+                        <tr>
+                        </tr>
+                    </tbody>
+                    
                     <?php
                     
 //                    for ($i = 0; $i < $lista->count(); $i++) {
                         
 //                        for ($j = 1; $j < 2; $j++) {
                             
-                            echo '<tr>'
-                        . '<td>' . $lista[1][2] . '</td>'
-                        . '</tr>'; 
-                            
+                    
 //                        }
                         
 //                    }

@@ -40,29 +40,40 @@ $lista = ChamadoDAO::getChamados('todos');
 
 foreach ($lista as $chamado)
 {
-    $array[$chaveChamadoCodigo + $i] = $chamado->getCodigo();
-//    $array[$chaveChamadoDataHoraAbertura + $i] = $chamado->getDataHoraAbertura();
-//    $array[$chaveChamadoDescricaoProblema + $i] = $chamado->getDescricaoProblema();
-//    $array[$chaveChamadoStatus + $i] = $chamado->getStatus();
-//    $array[$chaveChamadoHistoricoStatus + $i] = $chamado->getHistoricoStatus();
-//    $array[$chaveChamadoNivelCriticidade + $i] = $chamado->getNivelCriticidade();
-//    $array[$chaveChamadoSolucaoProblema + $i] = $chamado->getSolucaoProblema();
-//    $array[$chaveChamadoPausar + $i] = $chamado->getPausar();
-//    $array[$chaveChamadoRetomar + $i] = $chamado->getRetomar();
-//    $array[$chaveChamadoPausado + $i] = $chamado->getPausado();
-//    $array[$chaveChamadoResolvido + $i] = $chamado->getResolvido();
-//    $array[$chaveChamadoAtivo + $i] = $chamado->getAtivo();
+    $array[$chaveChamadoCodigo . $i] = $chamado->getCodigo();
+    $array[$chaveChamadoDataHoraAbertura . $i] = $chamado->getDataHoraAbertura();
+    $array[$chaveChamadoDescricaoProblema . $i] = $chamado->getDescricaoProblema();
+    $array[$chaveChamadoStatus . $i] = $chamado->getStatus();
+    $array[$chaveChamadoHistoricoStatus . $i] = $chamado->getHistoricoStatus();
+    $array[$chaveChamadoNivelCriticidade . $i] = $chamado->getNivelCriticidade();
+    $array[$chaveChamadoSolucaoProblema . $i] = $chamado->getSolucaoProblema();
+//    $array[$chaveChamadoPausar . $i] = $chamado->getPausar();
+//    $array[$chaveChamadoRetomar . $i] = $chamado->getRetomar();
+//    $array[$chaveChamadoPausado . $i] = $chamado->getPausado();
+//    $array[$chaveChamadoResolvido . $i] = $chamado->getResolvido();
+//    $array[$chaveChamadoAtivo . $i] = $chamado->getAtivo();
     
-//    $array[$chaveTecnicoCodigo + $i] = $chamado->getTecnicoResponsavel()->getCodigo();
-//    $array[$chaveTecnicoNomeUsuario + $i] = $chamado->getTecnicoResponsavel()->getNomeUsuario();
+    if ($chamado->getTecnicoResponsavel() != null) {
+        
+//        $array[$chaveTecnicoCodigo . $i] = $chamado->getTecnicoResponsavel()->getCodigo();
+        $array[$chaveTecnicoNomeUsuario . $i] = $chamado->getTecnicoResponsavel()->getNomeUsuario();
+        
+    } else {
+        
+//         $array[$chaveTecnicoCodigo . $i] = "";
+         $array[$chaveTecnicoNomeUsuario . $i] = "";
+        
+    }
     
-//    $array[$chaveUsuarioCodigo + $i] = $chamado->getUsuario()->getCodigo();
-//    $array[$chaveUsuarioNomeUsuario + $i] = $chamado->getUsuario()->getNomeUsuario();
-//    
-//    $array[$chaveSalaCodigo + $i] = $chamado->getSala()->getCodigo();
-//    $array[$chaveSalaNumero + $i] = $chamado->getSala()->getNumero();
+//    $array[$chaveUsuarioCodigo . $i] = $chamado->getUsuario()->getCodigo();
+    $array[$chaveUsuarioNomeUsuario . $i] = $chamado->getUsuario()->getNomeUsuario();
+    
+//    $array[$chaveSalaCodigo . $i] = $chamado->getSala()->getCodigo();
+    $array[$chaveSalaNumero . $i] = $chamado->getSala()->getNumero();
     $i++;
 }
+
+$array['rows'] = $lista->count();
 
 //$array = array('chave1' => 1,'chave2' => 2,'chave3' => 3,
 //    'chave4' => 4,'chave5' => 5,'chave6' => 6);
