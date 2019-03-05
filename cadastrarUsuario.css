@@ -10,40 +10,10 @@ input[type='file'] {
 
 img
 {
-    cursor: pointer;
-}
-
-/*personalizando o fake input file*/
-/*#labelFile {
-    position: relative;
-    background-color: #1E90FF;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    margin-top: 90px;
-    margin-bottom: -20px;
-    width: 150%;
-    padding: 20px;
-    margin-left: 11%;
-    text-align: center;
-    box-shadow: 0 5px 25px rgba(0,0,0,.5);
-
-}
-
-#labelFile:hover {
-    background-color: #1E64FF;
-}
-
-#labelFile:active
-{
-    transform: translate(-3px, -65px);
-}*/
-
-img
-{
     margin-left: 12vh;
     margin-top: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
 }
     
 #divSenha {
@@ -113,7 +83,7 @@ input:checked[type="checkbox"]:before
 }
 
 body {
-    background: url(fotos/background_cadastrarUsuario.jpg);
+    background: url(fotos/background_body_semlogo.png);
     width: auto;
     height: auto;
     background-size: cover;

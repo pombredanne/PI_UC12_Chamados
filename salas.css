@@ -1,4 +1,5 @@
 #btCadastrarSala {
+    position: relative;
     margin-top: 10%;
     margin-left: 47%;
     font-size: 25px;
@@ -83,7 +84,7 @@ table button:hover {
 
 body
 {
-    background-image: url("fotos/background_cadastrarUsuario.png");
+    background-image: url("fotos/background_body_semlogo.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

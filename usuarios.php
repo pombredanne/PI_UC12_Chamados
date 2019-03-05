@@ -1,36 +1,11 @@
-<?php
-
-//error_reporting(0);
-//
-//if (!isset($_COOKIE['redirect'])) {
-//    
-//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
-
-?>
-
-<!--<script src="salas.js"></script>
-
-<script>
-
-    onload();
-
-</script>-->
-
-<?php
-
-//} else {
-//    setcookie('redirect', '', time() - 3600);
-//    unset($_COOKIE['redirect']);
-//}
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title></title>
 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        
         <link rel="stylesheet" type="text/css" href="usuarios.css">
 
     </head>
@@ -67,10 +42,7 @@
 
             if ($lista->count() < 0) {
 
-                echo 'nenhum<br>';
-                echo 'nenhum<br>';
-                echo 'nenhum<br>';
-                echo 'nenhum<br>';
+                echo '<h1><b>Nenhum usuário cadastrado!</b></h1>';
             } else {
 
                 foreach ($lista as $usuario) {
@@ -83,12 +55,12 @@
                     . '<td>' . $usuario->getEmail() . '</td>'
                     . '<td>' . $usuario->getAdmin() . '</td>'
                     . '<td>'
-                    . '<button><a href="cadastrarUsuario.php?editar&codigoUsuario='
-                    . $usuario->getCodigo() . '">Editar</a></button>'
+                    . '<a href="cadastrarUsuario.php?editar&codigoUsuario='
+                    . $usuario->getCodigo() . '">Editar</a>'
                     . '</td>'
                     . '<td>'
-                    . '<button><a href="controller/salvarUsuario.php?excluir&codigoUsuario='
-                    . $usuario->getCodigo() . '">Excluir</a></button>'
+                    . '<a href="controller/salvarUsuario.php?excluir&codigoUsuario='
+                    . $usuario->getCodigo() . '">Excluir</a>'
                     . '</td>'
                     . '</tr>';
                 }
@@ -96,6 +68,8 @@
             ?>
 
         </table>
+        
+        <script src="salas.js"></script>
 
     </body>
 </html>

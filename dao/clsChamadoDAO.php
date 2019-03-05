@@ -14,7 +14,7 @@ class ChamadoDAO {
                 . "("
                 . " '" . $chamado->getDescricaoProblema() . "' , "
                 . " '" . $chamado->getDataHoraAbertura() . "' , "
-                . " " . $chamado->getUsuarioByCodigo()->getCodigo() . " , "
+                . " " . $chamado->getUsuario()->getCodigo() . " , "
                 . " " . $chamado->getSala()->getCodigo() . " , "
                 . " '" . $chamado->getNivelCriticidade() . "' , "
                 . " " . $chamado->getTecnicoResponsavel()->getCodigo() . "  "

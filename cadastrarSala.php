@@ -31,6 +31,8 @@ error_reporting(0);
         <meta charset="UTF-8">
         <title></title>
 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        
         <link rel="stylesheet" type="text/css" href="cadastrarSala.css">
 
         <script src="jquery.js"></script>

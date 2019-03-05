@@ -2,26 +2,26 @@
 
 error_reporting(0);
 
-if (!isset($_COOKIE['redirect'])) {
-    
-    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
+//if (!isset($_COOKIE['redirect'])) {
+//    
+//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
 
 ?>
 
 <script src="abrirChamado.js"></script>
 
-<script>
+<!--<script>
 
     onload();
 
-</script>
+</script>-->
 
 <?php
 
-} else {
-    setcookie('redirect', '', time() - 3600);
-    unset($_COOKIE['redirect']);
-}
+//} else {
+//    setcookie('redirect', '', time() - 3600);
+//    unset($_COOKIE['redirect']);
+//}
 
 ?>
 
@@ -77,6 +77,8 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         <head>
             <meta charset="UTF-8">
             <title>Cadastro de Usuário</title>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
             <link rel="stylesheet" type="text/css" href="abrirChamado.css">
 

@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url("fotos/background_cadastrarUsuario_semlogo.png");
+    background-image: url("fotos/background_body_semlogo.png");
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -61,6 +61,7 @@ table {
     color: orange;
     width: 100%;
     text-align: center;
+    border-style: none;
 }
 
 table td
@@ -81,7 +82,7 @@ table th {
     font-size: 120%;
 }
 
-table button {
+table a {
     width: 100%;
     height: 100%;
     background-color: #191919;
@@ -90,8 +91,9 @@ table button {
     border-style: none;
 }
 
-table button:hover {
+table a:hover {
     background-color: #1E64FF;
     color: white;
     font-size: 20px;
+    text-decoration: none;
 }

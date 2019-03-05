@@ -1,130 +1,149 @@
-* {
+*
+{
     margin: 0;
     padding: 0;
 }
 
-label[for="cbMenu"] {
-    padding: 5px;
-    background-color: #222;
-    color: #fff;
-    font-family: "Trebuchet MS";
-    text-align: center;
-    font-size: 30px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: none;
+header
+{
     position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 100px;
+    background: #191919;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
-#cbMenu {
+header nav
+{
+    float: right;
+}
+
+header nav #ulMain
+{
+    margin-right: 25vw;
+}
+
+header nav ul
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li
+{
+    list-style: none;
+    position: relative;
+}
+
+header nav ul li ul
+{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background: #333;
+    display: none;
+    
+}
+
+header nav ul li.active ul
+{
+    display: block;
+    position: absolute;
+}
+
+/*header nav ul li ul li
+{
+    white-space: nowrap;
+}*/
+
+header nav ul li a
+{
+    width: 200px;
+    padding: 30px 50px;
+    display: block;
+    font-size: 20px;
+    color: #1E90FF;
+    background: #191919;
+    text-align: center;
+}
+
+header nav ul li a:hover
+{
+    text-decoration: none;
+    color: white;
+    background: #1E64FF;
+}
+
+#divMenuToogle
+{
+    color: white;
+    float: right;
+    line-height: 50px;
+    font-size: 24px;
+    cursor: pointer;
     display: none;
 }
 
-@media(max-width: 800px) {
+@media (max-width: 1068px)
+{
     
-    label[for="cbMenu"]{
-        display: block;
+}
+
+/*@media (max-width: 400px)*/
+@media (max-width: 700px)
+{
+    header
+    {
+        padding: 15px 20px;
     }
     
-    #cbMenu:checked ~.menu {
-        margin-left: 0;
-    }
-    
-    .menu {
-        margin-top: 5px;
-        margin-left: -300%;
-        transition: all .1s;
-    }
-    
-    .menu a {
-        margin-left: 0;
-    }
-    
-    .menu ul
+    #divMenuToogle
     {
         display: block;
     }
     
-    .menu ul li {
+    header nav
+    {
+        position: absolute;
+        height: calc(100vh - 460px);
+        background: #333;
+        top: 50px;
+        left: -100%;
+        width: 100%;
+        transition: .5s;
+    }
+    
+    header nav.active
+    {
+        left: 0;
+    }
+    
+    header nav ul
+    {
         width: 100%;
         display: block;
-        float: none;
+        text-align: center;
     }
     
-    .menu ul ul {
-        position: static;
-        overflow: hidden;
-        max-height: 0;
-        transition: all .4s;
+    header nav ul li a
+    {
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,.2);
     }
     
-    .menu ul li:hover ul {
-        height: auto;
-        max-height: 200px;
+    header nav ul li.active ul
+    {
+        position: relative;
     }
-} 
-
-.menu {
-    position: fixed;
-    width: 100%;
-    height: 10%;
-    background-color: #191919;
-    z-index: 2;
-}
-
-.menu ul {
-    position: relative;
-    list-style: none;
-}
-
-.menu ul li{
-    width: 200px;
-    float: left;
-}
-
-.menu a {
-    display: block;
-    color: #1E90FF;
-    text-decoration: none;
-    text-align: center;
-    padding: 19px 8%;
-    font-size: 25px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    background-color: #191919;
-}
-
-.menu #liSalas {
-    margin-left: 45vh;
-}
-
-.menu .ulPrimaria {
-    transition: 0.5s;
-}
-
-.menu a:hover {
-    background-color: #1E64FF;
-    color: white;
-}
-
-.menu ul ul {
-    position: absolute;
-    visibility: hidden;
-}
-
-.menu ul li:hover ul{
-    visibility: visible;
-}
-
-.menu ul ul li {
-    float: none;
-}
-
-.menu img {
-    float: right;
-    margin-top: 3px;
-}
-
-.menu img:hover ~ #aDivSair{
-    visibility: visible;
+    
+    header nav ul li.active ul a:hover
+    {
+        background: #262626;
+        color: orange;
+    }
+    
 }

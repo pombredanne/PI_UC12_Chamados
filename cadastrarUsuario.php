@@ -59,6 +59,8 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
         <head>
             <meta charset="UTF-8">
             <title>Cadastrar usuario</title>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
             <link rel="stylesheet" type="text/css" href="cadastrarUsuario.css">
 

@@ -1,12 +1,11 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="menu.css">
 
-    <script type="text/javascript" src="menu.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
 </head>
 
@@ -25,52 +24,48 @@
     }
     ?>
 
-    <input type="checkbox" id="cbMenu">
-    <label id="labelMenu" for="cbMenu">&#9776;</label>
-
-    <nav class="menu">
-        <ul class="ulPrimaria">
-            <li><a href=""><?php echo $_SESSION['nomeUsuario']; ?></a></li>
-            <!--<li><a id="aDivSair" href="sair.php">Sair</a></li>-->
+    <div id="divMenuToogle"><i class="fas fa-bars"></i></div>
+    <nav>
+        <ul id="ulMain">
 
             <?php
             if ($_SESSION['admin'] == 1) {
                 ?>
 
-                <li id="liSalas"><a href="salas.php">Salas</a>
+                <li class="liSubMenu"><a href="salas.php">Salas</a>
                     <ul>
                         <li><a href="cadastrarSala.php">Cadastrar sala</a></li>
                     </ul>
                 </li>
 
-                <?php
-            }
-            ?>
+    <?php
+}
+?>
 
-            <li><a href="chamados.php?codigo=0&status=todos">Chamados</a></li>
+            <li class="liSubMenu"><a href="chamados.php">Chamados</a>
+                <ul>
 
-            <?php
-            if ($_SESSION['admin'] == 1) {
-                ?>
+<?php
+if ($_SESSION['admin'] == 1) {
+    ?>
 
-                <li><a href="usuarios.php">Usuários</a>
+                        <li><a href="abrirChamado.php">Abrir chamado</a></li>
+                    </ul>
+                </li>
+                <li class="liSubMenu"><a href="usuarios.php">Usuários</a>
                     <ul>
-                        <li><a href="cadastrarUsuario.php">Cadastrar Usuário</a></li>
+                        <li><a href="cadastrarUsuario.php">Cadastrar usuário</a></li>
                     </ul>
                 </li>
 
-                <?php
-            }
+    <?php
+}
+?>
 
-            $usuario = UsuarioDAO::getUsuarioByCodigo($_SESSION['codigo']);
-            ?>
-
-            <img src="fotos/senac_logo.png" width="200px"/>
-            <ul>
-            <li><a id="aDivSair" href="sair.php">Sair</a></li>
-            </ul>
         </ul>
-
     </nav>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="menu.js"></script>
 
 </header>
