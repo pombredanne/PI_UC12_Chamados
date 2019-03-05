@@ -10,165 +10,221 @@
 //    
 //});
 
-function ajax() {
-//    var selectStatus = document.getElementById("selectStatus");
-//    var index = selectStatus.options[selectStatus.selectedIndex].value;
+//var botao = document.getElementsByTagName('button');
+//botao.addEventListener('click', function(){
+//   
+//    console.log('xd');
 //    
-//    if (select === 'selectStatus') {
-//        Cookies.set('select', 'selectStatus');
-//        Cookies.set('status', index);
-//    }
-//
-//    window.location.reload();
+//});
+
+//$(document).ready(function (){
+//   
+//    
+//    
+//});
+
+$(document).on('click', '.btEditar', function () {
+
+    var row = $(this).closest("tr");
+    var tdText = row.find(".tdCodigo").text();
+
+    window.location.href = 'abrirChamado.php?editar&codigoChamado=' + tdText;
+
+
+});
+
+$(document).on('click', '.btPausarRetomar', function () {
+
+    var row = $(this).closest("tr");
+    var tdText = row.find(".tdCodigo").text();
+
+
+
+    window.location.href = 'controller/salvarChamado.php?verificadorPausarRetomar&codigoChamado=' + tdText;
+
+});
+
+$(document).on('click', '.btCancelar', function () {
+
+    var row = $(this).closest("tr");
+    var tdText = row.find(".tdCodigo").text();
+
+    window.location.href = 'controller/salvarChamado.php?cancelar&codigoChamado=' + tdText;
+
+});
+
+$(document).on('click', '.btEncerrar', function () {
+
+    var row = $(this).closest("tr");
+    var tdText = row.find(".tdCodigo").text();
+
+    window.location.href = 'controller/salvarChamado.php?encerrar&codigoChamado=' + tdText;
+
+});
+
+$(document).on('change', 'select', function () {
+
+    var selectTodosChamados = document.getElementById("selectTodosChamados");
+    var indexSelectTodosChamados = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
+    
+    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
+    
+    if (indexSelectTodosChamados === 0) {
+        
+        selectTecnicosUsuarios.style.display = "none";
+        
+    } else {
+        
+        selectTecnicosUsuarios.style.display = "none";
+        
+    }
+
+    ajax();
+
+});
+
+function ajax() {
+
+    var selectTodosChamados = document.getElementById("selectTodosChamados");
+    var selectStatus = document.getElementById("selectStatus");
+    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
+
+    var indexSelectTodosChamados = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
+    var indexSelectStatus = selectStatus.options[selectStatus.selectedIndex].value;
+    var indexSelectTecnicosUsuarios = selectTecnicosUsuarios.options[selectTecnicosUsuarios.selectedIndex].value;
+
+    $("table").remove();
 
     $.ajax({
-        type: 'POST',
-        url: "functions.php",
+        type: 'GET',
+        url: "functions.php?indexSelectTodosChamados=" + indexSelectTodosChamados
+                + "&indexSelectStatus=" + indexSelectStatus
+                + "&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios,
         datatype: 'json',
         success: function (data) {
-//            data = data.split(',');
+
             var dataKeys = jQuery.parseJSON(data);
-//var chaveUsuarioNomeUsuario1 = variavel.chaveUsuarioNomeUsuario1;
-//            $('#lblStatus').html(data['chaveUsuarioNomeUsuario1']);
-//            $('#lblStatus').html(data[0]);
-//            alert(variavel.chaveChamadoAtivo1);
-
-            var chaveChamadoCodigo = 'chaveChamadoCodigo';
-            var chaveChamadoDataHoraAbertura = 'chaveChamadoDataHoraAbertura';
-            var chaveChamadoDescricaoProblema = 'chaveChamadoDescricaoProblema';
-            var chaveChamadoStatus = 'chaveChamadoStatus';
-            var chaveChamadoHistoricoStatus = 'chaveChamadoHistoricoStatus';
-            var chaveChamadoNivelCriticidade = 'chaveChamadoNivelCriticidade';
-            var chaveChamadoSolucaoProblema = 'chaveChamadoSolucaoProblema';
-            var chaveChamadoPausar = 'chaveChamadoPausar';
-            var chaveChamadoRetomar = 'chaveChamadoRetomar';
-            var chaveChamadoPausado = 'chaveChamadoPausado';
-            var chaveChamadoResolvido = 'chaveChamadoResolvido';
-            var chaveChamadoAtivo = 'chaveChamadoAtivo';
-
-            var chaveTecnicoCodigo = 'chaveTecnicoCodigo';
-            var chaveTecnicoNomeUsuario = 'chaveTecnicoNomeUsuario';
-
-            var chaveUsuarioCodigo = 'chaveUsuarioCodigo';
-            var chaveUsuarioNomeUsuario = 'chaveUsuarioNomeUsuario';
-
-            var chaveSalaCodigo = 'chaveSalaCodigo';
-            var chaveSalaNumero = 'chaveSalaNumero';
-
-            var allTds = "";
-
-            for (var i = 0; i < dataKeys.length; i++) {
-
-                let tr = "<tr>";
-                tr += +"<td>" + dataKeys['chaveChamadoCodigo0'] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoDataHoraAbertura + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoDescricaoProblema + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoStatus + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoHistoricoStatus + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoNivelCriticidade + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoSolucaoProblema + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoPausar + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoRetomar + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoPausado + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoResolvido + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveChamadoAtivo + i] + "</td>";
-//    
-//    tr += "<td>" + dataKeys[chaveTecnicoCodigo + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveTecnicoNomeUsuario + i] + "</td>";
-//    
-//    tr += "<td>" + dataKeys[chaveUsuarioCodigo + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveUsuarioNomeUsuario + i] + "</td>";
-//    
-//    tr += "<td>" + dataKeys[chaveSalaCodigo + i] + "</td>";
-//    tr += "<td>" + dataKeys[chaveSalaNumero + i] + "</td>";
-
-                tr += "</tr>";
-
-                allTds += tr;
-
-                document.createElement('td');
-                document.getElementsByTagName("td")[i].innerHTML = 'sss';
-
-            }
 
             var divTable = document.getElementById("divTable");
 
             var table = document.createElement('table');
-            table.border = '1';
 
-  var tableHeader = document.createElement('thead');
-  table.appendChild(tableHeader);
-  
-  var tr = document.createElement('tr');
-    tableHeader.appendChild(tr);
-  
-  for (var i = 0; i < 13; i++) {
-      
-      var th = document.createElement('th');
-//      th.
-      
-  }
-  
-  
-  th.appendChild('Número');
-  th.appendChild('Usuário');
-  th.appendChild('Sala');
-  th.appendChild('Descrição do problema');
-  th.appendChild('Status atual');
-  th.appendChild('Histórico de status');
-  th.appendChild('Nível de criticidade');
-  th.appendChild('Técnico responsável');
-  th.appendChild('Data e hora de abertura');
-  th.appendChild('Editar');
-  th.appendChild('Pausar/Retomar');
-  th.appendChild('Cancelar');
-  th.appendChild('Encerrar');
+            var tableHeader = document.createElement('thead');
+            table.appendChild(tableHeader);
+
+            var tr = document.createElement('tr');
+            tableHeader.appendChild(tr);
+
+            var ths = new Array('Número', 'Usuário', 'Sala', 'Descrição do problema',
+                    'Status atual', 'Histórico de status', 'Nível de criticidade',
+                    'Técnico responsável', 'Data e hora de abertura', 'Editar',
+                    'Pausar/Retomar', 'Cancelar', 'Encerrar');
+
+            for (let i = 0; i < ths.length; i++) {
+
+                let th = document.createElement('th');
+                th.appendChild(document.createTextNode(ths[i]));
+                tr.appendChild(th);
+
+            }
 
             var tableBody = document.createElement('tbody');
             table.appendChild(tableBody);
 
-            for (var i = 0; i < dataKeys.rows; i++) {
+            var cont = 0;
 
-                var tr = document.createElement('tr');
+            for (let i = 0; i < dataKeys.rows; i++) {
+
+                let tr = document.createElement('tr');
                 tableBody.appendChild(tr);
 
-                for (var j = 0; j < 13; j++) {
+                for (let j = 0; j < 1; j++) {
 
-                    var td = document.createElement('td');
-                    td.appendChild(document.createTextNode(dataKeys.chaveUsuarioNomeUsuario1));
-                    tr.appendChild(td);
+                    let arrayTds = new Array('tdChamadoCodigo', 'tdUsuarioNomeUsuario',
+                            'tdSalaNumero', 'tdChamadoDescricaoProblema', 'tdChamadoStatus',
+                            'tdChamadoHistoricoStatus', 'tdChamadoNivelCriticidade',
+                            'tdChamadoTecnicoNomeUsuario', 'tdChamadoDataHoraAbertura',
+                            'tdBtEditar', 'tdBtPausarRetomar', 'tdBtCancelar', 'tdBtEncerrar');
 
+                    let arrayBts = new Array('btEditar', 'btPausarRetomar',
+                            'btCancelar', 'btEncerrar');
+
+                    arrayTds[0] = document.createElement('td');
+                    arrayTds[0].appendChild(document.createTextNode(dataKeys['chaveChamadoCodigo' + cont]));
+                    arrayTds[0].classList.add('tdCodigo');
+
+                    arrayTds[1] = document.createElement('td');
+                    arrayTds[1].appendChild(document.createTextNode(dataKeys['chaveUsuarioNomeUsuario' + cont]));
+
+                    arrayTds[2] = document.createElement('td');
+                    arrayTds[2].appendChild(document.createTextNode(dataKeys['chaveSalaNumero' + cont]));
+
+                    arrayTds[3] = document.createElement('td');
+                    arrayTds[3].appendChild(document.createTextNode(dataKeys['chaveChamadoDescricaoProblema' + cont]));
+
+                    arrayTds[4] = document.createElement('td');
+                    arrayTds[4].appendChild(document.createTextNode(dataKeys['chaveChamadoStatus' + cont]));
+
+                    arrayTds[5] = document.createElement('td');
+                    arrayTds[5].appendChild(document.createTextNode(dataKeys['chaveChamadoHistoricoStatus' + cont]));
+
+                    arrayTds[6] = document.createElement('td');
+                    arrayTds[6].appendChild(document.createTextNode(dataKeys['chaveChamadoNivelCriticidade' + cont]));
+
+                    arrayTds[7] = document.createElement('td');
+                    arrayTds[7].appendChild(document.createTextNode(dataKeys['chaveChamadoTecnicoNomeUsuario' + cont]));
+
+                    arrayTds[8] = document.createElement('td');
+                    arrayTds[8].appendChild(document.createTextNode(dataKeys['chaveChamadoDataHoraAbertura' + cont]));
+
+                    arrayTds[9] = document.createElement('td');
+                    arrayBts[0] = document.createElement('button');
+                    arrayBts[0].appendChild(document.createTextNode('Editar'));
+                    arrayBts[0].classList.add('btEditar');
+                    arrayTds[9].appendChild(arrayBts[0]);
+
+                    arrayTds[10] = document.createElement('td');
+                    arrayBts[1] = document.createElement('button');
+                    arrayBts[1].appendChild(document.createTextNode('Pausar/Retomar'));
+                    arrayBts[1].classList.add('btPausarRetomar');
+                    arrayTds[10].appendChild(arrayBts[1]);
+
+                    arrayTds[11] = document.createElement('td');
+                    arrayBts[2] = document.createElement('button');
+                    arrayBts[2].appendChild(document.createTextNode('Cancelar'));
+                    arrayBts[2].classList.add('btCancelar');
+                    arrayTds[11].appendChild(arrayBts[2]);
+
+                    arrayTds[12] = document.createElement('td');
+                    arrayBts[3] = document.createElement('button');
+                    arrayBts[3].appendChild(document.createTextNode('Encerrar'));
+                    arrayBts[3].classList.add('btEncerrar');
+                    arrayTds[12].appendChild(arrayBts[3]);
+
+                    //verificao de segurança adicional
+                    for (let l = 0; l < arrayTds.length; l++)
+                    {
+                        if (arrayTds[l] === null)
+                        {
+                            arrayTds[l] = "";
+                        }
+                    }
+
+                    //adicionando os <td> nas <tr>
+                    for (let p = 0; p < arrayTds.length; p++)
+                    {
+                        tr.appendChild(arrayTds[p]);
+                    }
+
+                    cont++;
                 }
+                divTable.appendChild(table);
             }
-            divTable.appendChild(table);
-
-//var string = "";
-//for (var i = 0; i < data.length; i++) {
-//    string = string + data[i];
-//}
-//
-//alert(dataKeys.chaveUsuarioNomeUsuario1);
-
-//            alert(data[0] + data[1]+ data[2]+ data[3]+ data[4]
-//                    + data[5]+ data[6]+ data[7]+ data[8]+ data[9]);
-//            console.log(variavel.chaveChamadoAtivo1);
-//            console.log(chaveUsuarioNomeUsuario1);
-//console.log(data);
-
         }
     });
 
-//xhttp = new XMLHttpRequest();
-//xhttp.onreadystatechange = function () {
-//    document.getElementById("btSolicitarNovoChamado").innerHTML = this.responseText;
-//};
-//
-//xhttp.open("GET", "functions.php?index=" + index, true);
-//xhttp.send();
-
 }
 ;
-
 
 //function changeUrlSelectTodosChamados() {
 //

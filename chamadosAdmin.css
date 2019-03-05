@@ -311,9 +311,11 @@ table {
 }
 
 table th {
+    /*background: linear-gradient(90deg, #191919 , orange, #191919, orange);*/
     background: linear-gradient(90deg, #191919, orange, #191919);
-    animation: animate 30s linear infinite;
+    animation: animate 40s linear infinite;
     background-size: 400%;
+    /*background-size: 150%;*/
     color: black;
     font-size: 120%;
 }
