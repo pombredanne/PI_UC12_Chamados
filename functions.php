@@ -11,56 +11,55 @@ include_once 'model/clsUsuario.php';
 include_once 'model/clsSala.php';
 
 $lista = new ArrayObject();
+$arrayNomeUsuarios = new ArrayObject();
 
-if ($_GET['indexSelectTodosChamados'] == 0)
-{
-    
+if ($_GET['indexSelectTodosChamados'] == 0) {
+
     $lista = ChamadoDAO::getChamados($_GET['indexSelectStatus']);
-    
-}
-else
-{
-    if ($_GET['indexSelectTodosChamados'] == 1)
-    {
+} else {
+    if ($_GET['indexSelectTodosChamados'] == 1) {
         $lista = ChamadoDAO::getAllChamadosByNomeUsuarioTecnico
-                ($_GET['indexSelectTecnicosUsuarios'], $_GET['indexSelectStatus']);
-    }
-    else if ($_GET['indexSelectTodosChamados'] == 2)
-    {
+                        ($_GET['indexSelectTecnicosUsuarios'], $_GET['indexSelectStatus']);
+
+        $arrayNomeUsuarios = ChamadoDAO::getTecnicos();
+    } else if ($_GET['indexSelectTodosChamados'] == 2) {
         $lista = ChamadoDAO::getAllChamadosByUsuario
-                ($_GET['indexSelectTecnicosUsuarios'], $_GET['indexSelectStatus']);
+                        ($_GET['indexSelectTecnicosUsuarios'], $_GET['indexSelectStatus']);
+
+        $arrayNomeUsuarios = ChamadoDAO::getUsuarios();
     }
 }
-
-$array = new ArrayObject();
-$chaveChamadoCodigo = 'chaveChamadoCodigo';
-$chaveChamadoDataHoraAbertura = 'chaveChamadoDataHoraAbertura';
-$chaveChamadoDescricaoProblema = 'chaveChamadoDescricaoProblema';
-$chaveChamadoStatus = 'chaveChamadoStatus';
-$chaveChamadoHistoricoStatus = 'chaveChamadoHistoricoStatus';
-$chaveChamadoNivelCriticidade = 'chaveChamadoNivelCriticidade';
-$chaveChamadoSolucaoProblema = 'chaveChamadoSolucaoProblema';
-$chaveChamadoPausar = 'chaveChamadoPausar';
-$chaveChamadoRetomar = 'chaveChamadoRetomar';
-$chaveChamadoPausado = 'chaveChamadoPausado';
-$chaveChamadoResolvido = 'chaveChamadoResolvido';
-$chaveChamadoAtivo = 'chaveChamadoAtivo';
-
-$chaveChamadoTecnicoCodigo = 'chaveChamadoTecnicoCodigo';
-$chaveChamadoTecnicoNomeUsuario = 'chaveChamadoTecnicoNomeUsuario';
-
-$chaveUsuarioCodigo = 'chaveUsuarioCodigo';
-$chaveUsuarioNomeUsuario = 'chaveUsuarioNomeUsuario';
-
-$chaveSalaCodigo = 'chaveSalaCodigo';
-$chaveSalaNumero = 'chaveSalaNumero';
-$i = 0;
-
-//$lista = ChamadoDAO::getChamados('todos');
 
 if ($lista->count() > 0) {
 
+    $array = new ArrayObject();
+
+    $chaveChamadoCodigo = 'chaveChamadoCodigo';
+    $chaveChamadoDataHoraAbertura = 'chaveChamadoDataHoraAbertura';
+    $chaveChamadoDescricaoProblema = 'chaveChamadoDescricaoProblema';
+    $chaveChamadoStatus = 'chaveChamadoStatus';
+    $chaveChamadoHistoricoStatus = 'chaveChamadoHistoricoStatus';
+    $chaveChamadoNivelCriticidade = 'chaveChamadoNivelCriticidade';
+    $chaveChamadoSolucaoProblema = 'chaveChamadoSolucaoProblema';
+    $chaveChamadoPausar = 'chaveChamadoPausar';
+    $chaveChamadoRetomar = 'chaveChamadoRetomar';
+    $chaveChamadoPausado = 'chaveChamadoPausado';
+    $chaveChamadoResolvido = 'chaveChamadoResolvido';
+    $chaveChamadoAtivo = 'chaveChamadoAtivo';
+
+    $chaveChamadoTecnicoCodigo = 'chaveChamadoTecnicoCodigo';
+    $chaveChamadoTecnicoNomeUsuario = 'chaveChamadoTecnicoNomeUsuario';
+
+    $chaveUsuarioCodigo = 'chaveUsuarioCodigo';
+    $chaveUsuarioNomeUsuario = 'chaveUsuarioNomeUsuario';
+
+    $chaveSalaCodigo = 'chaveSalaCodigo';
+    $chaveSalaNumero = 'chaveSalaNumero';
+
+    $i = 0;
+
     foreach ($lista as $chamado) {
+
         $array[$chaveChamadoCodigo . $i] = $chamado->getCodigo();
         $array[$chaveChamadoDataHoraAbertura . $i] = $chamado->getDataHoraAbertura();
         $array[$chaveChamadoDescricaoProblema . $i] = $chamado->getDescricaoProblema();
@@ -68,40 +67,52 @@ if ($lista->count() > 0) {
         $array[$chaveChamadoHistoricoStatus . $i] = $chamado->getHistoricoStatus();
         $array[$chaveChamadoNivelCriticidade . $i] = $chamado->getNivelCriticidade();
         $array[$chaveChamadoSolucaoProblema . $i] = $chamado->getSolucaoProblema();
-//    $array[$chaveChamadoPausar . $i] = $chamado->getPausar();
-//    $array[$chaveChamadoRetomar . $i] = $chamado->getRetomar();
-//    $array[$chaveChamadoPausado . $i] = $chamado->getPausado();
-//    $array[$chaveChamadoResolvido . $i] = $chamado->getResolvido();
-//    $array[$chaveChamadoAtivo . $i] = $chamado->getAtivo();
 
         if ($chamado->getTecnicoResponsavel() != null) {
 
-//        $array[$chaveTecnicoCodigo . $i] = $chamado->getTecnicoResponsavel()->getCodigo();
             $array[$chaveChamadoTecnicoNomeUsuario . $i] = $chamado->getTecnicoResponsavel()->getNomeUsuario();
         } else {
 
-//         $array[$chaveTecnicoCodigo . $i] = "";
             $array[$chaveChamadoTecnicoNomeUsuario . $i] = "";
         }
 
-//    $array[$chaveUsuarioCodigo . $i] = $chamado->getUsuario()->getCodigo();
         $array[$chaveUsuarioNomeUsuario . $i] = $chamado->getUsuario()->getNomeUsuario();
 
-//    $array[$chaveSalaCodigo . $i] = $chamado->getSala()->getCodigo();
         $array[$chaveSalaNumero . $i] = $chamado->getSala()->getNumero();
+
         $i++;
     }
 
-    $array['rows'] = $lista->count();
+    $array['countRows'] = $lista->count();
 } else {
 
     $array = null;
 }
 
-//$array = array('chave1' => 1,'chave2' => 2,'chave3' => 3,
-//    'chave4' => 4,'chave5' => 5,'chave6' => 6);
-//foreach($array as $a) {
-//    echo implode('~', $array);
-//}
+//array de usuários
+if ($arrayNomeUsuarios->count() > 0) {
+    $chaveTecnicosUsuarios = 'chaveTecnicosUsuarios';
+
+    $i = 0;
+
+    foreach ($arrayNomeUsuarios as $usuario) {
+        $array[$chaveTecnicosUsuarios . $i] = $usuario->getNomeUsuario();
+        $i++;
+    }
+
+    $array['countUsuarios'] = $arrayNomeUsuarios->count();
+    
+    if ($arrayNomeUsuarios[0]->getAdmin() == 1)
+    {
+        $array['chaveUsuarioAdmin'] = 1;
+    } else {
+        $array['chaveUsuarioAdmin'] = 0;
+    }
+    
+} else {
+    $array[$chaveTecnicosUsuarios] = null;
+    $array['countUsuarios'] = null;
+}
+
 $json = json_encode($array);
 echo $json;

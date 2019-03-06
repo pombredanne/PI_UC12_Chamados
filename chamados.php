@@ -66,18 +66,10 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     </select>
                 </div><br><br>
 
-                <label id="lblTecnicosUsuarios">
-                    <?php
-                    if ($_GET['tipo'] == 'tecnico')
-                        echo 'Técnicos';
-                    else if ($_GET['tipo'] == 'docente')
-                        echo 'Usuários';
-                    ?>
-                </label>
+                <label id="lblTecnicosUsuarios"></label>
 
                 <div id="divSelectTecnicosUsuarios">
                     <select id="selectTecnicosUsuarios">
-                        <option value="todos">Todos</option>
                     </select>
                 </div><br><br>
 

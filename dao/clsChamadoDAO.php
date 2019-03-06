@@ -195,17 +195,18 @@ class ChamadoDAO {
 
     public static function getTecnicos() {
 
-        $sql = "SELECT codigo, nomeUsuario FROM usuarios WHERE admin = 1";
+        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 1";
 
         $result = Conexao::consultar($sql);
 
         $lista = new ArrayObject();
 
-        while (list($codigo, $nome) = mysqli_fetch_row($result)) {
+        while (list($codigo, $nome, $admin) = mysqli_fetch_row($result)) {
 
             $tecnico = new Usuario();
             $tecnico->setCodigo($codigo);
             $tecnico->setNomeUsuario($nome);
+            $tecnico->setAdmin($admin);
 
             $lista->append($tecnico);
         }
@@ -215,19 +216,20 @@ class ChamadoDAO {
 
     public static function getUsuarios() {
 
-        $sql = "SELECT codigo, nomeUsuario FROM usuarios WHERE admin = 0";
+        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 0";
 
         $result = Conexao::consultar($sql);
 
         $lista = new ArrayObject();
 
-        while (list($codigo, $nome) = mysqli_fetch_row($result)) {
+        while (list($codigo, $nome, $admin) = mysqli_fetch_row($result)) {
 
-            $tecnico = new Usuario();
-            $tecnico->setCodigo($codigo);
-            $tecnico->setNomeUsuario($nome);
+            $usuario = new Usuario();
+            $usuario->setCodigo($codigo);
+            $usuario->setNomeUsuario($nome);
+            $usuario->setAdmin($admin);
 
-            $lista->append($tecnico);
+            $lista->append($usuario);
         }
 
         return $lista;
