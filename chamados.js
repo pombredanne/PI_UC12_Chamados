@@ -1,9 +1,9 @@
-$(document).ready(function(){
-    
+$(document).ready(function () {
+
     $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
-    
+
     ajax();
-        
+
 });
 
 $(document).on('click', '.btEditar', function () {
@@ -80,14 +80,14 @@ function ajax() {
                 + "&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios,
         datatype: 'json',
         success: function (data) {
-            
+
             var dataKeys = jQuery.parseJSON(data);
 
             createTable(dataKeys);
-            
+
             if (indexSelectTodosChamados != 0)
                 fillSelectTecnicosUsuarios(dataKeys);
-            
+
 //            setLabelTecnicosUsuarios(data);
 
         }
@@ -102,36 +102,54 @@ function setLabelTecnicosUsuarios(data)
 
 function fillSelectTecnicosUsuarios(dataKeys)
 {
+
+    var selectTodosChamados = document.getElementById("selectTodosChamados");
+    var indexSelectTodosChamados = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
+
+    var selected = 'todos';
     
-    //AKI O PROBLEMA
-    //quando mudar o selelct de chamadosDocentes pra chamadosTecnicos e vice versa
-    //vai pegar no selected o nomeUsuario do docente e vai tentar botar como
-    //o selecionado no select dos tecnicos e n vai existir
-    var selected = $("#selectTecnicosUsuarios").val();
+    //verficicao inacabd  pra quando ta selecionado o chamados por tecnico/usuario
+    //e ta selecionado no o utro select um tecnico/usuario e muda o
+    //selecttodoschamados de chamados por tecnico pra chamados por usuario
+    //ou vice versa
     
-    $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
+    if (dataKeys['chaveUsuarioAdmin'] == 1 && indexSelectTodosChamados == 1
+            || dataKeys['chaveUsuarioAdmin'] == 0 && indexSelectTodosChamados == 2) {
+        
+        var row = $("table").children("tbody").children("tr:first");
+        var tdText = row.find(".tdNomeUsuario").text();
     
-    for (let i = 0; i < dataKeys.countUsuarios; i++)
-    {
-        
-        let option = '<option value="' + dataKeys['chaveTecnicosUsuarios' + i] + '">'
-                + dataKeys['chaveTecnicosUsuarios' + i] + '</option>';
-        
-        $('#selectTecnicosUsuarios').append(option);
-        
+        if (dataKeys.includes(tdText) == true) {
+            selected = $("#selectTecnicosUsuarios").val();
+        }
+            
     }
     
+//    alert(dataKeys['chaveUsuarioAdmin'] + indexSelectTodosChamados);
+
+    $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
+
+    for (let i = 0; i < dataKeys.countUsuarios; i++)
+    {
+
+        let option = '<option value="' + dataKeys['chaveTecnicosUsuarios' + i] + '">'
+                + dataKeys['chaveTecnicosUsuarios' + i] + '</option>';
+
+        $('#selectTecnicosUsuarios').append(option);
+
+    }
+
     $("#selectTecnicosUsuarios option").removeAttr('selected')
-            .filter('[value=' + selected + ']')
-            .attr('selected', true);
-    
+        .filter('[value=' + selected + ']')
+        .attr('selected', true);
+
 }
 
 function createTable(dataKeys)
 {
 
     var divTable = document.getElementById("divTable");
-    
+
     $("table").remove();
 
     var table = document.createElement('table');
@@ -175,7 +193,7 @@ function createTable(dataKeys)
 
             let arrayBts = new Array('btEditar', 'btPausarRetomar',
                     'btCancelar', 'btEncerrar');
-                    
+
 //                    criar laço aki
 
             arrayTds[0] = document.createElement('td');
