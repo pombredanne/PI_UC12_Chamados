@@ -69,8 +69,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 <label id="lblTecnicosUsuarios"></label>
 
                 <div id="divSelectTecnicosUsuarios">
-                    <select id="selectTecnicosUsuarios">
-                    </select>
+                    <select id="selectTecnicosUsuarios"></select>
                 </div><br><br>
 
                 <?php

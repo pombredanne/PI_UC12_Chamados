@@ -86,7 +86,7 @@ function ajax() {
             createTable(dataKeys);
 
             if (indexSelectTodosChamados != 0)
-                fillSelectTecnicosUsuarios(dataKeys);
+                fillSelectTecnicosUsuarios(data, dataKeys, indexSelectTecnicosUsuarios);
 
 //            setLabelTecnicosUsuarios(data);
 
@@ -100,32 +100,28 @@ function setLabelTecnicosUsuarios(data)
 {
 }
 
-function fillSelectTecnicosUsuarios(dataKeys)
+function fillSelectTecnicosUsuarios(data, dataKeys, oldIndexSelectTecnicosUsuarios)
 {
 
-    var selectTodosChamados = document.getElementById("selectTodosChamados");
-    var indexSelectTodosChamados = selectTodosChamados.options[selectTodosChamados.selectedIndex].value;
+    var selected = oldIndexSelectTecnicosUsuarios;
 
-    var selected = 'todos';
-    
     //verficicao inacabd  pra quando ta selecionado o chamados por tecnico/usuario
     //e ta selecionado no o utro select um tecnico/usuario e muda o
     //selecttodoschamados de chamados por tecnico pra chamados por usuario
     //ou vice versa
-    
-    if (dataKeys['chaveUsuarioAdmin'] == 1 && indexSelectTodosChamados == 1
-            || dataKeys['chaveUsuarioAdmin'] == 0 && indexSelectTodosChamados == 2) {
+
+    if (data.includes(selected)) {
+
+        selected = $("#selectTecnicosUsuarios").val();
         
-        var row = $("table").children("tbody").children("tr:first");
-        var tdText = row.find(".tdNomeUsuario").text();
-    
-        if (dataKeys.includes(tdText) == true) {
-            selected = $("#selectTecnicosUsuarios").val();
-        }
-            
+    } else {
+        selected = "todos";
     }
-    
-//    alert(dataKeys['chaveUsuarioAdmin'] + indexSelectTodosChamados);
+
+//    var row = $("table").children("tbody").children("tr:first");
+//    var tdText = row.find(".tdNomeUsuario").text();
+
+//    alert(dataKeys['chaveTecnicosUsuarios0'] + oldIndexSelectTecnicosUsuarios);
 
     $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
 
@@ -140,8 +136,8 @@ function fillSelectTecnicosUsuarios(dataKeys)
     }
 
     $("#selectTecnicosUsuarios option").removeAttr('selected')
-        .filter('[value=' + selected + ']')
-        .attr('selected', true);
+            .filter('[value=' + selected + ']')
+            .attr('selected', true);
 
 }
 
