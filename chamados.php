@@ -49,35 +49,30 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             require_once 'menu.php';
             ?>
 
-            <h1><button id="btSolicitarNovoChamado"><a href="#">Solicitar novo chamado</a></button></h1>
+            <a href="abrirChamado.php"><button id="btSolicitarNovoChamado">Solicitar novo chamado</button></a>
             <br><br>    
 
-            <?php
-            if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                ?>
-
+            <div id="divContainerLabel">
                 <label id="lblFiltroChamados">Filtro de chamados</label>
+                <label id="lblStatus">Status</label>
+                <label id="lblTecnicosUsuarios">Técnicos/Docentes</label>
+            </div>
 
-                <div id="divSelectTodosChamados">
+            <div id="divContainerSelect">
+
+                <?php
+                if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+                    ?>
+
                     <select id="selectTodosChamados">
                         <option value="0">Todos chamados</option>
                         <option value="1">Chamados de técnicos</option>
                         <option value="2">Chamados de docentes</option>
                     </select>
-                </div><br><br>
 
-                <label id="lblTecnicosUsuarios"></label>
-
-                <div id="divSelectTecnicosUsuarios">
-                    <select id="selectTecnicosUsuarios"></select>
-                </div><br><br>
-
-                <?php
-            }
-            ?>
-
-            <label id="lblStatus">Status</label>
-            <div id="divSelectStatus">
+                    <?php
+                }
+                ?>
 
                 <select id="selectStatus">
                     <option value="todos">Todos</option>
@@ -85,7 +80,18 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                     <option value="Resolvido">Resolvido</option>
                     <option value="Cancelado">Cancelado</option>
                 </select>
-            </div><br><br>
+
+                <?php
+                if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+                    ?>
+
+                    <select id="selectTecnicosUsuarios"></select>
+
+                    <?php
+                }
+                ?>
+
+            </div>
 
             <div id="divTable"></div>
 

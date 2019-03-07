@@ -28,7 +28,9 @@ if ($usuario == null) {
     $_SESSION['nomeCompleto'] = $usuario->getNomeCompleto();
     $_SESSION['nomeUsuario'] = $usuario->getNomeUsuario();
     
-    header("Location: chamados.php?codigo=0&status=todos");
+    setcookie('redirect', 'chamados.php');
+    
+    header("Location: loading.php");
   
 }
 

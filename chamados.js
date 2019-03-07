@@ -74,17 +74,17 @@ function ajax() {
     var indexSelectStatus = selectStatus.options[selectStatus.selectedIndex].value;
     var indexSelectTecnicosUsuarios = selectTecnicosUsuarios.options[selectTecnicosUsuarios.selectedIndex].value;
 
-    var divSelectTecnicosUsuarios = document.getElementById("divSelectTecnicosUsuarios");
+    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
 
     var admin = "";
 
     if (indexSelectTodosChamados == 0) {
 
-        divSelectTecnicosUsuarios.style.display = "none";
+        selectTecnicosUsuarios.style.display = "none";
         
     } else {
 
-        divSelectTecnicosUsuarios.style.display = "block";
+        selectTecnicosUsuarios.style.display = "inline-block";
         
         if (indexSelectTodosChamados == 1)
         {

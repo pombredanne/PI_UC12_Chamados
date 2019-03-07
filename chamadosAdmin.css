@@ -4,42 +4,48 @@
     padding: 0;
 }
 
-#lblFiltroChamados {
-    position: absolute;
-    top: 27%;
-    left: 28%;
-    float: left;
-}
-
-#lblStatus
+#divContainerSelect
 {
-    position: absolute;
-    top: 27%;
-    left: 50%;
+    margin-left: 26%;
+    width: 100%;
 }
 
-#lblTecnicosUsuarios
+#divContainerSelect select
 {
-    position: absolute;
-    top: 27%;
-    left: 68%;
+    margin-left: 50px;
 }
 
-h3
+#divContainerLabel
+{
+    margin-top: 3%;
+}
+
+#divContainerLabel label
+
+{
+    margin-left: 50px;
+}
+
+#divContainerLabel #lblFiltroChamados
+{
+    margin-right: 7%;
+    margin-left: 31%;
+    margin-bottom: 1%;
+}
+
+#divContainerLabel #lblStatus
+{
+    margin-right: 7%;
+}
+
+/*h3
 {
     position: absolute;
     top: 16%;
     left: 1%;
-}
+}*/
 
-#divSelectTecnicosUsuarios
-{
-    position: absolute;
-    margin-top: -0.55%;
-    margin-left: 64%;
-}
-
-#divSelectTecnicosUsuarios select {
+#selectTecnicosUsuarios {
     background-color: #0563af;
     visibility: visible;
     color: white;
@@ -53,7 +59,7 @@ h3
     outline: none;
 }
 
-#divSelectTecnicosUsuarios:before {
+#selectTecnicosUsuarios:before {
     content: '';
     position: absolute;
     visibility: visible;
@@ -66,12 +72,12 @@ h3
     pointer-events: none;
 }
 
-#divSelectTecnicosUsuarios:hover:before
+#selectTecnicosUsuarios:hover:before
 {
     background-color: #0472ca;
 }
 
-#divSelectTecnicosUsuarios:after {
+#selectTecnicosUsuarios:after {
     content: '';
     visibility: visible;
     position: absolute;
@@ -88,14 +94,7 @@ h3
     pointer-events: none;
 }
 
-#divSelectStatus
-{
-    position: absolute;
-    top: 34%;
-    left: 45%;
-}
-
-#divSelectStatus select {
+#selectStatus {
     background-color: #0563af;
     color: white;
     padding: 10px;
@@ -108,7 +107,7 @@ h3
     outline: none;
 }
 
-#divSelectStatus:before {
+#selectStatus:before {
     content: '';
     position: absolute;
     top: 0;
@@ -120,12 +119,12 @@ h3
     pointer-events: none;
 }
 
-#divSelectStatus:hover:before
+#selectStatus:hover:before
 {
     background-color: #0472ca;
 }
 
-#divSelectStatus:after {
+#selectStatus:after {
     content: '';
     position: absolute;
     width: 0;
@@ -141,14 +140,7 @@ h3
     pointer-events: none;
 }
 
-#divSelectTodosChamados
-{
-    position: absolute;
-    top: 34%;
-    left: 26%;
-}
-
-#divSelectTodosChamados select {
+#selectTodosChamados {
     background-color: #0563af;
     color: white;
     padding: 10px;
@@ -161,7 +153,7 @@ h3
     outline: none;
 }
 
-#divSelectTodosChamados:before {
+#selectTodosChamados:before {
     content: '';
     position: absolute;
     top: 0;
@@ -174,12 +166,12 @@ h3
     z-index: 1;
 }
 
-#divSelectTodosChamados:hover:before
+#selectTodosChamados:hover:before
 {
     background-color: #0472ca;
 }
 
-#divSelectTodosChamados:after {
+#selectTodosChamados:after {
     content: '';
     position: absolute;
     width: 0;
@@ -211,11 +203,11 @@ h3
     border-style: none;
     text-align: center;
     cursor: pointer;
+    color: white;
 }
 
 #btSolicitarNovoChamado a
 {
-    color: white;
     text-decoration: none;
 }
 
@@ -244,56 +236,6 @@ h3
 
 #divLinks {
     margin-left: 38%;
-}
-
-#spanNomeUsuario {
-    position: absolute;
-    left: 1%;
-    top: 35%;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    font-weight: bold;
-    font-size: 150%;
-}
-
-.navBar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    background-color: #f8b032;
-    height: 10%;
-    box-shadow: 0 20px 100px black;
-    overflow: hidden;
-}
-
-.navBar a {
-    float: left;
-    color: #0033ff;
-    text-align: center;
-    padding: 30px 30px;
-    text-decoration: none;
-    font-size: 25px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-}
-
-.navBar a:hover {
-    background-color: #0033ff;
-    color: white;
-}
-
-.navBar a.active {
-    background-color: brown;
-    color: gray;
-}
-
-form {
-    position: relative;
-}
-
-#selectTodosChamados {
-    position: absolute; 
-    top: 25%;
-    margin-left: 1%;
-    font-size: 110%;
 }
 
 body {

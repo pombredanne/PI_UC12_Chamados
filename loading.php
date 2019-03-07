@@ -23,7 +23,7 @@ and open the template in the editor.
         
         $redirect = '';
         
-        if (isset($_COOKIE['redirect'])) {
+        if (isset($_COOKIE['redirect']) && $_COOKIE['redirect'] == 'chamados.php') {
         
             $redirect = $_COOKIE['redirect'];
             
