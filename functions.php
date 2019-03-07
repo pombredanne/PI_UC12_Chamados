@@ -13,6 +13,8 @@ include_once 'model/clsSala.php';
 $lista = new ArrayObject();
 $arrayNomeUsuarios = new ArrayObject();
 
+if (!isset($_GET['selected'])) {
+
 if ($_GET['indexSelectTodosChamados'] == 0) {
 
     $lista = ChamadoDAO::getChamados($_GET['indexSelectStatus']);
@@ -41,19 +43,12 @@ if ($lista->count() > 0) {
     $chaveChamadoHistoricoStatus = 'chaveChamadoHistoricoStatus';
     $chaveChamadoNivelCriticidade = 'chaveChamadoNivelCriticidade';
     $chaveChamadoSolucaoProblema = 'chaveChamadoSolucaoProblema';
-    $chaveChamadoPausar = 'chaveChamadoPausar';
-    $chaveChamadoRetomar = 'chaveChamadoRetomar';
-    $chaveChamadoPausado = 'chaveChamadoPausado';
-    $chaveChamadoResolvido = 'chaveChamadoResolvido';
     $chaveChamadoAtivo = 'chaveChamadoAtivo';
 
-    $chaveChamadoTecnicoCodigo = 'chaveChamadoTecnicoCodigo';
     $chaveChamadoTecnicoNomeUsuario = 'chaveChamadoTecnicoNomeUsuario';
 
-    $chaveUsuarioCodigo = 'chaveUsuarioCodigo';
     $chaveUsuarioNomeUsuario = 'chaveUsuarioNomeUsuario';
 
-    $chaveSalaCodigo = 'chaveSalaCodigo';
     $chaveSalaNumero = 'chaveSalaNumero';
 
     $i = 0;
@@ -114,5 +109,36 @@ if ($arrayNomeUsuarios->count() > 0) {
     $array['countUsuarios'] = null;
 }
 
-$json = json_encode($array);
-echo $json;
+echo json_encode($array);
+
+} else {
+    
+    $indexSelecTecnicosUsuarios = $_GET['indexSelectTecnicosUsuarios'];
+    
+    $arrayNomeUsuarios = ChamadoDAO::getUsuarios();
+    
+    $admin = 1;
+    
+    foreach ($arrayNomeUsuarios as $usuario)
+    {
+        if ($usuario->getNomeUsuario() == $indexSelecTecnicosUsuarios)
+        {
+            $admin = 0;
+            break;  
+        }
+    }
+    
+    $change = "";
+    
+    if ($admin == $_GET['admin'])
+    {
+        $change = false;
+    }
+    else
+    {
+        $change = true;
+    }
+    
+    echo json_encode($change);
+    
+}

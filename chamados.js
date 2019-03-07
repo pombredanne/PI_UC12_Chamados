@@ -45,7 +45,20 @@ $(document).on('click', '.btEncerrar', function () {
 
 });
 
+//variável global pra definir se terá que carregar o selectTecnicosUsuarios
+//novamente ou não
+var change = "";
+
 $(document).on('change', 'select', function () {
+
+    if ($(this).attr("id") == 'selectTodosChamados')
+    {  
+        change = true;
+        
+    } else {
+
+        change = false;
+    }
 
     ajax();
 
@@ -63,15 +76,41 @@ function ajax() {
 
     var divSelectTecnicosUsuarios = document.getElementById("divSelectTecnicosUsuarios");
 
+    var admin = "";
+
     if (indexSelectTodosChamados == 0) {
 
         divSelectTecnicosUsuarios.style.display = "none";
-
+        
     } else {
 
         divSelectTecnicosUsuarios.style.display = "block";
+        
+        if (indexSelectTodosChamados == 1)
+        {
+            admin = 1;
+        } 
+        else
+        {
+            admin = 0;
+        }
 
     }
+    
+    $.ajax({
+        type: 'GET',
+        url: "functions.php?selected&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios
+            + "&admin=" + admin,
+        datatype: 'json',
+        success: function (data) {
+
+            if (data == true)
+            {
+                indexSelectTecnicosUsuarios = 'todos';
+            }
+            
+        }
+    });
 
     $.ajax({
         type: 'GET',
@@ -82,11 +121,11 @@ function ajax() {
         success: function (data) {
 
             var dataKeys = jQuery.parseJSON(data);
+            
+             if (indexSelectTodosChamados != 0 && change == true)
+                fillSelectTecnicosUsuarios(dataKeys);
 
             createTable(dataKeys);
-
-            if (indexSelectTodosChamados != 0)
-                fillSelectTecnicosUsuarios(data, dataKeys, indexSelectTecnicosUsuarios);
 
 //            setLabelTecnicosUsuarios(data);
 
@@ -96,33 +135,15 @@ function ajax() {
 }
 ;
 
-function setLabelTecnicosUsuarios(data)
+function setLabelTecnicosUsuarios(dataKeys)
 {
 }
 
-function fillSelectTecnicosUsuarios(data, dataKeys, oldIndexSelectTecnicosUsuarios)
+function fillSelectTecnicosUsuarios(dataKeys)
 {
 
-    var selected = oldIndexSelectTecnicosUsuarios;
-
-    //verficicao inacabd  pra quando ta selecionado o chamados por tecnico/usuario
-    //e ta selecionado no o utro select um tecnico/usuario e muda o
-    //selecttodoschamados de chamados por tecnico pra chamados por usuario
-    //ou vice versa
-
-    if (data.includes(selected)) {
-
-        selected = $("#selectTecnicosUsuarios").val();
+//    selected = $("#selectTecnicosUsuarios").val();
         
-    } else {
-        selected = "todos";
-    }
-
-//    var row = $("table").children("tbody").children("tr:first");
-//    var tdText = row.find(".tdNomeUsuario").text();
-
-//    alert(dataKeys['chaveTecnicosUsuarios0'] + oldIndexSelectTecnicosUsuarios);
-
     $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
 
     for (let i = 0; i < dataKeys.countUsuarios; i++)
@@ -135,9 +156,9 @@ function fillSelectTecnicosUsuarios(data, dataKeys, oldIndexSelectTecnicosUsuari
 
     }
 
-    $("#selectTecnicosUsuarios option").removeAttr('selected')
-            .filter('[value=' + selected + ']')
-            .attr('selected', true);
+//    $("#selectTecnicosUsuarios option").removeAttr('selected')
+//            .filter('[value=' + selected + ']')
+//            .attr('selected', true);
 
 }
 
