@@ -55,7 +55,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             <div id="divContainerLabel">
                 <label id="lblFiltroChamados">Filtro de chamados</label>
                 <label id="lblStatus">Status</label>
-                <label id="lblTecnicosUsuarios">Técnicos/Docentes</label>
+                <label id="lblTecnicosUsuarios"></label>
             </div>
 
             <div id="divContainerSelect">
@@ -64,29 +64,34 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     ?>
 
+                <div id="divSelectTodosChamados">
                     <select id="selectTodosChamados">
                         <option value="0">Todos chamados</option>
                         <option value="1">Chamados de técnicos</option>
                         <option value="2">Chamados de docentes</option>
                     </select>
-
+                </div>
+                    
                     <?php
                 }
                 ?>
 
-                <select id="selectStatus">
-                    <option value="todos">Todos</option>
-                    <option value="Em aberto">Em aberto</option>
-                    <option value="Resolvido">Resolvido</option>
-                    <option value="Cancelado">Cancelado</option>
-                </select>
+                <div id="divSelectStatus">
+                    <select id="selectStatus">
+                        <option value="todos">Todos</option>
+                        <option value="Em aberto">Em aberto</option>
+                        <option value="Resolvido">Resolvido</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
 
                 <?php
                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     ?>
 
+                <div id="divSelectTecnicosUsuarios">
                     <select id="selectTecnicosUsuarios"></select>
-
+                </div>
                     <?php
                 }
                 ?>

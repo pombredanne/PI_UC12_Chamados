@@ -35,7 +35,18 @@
 
 #divContainerLabel #lblStatus
 {
-    margin-right: 7%;
+    margin-right: 12%;
+}
+
+#divContainerLabel #lblTecnicosUsuarios
+{
+    margin-bottom: 1%;
+}
+
+#divSelectTodosChamados, #divSelectStatus, #divSelectTecnicosUsuarios
+{
+    display: inline-block;
+    position: relative;
 }
 
 /*h3
@@ -47,7 +58,6 @@
 
 #selectTecnicosUsuarios {
     background-color: #0563af;
-    visibility: visible;
     color: white;
     padding: 10px;
     width: 250px;
@@ -59,10 +69,11 @@
     outline: none;
 }
 
-#selectTecnicosUsuarios:before {
+.showSelectTecnicosUsuarios:before
+{
+    
     content: '';
     position: absolute;
-    visibility: visible;
     top: 0;
     right: 0;
     width: 50px;
@@ -72,19 +83,19 @@
     pointer-events: none;
 }
 
-#selectTecnicosUsuarios:hover:before
+.showSelectTecnicosUsuarios:hover:before
 {
     background-color: #0472ca;
 }
 
-#selectTecnicosUsuarios:after {
+.showSelectTecnicosUsuarios:after
+{
     content: '';
-    visibility: visible;
     position: absolute;
     width: 0;
     height: 0;
     top: 22px;
-    right: 20px;
+    right: 18px;
     color: white;
     font-size: 20px;
     border-style: solid;
@@ -107,7 +118,7 @@
     outline: none;
 }
 
-#selectStatus:before {
+#divSelectStatus:before{
     content: '';
     position: absolute;
     top: 0;
@@ -119,16 +130,18 @@
     pointer-events: none;
 }
 
-#selectStatus:hover:before
+#divSelectStatus:hover:before
 {
     background-color: #0472ca;
 }
 
-#selectStatus:after {
+#divSelectStatus:after{
     content: '';
     position: absolute;
     width: 0;
     height: 0;
+    /*top: 22px;*/
+    /*right: 18px;*/
     top: 22px;
     right: 18px;
     color: white;
@@ -153,31 +166,30 @@
     outline: none;
 }
 
-#selectTodosChamados:before {
+#divSelectTodosChamados:before {
     content: '';
     position: absolute;
     top: 0;
-    right: -250px;
+    right: 0;
     width: 50px;
     height: 50px;
     color: white;
     background-color: #007ce0;
     pointer-events: none;
-    z-index: 1;
 }
 
-#selectTodosChamados:hover:before
+#divSelectTodosChamados:hover:before
 {
     background-color: #0472ca;
 }
 
-#selectTodosChamados:after {
+#divSelectTodosChamados:after {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
     top: 22px;
-    right: -232px;
+    right: 18px;
     color: white;
     font-size: 20px;
     border-style: solid;
@@ -185,7 +197,6 @@
     border-color: white transparent;
     background-color: #007ce0;
     pointer-events: none;
-    z-index: 1;
 }
 
 #btSolicitarNovoChamado {

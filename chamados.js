@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
 
     ajax();
-
+    
 });
 
 $(document).on('click', '.btEditar', function () {
@@ -52,12 +52,35 @@ var change = "";
 $(document).on('change', 'select', function () {
 
     if ($(this).attr("id") == 'selectTodosChamados')
-    {  
+    {
         change = true;
+        
+        if ($(this).val() != 0)
+        {
+            $("#divSelectTecnicosUsuarios").addClass("showSelectTecnicosUsuarios");
+
+            $("#lblTecnicosUsuarios").css("visibility", "visible");
+
+            if ($(this).val() == 1)
+            {
+                $("#lblTecnicosUsuarios").text("Técnicos");
+            }
+            else
+            {
+                $("#lblTecnicosUsuarios").text("Docentes");
+            }
+            
+        }
+        else
+        {
+            $("#lblTecnicosUsuarios").css("visibility", "hidden");
+            $("#divSelectTecnicosUsuarios").removeClass("showSelectTecnicosUsuarios");
+        }
         
     } else {
 
         change = false;
+        
     }
 
     ajax();
@@ -133,10 +156,10 @@ function ajax() {
     });
 
 }
-;
 
 function setLabelTecnicosUsuarios(dataKeys)
 {
+    
 }
 
 function fillSelectTecnicosUsuarios(dataKeys)
