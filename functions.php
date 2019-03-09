@@ -13,7 +13,7 @@ include_once 'model/clsSala.php';
 $lista = new ArrayObject();
 $arrayNomeUsuarios = new ArrayObject();
 
-if (!isset($_GET['selected'])) {
+if (isset($_GET['changeSelect'])) {
 
 if ($_GET['indexSelectTodosChamados'] == 0) {
 
@@ -111,7 +111,7 @@ if ($arrayNomeUsuarios->count() > 0) {
 
 echo json_encode($array);
 
-} else {
+} else if (isset ($_GET['fillSelect'])){
     
     $indexSelecTecnicosUsuarios = $_GET['indexSelectTecnicosUsuarios'];
     
@@ -140,5 +140,17 @@ echo json_encode($array);
     }
     
     echo json_encode($change);
+    
+} 
+else if (isset ($_GET['excluirSala']))
+{
+    
+    $excluir = SalaDAO::excluir($_GET['codigoSala']);
+        
+    if ($excluir == false)
+    {
+        $erro = 'error';
+        echo json_encode($erro);
+    }
     
 }

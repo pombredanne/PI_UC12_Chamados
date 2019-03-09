@@ -1,9 +1,127 @@
-form {
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+#divContainer form #labelAberturaChamados
+
+{
+    font-size: 30px;
+    margin-left: calc(22% - 40px);
+}
+
+body
+{
+    background-image: url("fotos/background_body_semlogo.png");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#divContainer
+{
     position: absolute;
-    margin-top: 15%;
-    margin-left: 1%;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffb44e;
+    padding: 40px;
+    width: 500px;
+    border: 1px solid #ea9537;
+}
+
+#divContainerInputForm
+{
+    margin-top: 20px;
+}
+
+form {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+form label
+{
+    margin-bottom: 25px;
+}
+
+form #divLabelSala
+{
+    margin-left: calc(55% - 40px);
+}
+
+form textarea
+{
+    width: calc(100% - 40px);
+}
+
+form #labelTextareaDescricaoProblema
+{
+    margin-left: calc(45% - 40px);
+}
+
+form #labelNivelCriticidade
+{
+    margin-left: calc(40% - 40px);
+}
+
+form #labelTecnicoResponsavel
+{
+    margin-left: calc(40% - 40px);
+}
+
+form .divInput
+{
+    margin-bottom: 30px;
+}
+
+form #selectSala
+{
+    margin-left: calc(53% - 40px);
+}
+
+form #textareaDescricaoProblema
+{
+    margin-left: calc(38% - 40px);
+}
+
+form #selectNivelCriticidade, #selectTecnicoResponsavel
+{
+    margin-left: calc(48% - 40px);
+}
+
+form select
+{
+    background-color: #0563af;
+    color: white;
+    padding: 10px;
+    width: 250px;
+    height: 50px;
+    border: none;
+    font-size: 17px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    -webkit-appearance: button;
+    outline: none;
+}
+
+form .divInput:before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #007ce0;
+    pointer-events: none;
+}
+
+form .divInput:hover:before
+{
+    background-color: #0472ca;
 }
 
 #btSalvar {
-    margin-bottom: 20%;
 }

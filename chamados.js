@@ -97,8 +97,6 @@ function ajax() {
     var indexSelectStatus = selectStatus.options[selectStatus.selectedIndex].value;
     var indexSelectTecnicosUsuarios = selectTecnicosUsuarios.options[selectTecnicosUsuarios.selectedIndex].value;
 
-    var selectTecnicosUsuarios = document.getElementById("selectTecnicosUsuarios");
-
     var admin = "";
 
     if (indexSelectTodosChamados == 0) {
@@ -122,7 +120,7 @@ function ajax() {
     
     $.ajax({
         type: 'GET',
-        url: "functions.php?selected&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios
+        url: "functions.php?fillSelect&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios
             + "&admin=" + admin,
         datatype: 'json',
         success: function (data) {
@@ -137,7 +135,7 @@ function ajax() {
 
     $.ajax({
         type: 'GET',
-        url: "functions.php?indexSelectTodosChamados=" + indexSelectTodosChamados
+        url: "functions.php?changeSelect&indexSelectTodosChamados=" + indexSelectTodosChamados
                 + "&indexSelectStatus=" + indexSelectStatus
                 + "&indexSelectTecnicosUsuarios=" + indexSelectTecnicosUsuarios,
         datatype: 'json',

@@ -330,7 +330,7 @@ class ChamadoDAO {
             
         if ($_SESSION['admin'] == 1) {
             
-            if ($status != "todos") {
+            if ($status != '    todos') {
 
                 $sql = $sql . " AND c.status = '" . $status . "'";
             }

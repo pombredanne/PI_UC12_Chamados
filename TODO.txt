@@ -8,9 +8,9 @@ busca (ativo) status resolvido, cancelado
 
 customValidity
 
-border-image
-
 ripple effect button
+
+msg habilitar cookies no navegador
 
 estilizar tela de confirmacao (copiar a pronta salvarSala.php)
 
