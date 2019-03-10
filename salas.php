@@ -48,16 +48,11 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
                 foreach ($lista as $sala) {
 
                     echo '<tr>'
-                    . '<td class="tdCodigo">' . $sala->getCodigo() . '</td>'
-                    . '<td>' . $sala->getNumero() . '</td>'
-                    . '<td>' . $sala->getDescricao() . '</td>'
-                    . '<td>'
-                    . '<a href="cadastrarSala.php?editar&codigoSala=' . $sala->getCodigo() . '">'
-                    . '<button>Editar</button></a>'
-                    . '</td>'
-                    . '<td>'
-                    . '<button id="buttonTableDelete">Excluir</button>'
-                    . '</td>'
+                    . '<td id="tdCodigo" class="tdPadding">' . $sala->getCodigo() . '</td>'
+                    . '<td id="tdNumero" class="tdPadding">' . $sala->getNumero() . '</td>'
+                    . '<td class="tdPadding">' . $sala->getDescricao() . '</td>'
+                    . '<td class="tdFakeButton" id="tdEditar">Editar</td>'
+                    . '<td class="tdFakeButton" id="tdExcluir">Excluir</td>'
                     . '</tr>';
                 }
 
@@ -70,7 +65,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
             <script src="salas.js"></script>
             
             <div id="divContainerAlert">
-                <h1>Excluir a sala N?</h1>
+                <h1>Excluir a sala <span id="spanAlert"></span>?</h1>
                 
                 <button id="buttonAlertCancel">
                 <i class="fas fa-times"></i>
@@ -82,11 +77,16 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
                 
             </div>
             
+            <div class="divError">
+                <label>A sala <span id="spanError"></span> já pertence a um chamado!</label>
+                <i class="fas fa-times"></i>
+                <button id="buttonError">Fechar</button>
+            </div>
 
             <?php
         } else {
 
-            header("Location: index.php");
+            header("Location: chamados.php");
         }
         ?>
 

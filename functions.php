@@ -149,8 +149,30 @@ else if (isset ($_GET['excluirSala']))
         
     if ($excluir == false)
     {
-        $erro = 'error';
-        echo json_encode($erro);
+        $error = 'error';
+        echo json_encode($error);
+    }
+    else
+    {
+        $error = 'success';
+        echo json_encode($error);
+    }
+    
+}
+else if (isset ($_GET['excluirUsuario']))
+{
+    
+    $excluir = UsuarioDAO::excluir($_GET['codigoUsuario']);
+        
+    if ($excluir == false)
+    {
+        $error = 'error';
+        echo json_encode($error);
+    }
+    else
+    {
+        $error = 'success';
+        echo json_encode($error);
     }
     
 }

@@ -8,6 +8,8 @@ busca (ativo) status resolvido, cancelado
 
 customValidity
 
+editar usuario sem selecionar uma nova foto "perde" a foto atual
+
 ripple effect button
 
 msg habilitar cookies no navegador

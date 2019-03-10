@@ -71,6 +71,15 @@ table td
 
 table td, table th {
     border-color: orange;
+}
+
+img
+{
+    width: 100px;
+}
+
+table .tdPadding
+{
     padding: 10px;
 }
 
@@ -82,18 +91,176 @@ table th {
     font-size: 120%;
 }
 
-table a {
-    width: 100%;
+table .tdFakeButton {
     height: 100%;
-    background-color: #191919;
     color: #1E90FF;
     font-weight: bold;
-    border-style: none;
+    cursor: pointer;
 }
 
-table a:hover {
+table .tdFakeButton:hover {
     background-color: #1E64FF;
     color: white;
+}
+
+#divContainerAlert
+{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    width: 500px;
+    height: 250px;
+    background: orange;
+    box-shadow: 0 0 20px black;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    z-index: 2;
+}
+
+h1
+{
+    color: #191919;
+    margin-top: 20px;
+}
+
+#buttonAlertCancel
+{
+    margin-top: 30px;
+    margin-right: 70px;
+    border: 2px solid black;
+    padding: 5px 10px 0;
+    border-radius: 30px;
+    background-color: black;
+    cursor: pointer;
+    outline: none;
+}
+
+#buttonAlertCancel:hover
+{
+    background-color: red;
+}
+
+#buttonAlertCancel:hover i, #buttonAlertCancel:hover label
+{
+    color: black
+}
+
+#buttonAlertCancel:active
+{
+    transform: translateY(4px);
+}
+
+#buttonAlertCancel label
+{
+    position: relative;
+    top: -10px;
+    color: red;
     font-size: 20px;
-    text-decoration: none;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#buttonAlertCancel i
+{
+    color: red;
+    font-size: 40px;
+}
+
+#buttonAlertDelete
+{
+    margin-top: 30px;
+    /*top sides bottom*/
+    padding: 5px 10px 0;
+    border-radius: 30px;
+    border: 2px solid black;
+    background-color: black;
+    cursor: pointer;
+    outline: none;
+}
+
+#buttonAlertDelete:hover
+{
+    background-color: #2ecc71;
+}
+
+#buttonAlertDelete:hover i, #buttonAlertDelete:hover label
+{
+    color: black
+}
+
+#buttonAlertDelete:active
+{
+    transform: translateY(4px);
+}
+
+#buttonAlertDelete label
+{
+    position: relative;
+    top: -10px;
+    color: #2ecc71;
+    font-size: 20px;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#buttonAlertDelete i
+{
+    color: #2ecc71;
+    font-size: 40px;
+}
+
+.divError
+{
+    position: absolute;
+    background-color: orange;
+    width: 500px;
+    height: 250px;
+    top: 40%;
+    left: 35%;
+    padding: 15px 20px;
+    box-shadow: 0 0 20px black;
+}
+
+.divError label
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: #191919;
+}
+
+.divError button
+{
+    width: 150px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 30px;
+    border: 2px solid #0563af;
+    padding: 5px 10px;
+    margin-left: calc(38% - 10px);
+    margin-top: 20px;
+    background-color: #007ce0;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.divError button:hover
+{
+    background-color: #0563af;
+}
+
+.divError button:active
+{
+    transform: translateY(4px);
+}
+
+.divError i
+{
+    color: red;
+    font-size: 50px;
+    margin-left: calc(50% - 10px);
+    display: block;
 }
