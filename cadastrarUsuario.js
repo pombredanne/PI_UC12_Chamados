@@ -1,7 +1,3 @@
-function onload(){
-   window.location.href = 'loading.php';
-};
-
 $('#imgFile').click(function (){
     
     $('#inputFile').trigger('click');
@@ -30,16 +26,6 @@ $("#inputFile").change(function(){
     readURL(this);
 });
 
-var inputFile = document.getElementById('inputFile');
-var labelFile = document.getElementById('labelFile');
-
-inputFile.addEventListener('change', function() {
-    
-    labelFile.textContent = this.files[0].name;
-    labelFile.style.backgroundColor = "1E64FF";
-    
-});
-
 var verificarSenha = function(){
     
     document.getElementById('txtSenhaIncorreta').style.fontSize = '20px';
@@ -60,10 +46,3 @@ var verificarSenha = function(){
     }
 
 };
-
-//var enviarSenha = function() {
-//    
-//        document.getElementById('txtSenhaIncorreta').style.color = 'green';
-//        document.getElementById('txtSenhaIncorreta').innerHTML = 'As senhas não coincidem!';
-//        
-//};

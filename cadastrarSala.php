@@ -1,29 +1,3 @@
-<?php
-error_reporting(0);
-
-//if (!isset($_COOKIE['redirect'])) {
-//    
-//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
-//
-//
-?>
-
-<!--<script src="cadastrarSala.js"></script>
-
-<script>
-
-    onload();
-
-</script>-->
-
-<?php
-//
-//} else {
-//    setcookie('redirect', '', time() - 3600);
-//    unset($_COOKIE['redirect']);
-//}
-?>
-
 <!DOCTYPE html>
 
 <html>
@@ -42,6 +16,9 @@ error_reporting(0);
     <body>
 
         <?php
+        
+        error_reporting(0);
+        
         session_start();
 
         include_once 'dao/clsConexao.php';

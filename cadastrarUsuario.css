@@ -80,6 +80,7 @@ input:checked[type="checkbox"]:before
 {
     left: 40px;
     background: #1E64FF;
+    /*background: rgb(255,140,0);*/
 }
 
 body {
@@ -101,15 +102,12 @@ h2 {
     position: absolute;
     top: 20%;
     left: 38%;
-    /*transform: translate(-10%, -10%);*/
-        width: 60vh;
+    width: 60vh;
     background-color: #ffb44e;
     padding: 4vh;
-/*    background-color: #171617;*/
     border: 5px solid #ea9537;
     box-shadow: 0 5px 10px #171617;
     margin-bottom: 5%;
-    /*faz com que os elementos html não "saiam" do elemento pai com a mudança de zoom*/
     z-index: 1;
 }
 
@@ -118,17 +116,18 @@ h2 {
     border-bottom: none;
     cursor: pointer;
     background-color: #1b1b1b;
-    color: orange;
+    color: rgb(255,140,0);
     margin-top: 10%;
     margin-bottom: 20%;
     font-size: 35px;
     font-family: "Georgia", sans-serif;
     text-transform: uppercase;
     outline: none;
+    border-style: none;
 }
 
 .box input[type="submit"]:hover {
-    box-shadow: 0.2px 0.2px 2px 2px rgba(20,20,20,.80);
+    box-shadow: 0.2px 0.2px 2px rgba(20,20,20,.80);
     background-color: rgb(10,10,10);
 }
 
@@ -151,7 +150,7 @@ h2 {
     pointer-events: none;
     left: 12%;
     top: 25%;
-    color: #9aafbb;
+    color: rgba(255,140,0,.5);
     transition: .5s;
 }
 
@@ -163,6 +162,11 @@ h2 {
     height: 70px;
     font-size: 20px;
     border-radius: 7px;
+    background-color: #191919;
+    color: orange;
+    border-style: none;
+    outline: none;
+    padding-left: 10px;
 }
 
 /*subindo o label*/
@@ -176,7 +180,7 @@ não desça novamente ao clicar em outro input
     transform: translate(-1%,-120%);
     /*top: 5px;*/
     /*left: 30px;*/
-    color: blue;
+    color: rgb(255,140,0);
     font-size: 12px;
     font-weight: bold;
 }

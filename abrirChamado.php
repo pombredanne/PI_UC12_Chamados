@@ -69,9 +69,8 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                         <div id="divLabelSala">
                             <label>Sala</label>
                         </div>
-                        <div class="divInput">
+                        <div id="divSelectSala" class="divInput">
                             <select name="selectSala" id="selectSala">
-
                                 <?php
                                 $listaSalas = SalaDAO::getSalas();
 
@@ -80,7 +79,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                                     echo '<option>Nenhuma sala cadastrada</option>';
                                 } else {
 
-                                    echo '<option>Sala</option>';
+                                    echo '<option value="0">Selecione...</option>';
 
                                     foreach ($listaSalas as $sala) {
 
@@ -100,7 +99,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                         </div>
 
                         <div class="divInput" id="divTextareaDescricaoProblema">
-                            <textarea name="taDescricaoProblema" id="textareaDescricaoProblema"><?php echo $descricaoProblema; ?></textarea><br><br>
+                            <textarea name="taDescricaoProblema" id="textareaDescricaoProblema" required><?php echo $descricaoProblema; ?></textarea><br><br>
                             <label id="labelTextareaDescricaoProblema">Descrição do problema</label>
                         </div>
                         <?php
@@ -122,7 +121,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                             <label id="labelNivelCriticidade">Nível de criticidade</label>
 
-                            <div class="divInput">
+                            <div class="divInput" id="divSelectNivelCriticidade">
                                 <select name="selectNivelCriticidade" id="selectNivelCriticidade">
                                     <option value="">Selecione...</option>
 
@@ -146,7 +145,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                             <label id="labelTecnicoResponsavel">Técnico responsável</label>
 
-                            <div class="divInput">
+                            <div class="divInput" id="divSelectTecnicoResponsavel">
                                 <select name="selectTecnicoResponsavel" id="selectTecnicoResponsavel">
 
                                     <?php
@@ -193,8 +192,9 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 </form>
             </div>
 
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="abrirChamado.js"></script>
-
+            
             <?php
         } else {
             header("Location: index.php");

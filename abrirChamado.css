@@ -22,13 +22,14 @@ body
 #divContainer
 {
     position: absolute;
-    top: 65%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #ffb44e;
     padding: 40px;
     width: 500px;
-    border: 1px solid #ea9537;
+    border: 5px solid #ea9537;
+    margin-bottom: 5%;
 }
 
 #divContainerInputForm
@@ -41,58 +42,94 @@ form {
     font-weight: bold;
 }
 
-form label
+label
 {
     margin-bottom: 25px;
 }
 
-form #divLabelSala
+#divLabelSala
 {
     margin-left: calc(55% - 40px);
 }
 
-form textarea
-{
-    width: calc(100% - 40px);
-}
-
-form #labelTextareaDescricaoProblema
-{
-    margin-left: calc(45% - 40px);
-}
-
-form #labelNivelCriticidade
+#labelNivelCriticidade
 {
     margin-left: calc(40% - 40px);
 }
 
-form #labelTecnicoResponsavel
+#labelTecnicoResponsavel
 {
     margin-left: calc(40% - 40px);
 }
 
-form .divInput
+#divSelectSala
+{
+    margin-right: 170px;
+}
+
+.divInput
 {
     margin-bottom: 30px;
+    margin-right: 130px;
+    
 }
 
-form #selectSala
+#selectSala
 {
     margin-left: calc(53% - 40px);
 }
 
-form #textareaDescricaoProblema
+textarea
 {
-    margin-left: calc(38% - 40px);
+    margin-left: calc(46% - 40px);
+    margin-top: 40px;
+    width: calc(100% - 40px);
+    height: 100px;
+    font-size: 15px;
+    padding: 10px;
+    resize: none;
+    outline: none;
+    box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    background: #191919;
+    border-style: none;
+    border-radius: 10px;
 }
 
-form #selectNivelCriticidade, #selectTecnicoResponsavel
+textarea:focus ~ #labelTextareaDescricaoProblema,
+textarea:valid ~ #labelTextareaDescricaoProblema
+{
+    top: 31%;
+    color: #191919;
+}
+
+textarea:focus,
+textarea:valid
+{
+    margin-top: 60px;
+    background: #191919;
+    color: orange;
+}
+
+#labelTextareaDescricaoProblema
+{
+    position: absolute;
+    top: 37.5%;
+    left: 29%;
+    /*color: #9aafbb;*/
+    color: rgb(255,140,0);
+    pointer-events: none;
+    transition: .5s;
+}
+
+#selectNivelCriticidade, #selectTecnicoResponsavel
 {
     margin-left: calc(48% - 40px);
 }
 
-form select
+select
 {
+    background: url("fotos/arrow_down.png") no-repeat 205px;
+    background-size: 40px;
     background-color: #0563af;
     color: white;
     padding: 10px;
@@ -103,25 +140,40 @@ form select
     box-shadow: 0 5px 25px rgba(0,0,0,.5);
     -webkit-appearance: button;
     outline: none;
+    text-align-last: center;
+   -ms-text-align-last: center;
+   -moz-text-align-last: center;
 }
 
-form .divInput:before
-{
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 50px;
-    color: white;
-    background-color: #007ce0;
-    pointer-events: none;
-}
-
-form .divInput:hover:before
+select:focus
 {
     background-color: #0472ca;
 }
 
 #btSalvar {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-left: calc(32% - 40px);
+    outline: none;
+    border-style: none;
+    padding: 10px;
+    width: 60%;
+    cursor: pointer;
+    background-color: #1b1b1b;
+    color: rgb(255,140,0);
+    font-size: 35px;
+    font-family: "Georgia", sans-serif;
+    text-transform: uppercase;
+    border-radius: 7px;
+}
+
+#btSalvar:hover
+{
+    box-shadow: 0.2px 0.2px 2px rgba(20,20,20,.8);
+    background-color: rgb(10,10,10);
+}
+
+#btSalvar:active
+{
+    transform: translateY(4px);
 }

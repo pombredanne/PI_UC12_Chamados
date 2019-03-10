@@ -7,16 +7,20 @@ class UsuarioDAO {
 
     public static function inserir($usuario) {
 
-        $sql = "INSERT INTO usuarios (nomeCompleto, nomeUsuario, senha, email, admin, foto) VALUES"
+        $sql = "INSERT INTO usuarios (nomeCompleto, nomeUsuario, senha, email, foto, admin) VALUES"
                 . "("
                 . " '" . $usuario->getNomeCompleto() . "' , "
                 . " '" . $usuario->getNomeUsuario() . "' , "
                 . " '" . $usuario->getSenha() . "' , "
-                . " '" . $usuario->getEmail() . "' , "
-                . " " . $usuario->getAdmin() . " , "
-                . " '" . $usuario->getFoto() . "' "
-                . ");";
-
+                . " '" . $usuario->getEmail() . "' , ";
+        
+                if ($usuario->getFoto() != null)
+                {
+                    $sql = $sql . "'" . $usuario->getFoto() . "' , ";
+                }
+        
+                $sql = $sql . " " . $usuario->getAdmin() . " );";
+        
         Conexao::executar($sql);
     }
     

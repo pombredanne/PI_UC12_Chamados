@@ -1,3 +1,9 @@
+deixar "selecionado" (pintado) menu da pagina atual
+
+scroll tadescricaoproblema
+
+recuperaçao de senha
+
 guardar scroll da pagina no reload
 
 'alert' pra excluir ao inves de mandar pra outra pagina

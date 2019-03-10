@@ -1,27 +1,4 @@
 <?php
-//error_reporting(0);
-//
-//if (!isset($_COOKIE['redirect'])) {
-//    
-//    setcookie('redirect', $_SERVER['REQUEST_URI'], time() + 20);
-?>
-
-<script src="cadastrarUsuario.js"></script>
-<!--
-<script>
-
-    onload();
-
-</script>-->
-
-<?php
-//} else {
-//    setcookie('redirect', '', time() - 3600);
-//    unset($_COOKIE['redirect']);
-//}
-?>
-
-<?php
 error_reporting(0);
 
 session_start();
@@ -48,8 +25,9 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
         $admin = $usuario->getAdmin();
         $email = $usuario->getEmail();
         $foto = $usuario->getFoto();
-        
+
         $action = "editar&codigoUsuario=" . $_GET['codigoUsuario'];
+        
     }
     ?>
 
@@ -59,33 +37,22 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
         <head>
             <meta charset="UTF-8">
             <title>Cadastrar usuario</title>
-            
+
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
             <link rel="stylesheet" type="text/css" href="cadastrarUsuario.css">
 
         </head>
 
-    <?php
-    require_once 'menu.php';
-
-    //NAO TA FUNCIONANDO
-    if (strpos('inserir', $_SERVER['HTTP_REFERER'])) {
+        <?php
+        require_once 'menu.php';
         ?>
 
-            <body onload="enviarSenha();">
+        <body>
 
-            <?php
-        } else {
-            ?>
+            <script src="cadastrarUsuario.js"></script>
 
-            <body>
-
-                <?php
-            }
-            ?>
-                
-                <script type="text/javascript" src="jquery.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
             <div id="wrapper">
 
@@ -107,14 +74,12 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                         </div>
 
                         <?php
-                        
                         $checked = "";
-                        
+
                         if ($admin == 1)
                             $checked = "checked";
-                        
                         ?>
-                        
+
                         <input id="inputCheckbox" <?php echo $checked; ?> type="checkbox" name="cbAdmin">
                         <label for="inputCheckbox" id="labelAdmin">Admin</label><br><br>
 
@@ -122,65 +87,59 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                             <input type="email" name="txtEmail" value="<?php echo $email; ?>" required>
                             <label>E-mail</label><br><br>
                         </div>
-                        
-                        <?php
-                        
-                        if (!isset($_GET['editar'])) {
-                        
-                            $foto = "sem_foto.png";
-                        }
-                            
-                        ?>
+
+    <?php
+    if (!isset($_GET['editar'])) {
+
+        $foto = "sem_foto.png";
+    }
+    ?>
 
                         <img id="imgFile" src="fotos/<?php echo $foto; ?>" width="200px">
 
-                        <!--<div class="divFile">-->
                         <input type="file" name="txtFoto" id="inputFile">
-                        <!--</div>-->
-                        
+
                         <script src="cadastrarUsuario.js"></script>
 
-                        <?php
-                        
-                        if (!isset($_GET['editar'])) {
-                            
-                        ?>
-                        
-                        <div id="divSenha">
-                            <input type="password" name="txtSenha" id="inputSenha" onkeyup="verificarSenha();" required>
-                            <label>Senha</label><br><br>
-                        </div>
+    <?php
+    if (!isset($_GET['editar'])) {
+        ?>
 
-                        <div>   
-                            <input type="password" name="txtConfirmarSenha" id="inputConfirmarSenha" onkeyup="verificarSenha();" required>
-                            <label>Confirmar senha</label><br><br>
-                        </div>
+                            <div id="divSenha">
+                                <input type="password" name="txtSenha" id="inputSenha" onkeyup="verificarSenha();" required>
+                                <label>Senha</label><br><br>
+                            </div>
 
-                        <span id="txtSenhaIncorreta"></span>
-                        
-                        <?php
-                        
-                        }
-                        
-                        if (isset($_GET['editar'])) 
-                            $value = "Salvar";
-                        else
-                            $value = "Cadastrar";
-                                
-                        ?>
+                            <div>   
+                                <input type="password" name="txtConfirmarSenha" id="inputConfirmarSenha" onkeyup="verificarSenha();" required>
+                                <label>Confirmar senha</label><br><br>
+                            </div>
+
+                            <span id="txtSenhaIncorreta"></span>
+
+        <?php
+    }
+
+    if (isset($_GET['editar']))
+        $value = "Salvar";
+    else
+        $value = "Cadastrar";
+    ?>
 
                         <input type="submit" value="<?php echo $value; ?>">
-                        
+
                     </form>
 
                 </div>
+                
+                <script type="text/javascript" src="js-cookie/src/js.cookie.js"></script>
 
 
-    <?php
-} else {
-    header("Location: index.php");
-}
-?>
+                        <?php
+                    } else {
+                        header("Location: index.php");
+                    }
+                    ?>
 
     </body>
 

@@ -34,11 +34,3 @@ if (isset($_GET['editar'])) {
 
     header("Location: ../salas.php");
 }
-
-if (isset($_GET['excluir'])) {
-
-    $sala = SalaDAO::excluir($_GET['codigoSala']);
-    
-    header("Location: ../salas.php");
-}
-
