@@ -45,18 +45,20 @@
             }
             ?>
 
-            <div id="divForm">
+            <div id="divContainerForm">
+                
+                <label id="labelCadastroSala">Cadastro de sala</label>
 
                 <form action="controller/salvarSala.php?<?php echo $action; ?>" method="POST">
 
                     <div>
-                        <label id="labelSala">Sala</label>
                         <input type="text" name="txtNumero" value="<?php echo $numero; ?>" required>
+                        <label id="labelSala">Sala</label>
                     </div><br><br>
 
                     <div>
+                        <textarea name="taDescricaoSala" required><?php echo $descricao; ?></textarea>
                         <label id="labelDescricao">Descrição da sala</label>
-                        <textarea name="taDescricaoSala"><?php echo $descricao; ?></textarea>
                     </div>
 
                     <input type="submit" value="Cadastrar">
