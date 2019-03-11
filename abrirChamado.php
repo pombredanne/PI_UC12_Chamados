@@ -53,6 +53,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             <title>Abertura de chamados</title>
 
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
             <link rel="stylesheet" type="text/css" href="abrirChamado.css">
 

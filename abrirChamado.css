@@ -128,10 +128,9 @@ textarea:valid
 
 select
 {
-    background: url("fotos/arrow_down.png") no-repeat 205px;
     background-size: 40px;
-    background-color: #0563af;
-    color: white;
+    background-color: #191919;
+    color: rgb(255,140,0);
     padding: 10px;
     width: 250px;
     height: 50px;
@@ -147,7 +146,39 @@ select
 
 select:focus
 {
-    background-color: #0472ca;
+    background-color: #262626;
+}
+
+#divSelectSala, #divSelectNivelCriticidade, #divSelectTecnicoResponsavel
+{
+    position: relative;
+}
+
+#divSelectSala:after, #divSelectNivelCriticidade:after, #divSelectTecnicoResponsavel:after
+{
+    content: '\f107';
+    position: absolute;
+    font-family: fontAwesome;
+    color: rgb(255,140,0);
+    pointer-events: none;
+}
+
+#divSelectSala:after
+{
+    top: 15%;
+    right: -32%;
+}
+
+#divSelectNivelCriticidade:after
+{
+    top: 15%;
+    right: -15%;
+}
+
+#divSelectTecnicoResponsavel:after
+{
+    top: 15%;
+    right: -15%;
 }
 
 #btSalvar {

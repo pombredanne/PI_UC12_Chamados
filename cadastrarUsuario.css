@@ -79,8 +79,8 @@ input[type="checkbox"]:before
 input:checked[type="checkbox"]:before
 {
     left: 40px;
-    background: #1E64FF;
-    /*background: rgb(255,140,0);*/
+    /*background: #1E64FF;*/
+    background: rgb(255,140,0);
 }
 
 body {

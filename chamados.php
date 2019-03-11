@@ -100,7 +100,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
             <div id="divTable"></div>
 
-        </table>
         <?php
     } else {
         header("Location: login.php");
