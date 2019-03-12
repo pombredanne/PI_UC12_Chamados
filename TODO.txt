@@ -1,19 +1,12 @@
-deixar "selecionado" (pintado) menu da pagina atual
-
 responsividade geral
 
-outline options select
+chamadosadmincss -> chamadosdocentecss
 
-customizacao de botoes de formularios: degrade de 2 cores 180°
-hover: pinta o degrade de cima (metade)
-
-scroll tadescricaoproblema
+custom scroll pagina, tadescricaoproblema
 
 recuperaçao de senha
 
-guardar scroll da pagina no reload
-
-'alert' pra excluir ao inves de mandar pra outra pagina
+guardar scroll da pagina no table.remove()
 
 encriptacao crypt salvarusuario (criar regra)
 

@@ -4,6 +4,101 @@
     padding: 0;
 }
 
+#btSolicitarNovoChamado {
+    background-color: #0066ff;
+    border-radius: 20px;
+    font-size: 25px;
+    margin-top: 7%;
+    margin-left: 44%;
+    font-family: "Trebuchet MS", sans-serif;
+    background: linear-gradient(90deg, #191919, #1E64FF, #191919);
+    background-size: 300%;
+    outline: none;
+    padding: 10px;
+    border-radius: 30px;
+    border-style: none;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+#btSolicitarNovoChamado a
+{
+    text-decoration: none;
+}
+
+#btSolicitarNovoChamado:hover {
+    animation: animate 8s linear infinite;
+}
+
+#btSolicitarNovoChamado:active
+{
+    transform: translateY(4px);
+    background: linear-gradient(180deg, #191919, #1E64FF, #191919);
+}
+
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0%;
+    }
+
+    100%
+    {
+        background-position: 400%;
+    }
+}
+
+body {
+    background-image: url("fotos/background_body_semlogo.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; 
+}
+
+table {
+    background-color: #191919;
+    color: orange;
+    width: 100%;
+    margin-top: 2%;
+}
+
+table th {
+    /*background: linear-gradient(90deg, #191919 , orange, #191919, orange);*/
+    background: linear-gradient(90deg, #191919, orange, #191919);
+    animation: animate 40s linear infinite;
+    background-size: 400%;
+    /*background-size: 150%;*/
+    color: black;
+    font-size: 120%;
+}
+
+table .tdFakeButton {
+    height: 100%;
+    font-weight: bold;
+    color: #1E90FF;
+    cursor: pointer;
+}
+
+table .tdFakeButton:hover {
+    background-color: #1E64FF;
+    color: white;
+}
+
+@keyframes animate
+{
+    0%
+    {
+        background-position: 0%;
+    }
+
+    100%
+    {
+        background-position: 400%;
+    }
+}
+
 #divContainerSelect
 {
     margin-left: 26%;
@@ -158,101 +253,6 @@ select option:checked
     top: 8px;
     right: 18px;
     font-size: 25px;
-}
-
-#btSolicitarNovoChamado {
-    background-color: #0066ff;
-    border-radius: 20px;
-    font-size: 25px;
-    margin-top: 7%;
-    margin-left: 44%;
-    font-family: "Trebuchet MS", sans-serif;
-    background: linear-gradient(90deg, #191919, #1E64FF, #191919);
-    background-size: 300%;
-    outline: none;
-    padding: 10px;
-    border-radius: 30px;
-    border-style: none;
-    text-align: center;
-    cursor: pointer;
-    color: white;
-}
-
-#btSolicitarNovoChamado a
-{
-    text-decoration: none;
-}
-
-#btSolicitarNovoChamado:hover {
-    animation: animate 8s linear infinite;
-}
-
-#btSolicitarNovoChamado:active
-{
-    transform: translateY(4px);
-    background: linear-gradient(180deg, #191919, #1E64FF, #191919);
-}
-
-@keyframes animate
-{
-    0%
-    {
-        background-position: 0%;
-    }
-
-    100%
-    {
-        background-position: 400%;
-    }
-}
-
-body {
-    background-image: url("fotos/background_body_semlogo.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; 
-}
-
-table {
-    background-color: #191919;
-    color: orange;
-    width: 100%;
-    margin-top: 2%;
-}
-
-table th {
-    /*background: linear-gradient(90deg, #191919 , orange, #191919, orange);*/
-    background: linear-gradient(90deg, #191919, orange, #191919);
-    animation: animate 40s linear infinite;
-    background-size: 400%;
-    /*background-size: 150%;*/
-    color: black;
-    font-size: 120%;
-}
-
-table .tdFakeButton {
-    height: 100%;
-    font-weight: bold;
-    color: #1E90FF;
-    cursor: pointer;
-}
-
-table .tdFakeButton:hover {
-    background-color: #1E64FF;
-    color: white;
-}
-
-@keyframes animate
-{
-    0%
-    {
-        background-position: 0%;
-    }
-
-    100%
-    {
-        background-position: 400%;
-    }
 }
 
 table td {

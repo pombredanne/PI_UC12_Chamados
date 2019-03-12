@@ -84,8 +84,8 @@ if (isset($_SESSION['logado']) && $_SESSION['admin'] == 1) {
                         <label for="inputCheckbox" id="labelAdmin">Admin</label><br><br>
 
                         <div>
-                            <input type="email" name="txtEmail" value="<?php echo $email; ?>" required>
-                            <label>E-mail</label><br><br>
+                            <input id="inputEmail" type="email" name="txtEmail" value="<?php echo $email; ?>" required>
+                            <label id="labelEmail">E-mail</label><br><br>
                         </div>
 
     <?php

@@ -121,17 +121,24 @@ input[type="submit"]
     margin-left: calc(33% - 40px);
     width: 200px;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 35px;
+    font-family: "Georgia", sans-serif;
     outline: none;
     border-style: none;
-    padding: 10px;
+    padding: 5px;
     color: rgb(255,140,0);
     border-radius: 7px;
+    background: linear-gradient(180deg, #191919, #1E64FF);
 }
 
 input[type="submit"]:hover
 {
-    background-color: black;
+    background: linear-gradient(180deg, #1E64FF, #191919);
+}
+
+input[type="submit"]:focus
+{
+    background: linear-gradient(180deg, #1E64FF, #191919);
 }
 
 input[type="submit"]:active

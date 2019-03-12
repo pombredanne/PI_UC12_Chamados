@@ -32,9 +32,9 @@
             if ($_SESSION['admin'] == 1) {
                 ?>
 
-                <li class="liSubMenu"><a href="salas.php">Salas</a>
+            <li class="liSubMenu"><a id="aSalas" href="salas.php">Salas</a>
                     <ul>
-                        <li><a href="cadastrarSala.php">Cadastrar sala</a></li>
+                        <li><a id="aCadastrarSala" href="cadastrarSala.php">Cadastrar sala</a></li>
                     </ul>
                 </li>
 
@@ -42,19 +42,19 @@
 }
 ?>
 
-            <li class="liSubMenu"><a href="chamados.php">Chamados</a>
+                <li class="liSubMenu"><a id="aChamados" href="chamados.php">Chamados</a>
                 <ul>
 
 <?php
 if ($_SESSION['admin'] == 1) {
     ?>
 
-                        <li><a href="abrirChamado.php">Abrir chamado</a></li>
+                    <li><a id="aAbrirChamado" href="abrirChamado.php">Abrir chamado</a></li>
                     </ul>
                 </li>
-                <li class="liSubMenu"><a href="usuarios.php">Usuários</a>
+                <li class="liSubMenu"><a id="aUsuarios" href="usuarios.php">Usuários</a>
                     <ul>
-                        <li><a href="cadastrarUsuario.php">Cadastrar usuário</a></li>
+                        <li><a id="aCadastrarUsuario" href="cadastrarUsuario.php">Cadastrar usuário</a></li>
                     </ul>
                 </li>
 
