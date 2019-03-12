@@ -1,5 +1,12 @@
 deixar "selecionado" (pintado) menu da pagina atual
 
+responsividade geral
+
+outline options select
+
+customizacao de botoes de formularios: degrade de 2 cores 180°
+hover: pinta o degrade de cima (metade)
+
 scroll tadescricaoproblema
 
 recuperaçao de senha

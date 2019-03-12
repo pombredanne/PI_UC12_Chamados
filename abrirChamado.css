@@ -22,9 +22,8 @@ body
 #divContainer
 {
     position: absolute;
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    left: 35%;
     background-color: #ffb44e;
     padding: 40px;
     width: 500px;
@@ -32,7 +31,7 @@ body
     margin-bottom: 5%;
 }
 
-#divContainerInputForm
+#divContainerForm
 {
     margin-top: 20px;
 }
@@ -47,26 +46,6 @@ label
     margin-bottom: 25px;
 }
 
-#divLabelSala
-{
-    margin-left: calc(55% - 40px);
-}
-
-#labelNivelCriticidade
-{
-    margin-left: calc(40% - 40px);
-}
-
-#labelTecnicoResponsavel
-{
-    margin-left: calc(40% - 40px);
-}
-
-#divSelectSala
-{
-    margin-right: 170px;
-}
-
 .divInput
 {
     margin-bottom: 30px;
@@ -74,16 +53,29 @@ label
     
 }
 
-#selectSala
+#divLabelSala
 {
-    margin-left: calc(53% - 40px);
+    margin-left: calc(55% - 40px);
+}
+
+#divSelectSala
+{
+    margin-left: calc(32% - 40px);
+}
+
+#divTextareaDescricaoProblema,
+#divTextareaStatusAtual,
+#divTextareaHistoricoStatus,
+#divTextareaSolucaoProblema
+{
+    position: relative;
 }
 
 textarea
 {
     margin-left: calc(46% - 40px);
     margin-top: 40px;
-    width: calc(100% - 40px);
+    width: calc(100% - 30px);
     height: 100px;
     font-size: 15px;
     padding: 10px;
@@ -95,10 +87,24 @@ textarea
     border-radius: 10px;
 }
 
-textarea:focus ~ #labelTextareaDescricaoProblema,
-textarea:valid ~ #labelTextareaDescricaoProblema
+#taDescricaoProblema:focus ~ #labelTextareaDescricaoProblema,
+#taDescricaoProblema:valid ~ #labelTextareaDescricaoProblema
 {
-    top: 31%;
+    top: 5%;
+    color: #191919;
+}
+
+#taStatusAtual:focus ~ #labelTextareaStatusAtual,
+#taStatusAtual:valid ~ #labelTextareaStatusAtual
+{
+    top: 0;
+    color: #191919;
+}
+
+#taSolucaoProblema:focus ~ #labelTextareaSolucaoProblema,
+#taSolucaoProblema:valid ~ #labelTextareaSolucaoProblema
+{
+    top: 0;
     color: #191919;
 }
 
@@ -113,40 +119,93 @@ textarea:valid
 #labelTextareaDescricaoProblema
 {
     position: absolute;
-    top: 37.5%;
-    left: 29%;
+    top: 50%;
+    left: 37%;
+    white-space: nowrap;
     /*color: #9aafbb;*/
-    color: rgb(255,140,0);
+    color: rgba(255,140,0,.5);
     pointer-events: none;
     transition: .5s;
 }
 
-#selectNivelCriticidade, #selectTecnicoResponsavel
+#labelTextareaStatusAtual
 {
-    margin-left: calc(48% - 40px);
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    white-space: nowrap;
+    /*color: #9aafbb;*/
+    color: rgba(255,140,0,.5);
+    pointer-events: none;
+    transition: .5s;
+}
+
+#labelTextareaHistoricoStatus
+{
+    position: absolute;
+    top: 0;
+    left: 45%;
+    white-space: nowrap;
+    /*color: #9aafbb;*/
+    color: #191919;
+    pointer-events: none;
+    transition: .5s;
+}
+
+#taHistoricoStatus
+{
+    margin-top: 22%;
+}
+
+#labelTextareaSolucaoProblema
+{
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    white-space: nowrap;
+    /*color: #9aafbb;*/
+    color: rgba(255,140,0,.5);
+    pointer-events: none;
+    transition: .5s;
+}
+
+#labelNivelCriticidade
+{
+    margin-left: calc(40% - 40px);
+}
+
+#labelTecnicoResponsavel
+{
+    margin-left: calc(40% - 40px);
+}
+
+#divSelectNivelCriticidade, #divSelectTecnicoResponsavel
+{
+    margin-left: calc(32% - 40px);
 }
 
 select
 {
-    background-size: 40px;
     background-color: #191919;
     color: rgb(255,140,0);
-    padding: 10px;
     width: 250px;
     height: 50px;
+    padding-left: 80px;
     border: none;
     font-size: 17px;
     box-shadow: 0 5px 25px rgba(0,0,0,.5);
     -webkit-appearance: button;
     outline: none;
-    text-align-last: center;
-   -ms-text-align-last: center;
-   -moz-text-align-last: center;
 }
 
 select:focus
 {
     background-color: #262626;
+}
+
+select option:checked
+{
+    background-color: black;
 }
 
 #divSelectSala, #divSelectNivelCriticidade, #divSelectTecnicoResponsavel
@@ -161,24 +220,29 @@ select:focus
     font-family: fontAwesome;
     color: rgb(255,140,0);
     pointer-events: none;
+    top: 10px;
+    right: -40px;
 }
 
-#divSelectSala:after
+#divSelectSala:before,
+#divSelectNivelCriticidade:before,
+#divSelectTecnicoResponsavel:before
 {
-    top: 15%;
-    right: -32%;
+    content: '';
+    position: absolute;
+    background-color: #262626;
+    width: 52px;
+    height: 50px;
+    top: 0;
+    right: -60px;
+    pointer-events: none;
 }
 
-#divSelectNivelCriticidade:after
+#divSelectSala:hover:before,
+#divSelectNivelCriticidade:hover:before,
+#divSelectTecnicoResponsavel:hover:before
 {
-    top: 15%;
-    right: -15%;
-}
-
-#divSelectTecnicoResponsavel:after
-{
-    top: 15%;
-    right: -15%;
+    background-color: #323232;
 }
 
 #btSalvar {

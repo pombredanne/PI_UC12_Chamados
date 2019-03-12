@@ -65,7 +65,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                     <label id="labelAberturaChamados">Abertura de chamados</label>
 
-                    <div id="divContainerInputForm">
+                    <div id="divContainerForm">
 
                         <div id="divLabelSala">
                             <label>Sala</label>
@@ -100,21 +100,25 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                         </div>
 
                         <div class="divInput" id="divTextareaDescricaoProblema">
-                            <textarea name="taDescricaoProblema" id="textareaDescricaoProblema" required><?php echo $descricaoProblema; ?></textarea><br><br>
+                            <textarea name="taDescricaoProblema" id="taDescricaoProblema" required><?php echo $descricaoProblema; ?></textarea>
                             <label id="labelTextareaDescricaoProblema">Descrição do problema</label>
                         </div>
                         <?php
                         if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
                             ?>
 
-                            <label>Status atual:</label><br><br>
-                            <textarea name="taStatusAtual" placeholder="Status atual"><?php echo $statusAtual; ?></textarea><br><br>
-
-                            <label>Histórico de Status:</label><br><br>
-                            <textarea placeholder="Histórico de Status" disabled><?php echo $historicoStatus; ?></textarea><br><br>
-
+                        <div class="divInput" id="divTextareaStatusAtual">
+                            <textarea name="taStatusAtual" id="taStatusAtual" required><?php echo $statusAtual; ?></textarea>
+                            <label id="labelTextareaStatusAtual">Status atual</label>
+                        </div>
+                            
+                        <div class="divInput" id="divTextareaHistoricoStatus">
+                            <textarea id="taHistoricoStatus" disabled required><?php echo $historicoStatus; ?></textarea>
+                            <label id="labelTextareaHistoricoStatus">Histórico de Status</label>
+                        </div>
+                            
                             <?php
-                        }
+                        }   
 
                         if ($_SESSION['admin'] == 1) {
                             ?>
@@ -179,10 +183,12 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                             <?php
                             if (isset($_GET['editar']) && $_SESSION['admin'] == 1) {
                                 ?>
-
-                                <label>Solução do problema:</label><br><br>
-                                <textarea name="taSolucaoProblema" placeholder="Solução do Problema"><?php echo $solucaoProblema; ?></textarea><br><br>
-
+                            
+                            <div class="divInput" id="divTextareaSolucaoProblema">
+                                <textarea id="taSolucaoProblema" name="taSolucaoProblema" required><?php echo $solucaoProblema; ?></textarea>
+                                <label id="labelTextareaSolucaoProblema">Solução do problema</label>
+                            </div>
+                                
                                 <?php
                             }
                         }

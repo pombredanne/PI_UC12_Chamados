@@ -16,7 +16,8 @@ body
     top: 5%;
     font-size: 30px;
     margin-left: calc(22% - 40px);
-    color: black;
+    color: #191919;
+    font-weight: bold;
 }
 
 #divContainerForm {

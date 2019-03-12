@@ -6,7 +6,7 @@ $(document).ready(function () {
     
 });
 
-$(document).on('click', '.btEditar', function () {
+$(document).on('click', '#tdEditar', function () {
 
     var row = $(this).closest("tr");
     var tdText = row.find(".tdCodigo").text();
@@ -16,18 +16,16 @@ $(document).on('click', '.btEditar', function () {
 
 });
 
-$(document).on('click', '.btPausarRetomar', function () {
+$(document).on('click', '#tdPausarRetomar', function () {
 
     var row = $(this).closest("tr");
     var tdText = row.find(".tdCodigo").text();
-
-
 
     window.location.href = 'controller/salvarChamado.php?verificadorPausarRetomar&codigoChamado=' + tdText;
 
 });
 
-$(document).on('click', '.btCancelar', function () {
+$(document).on('click', '#tdCancelar', function () {
 
     var row = $(this).closest("tr");
     var tdText = row.find(".tdCodigo").text();
@@ -36,7 +34,7 @@ $(document).on('click', '.btCancelar', function () {
 
 });
 
-$(document).on('click', '.btEncerrar', function () {
+$(document).on('click', '#tdEncerrar', function () {
 
     var row = $(this).closest("tr");
     var tdText = row.find(".tdCodigo").text();
@@ -229,8 +227,8 @@ function createTable(dataKeys)
                     'tdChamadoTecnicoNomeUsuario', 'tdChamadoDataHoraAbertura',
                     'tdBtEditar', 'tdBtPausarRetomar', 'tdBtCancelar', 'tdBtEncerrar');
 
-            let arrayBts = new Array('btEditar', 'btPausarRetomar',
-                    'btCancelar', 'btEncerrar');
+//            let arrayBts = new Array('btEditar', 'btPausarRetomar',
+//                    'btCancelar', 'btEncerrar');
 
 //                    criar laço aki
 
@@ -264,28 +262,32 @@ function createTable(dataKeys)
             arrayTds[8].appendChild(document.createTextNode(dataKeys['chaveChamadoDataHoraAbertura' + cont]));
 
             arrayTds[9] = document.createElement('td');
-            arrayBts[0] = document.createElement('button');
-            arrayBts[0].appendChild(document.createTextNode('Editar'));
-            arrayBts[0].classList.add('btEditar');
-            arrayTds[9].appendChild(arrayBts[0]);
+//            arrayTds[0] = document.createElement('button');
+            arrayTds[9].appendChild(document.createTextNode('Editar'));
+            arrayTds[9].id = 'tdEditar';
+            arrayTds[9].classList.add('tdFakeButton');
+//            arrayTds[9].appendChild(arrayBts[0]);
 
             arrayTds[10] = document.createElement('td');
-            arrayBts[1] = document.createElement('button');
-            arrayBts[1].appendChild(document.createTextNode('Pausar/Retomar'));
-            arrayBts[1].classList.add('btPausarRetomar');
-            arrayTds[10].appendChild(arrayBts[1]);
+//            arrayTds[1] = document.createElement('button');
+            arrayTds[10].appendChild(document.createTextNode('Pausar/Retomar'));
+            arrayTds[10].id = 'tdPausarRetomar';
+            arrayTds[10].classList.add('tdFakeButton');
+//            arrayTds[10].appendChild(arrayBts[1]);
 
             arrayTds[11] = document.createElement('td');
-            arrayBts[2] = document.createElement('button');
-            arrayBts[2].appendChild(document.createTextNode('Cancelar'));
-            arrayBts[2].classList.add('btCancelar');
-            arrayTds[11].appendChild(arrayBts[2]);
+//            arrayTds[2] = document.createElement('button');
+            arrayTds[11].appendChild(document.createTextNode('Cancelar'));
+            arrayTds[11].id = 'tdCancelar';
+            arrayTds[11].classList.add('tdFakeButton');
+//            arrayTds[11].appendChild(arrayBts[2]);
 
             arrayTds[12] = document.createElement('td');
-            arrayBts[3] = document.createElement('button');
-            arrayBts[3].appendChild(document.createTextNode('Encerrar'));
-            arrayBts[3].classList.add('btEncerrar');
-            arrayTds[12].appendChild(arrayBts[3]);
+//            arrayTds[3] = document.createElement('button');
+            arrayTds[12].appendChild(document.createTextNode('Encerrar'));
+            arrayTds[12].id = 'tdEncerrar';
+            arrayTds[12].classList.add('tdFakeButton');
+//            arrayTds[12].appendChild(arrayBts[3]);
 
             //verificao de segurança adicional
             for (let l = 0; l < arrayTds.length; l++)

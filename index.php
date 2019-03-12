@@ -41,7 +41,7 @@ if (!isset($_SESSION['logado']) && !$_SESSION['logado']) {
 
 } else {
  
-    header("Location: chamados.php?codigo=0&status=todos");
+    header("Location: chamados.php");
 }
 
 ?>

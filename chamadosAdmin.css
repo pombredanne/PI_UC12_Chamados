@@ -49,17 +49,8 @@
     position: relative;
 }
 
-/*h3
+select
 {
-    position: absolute;
-    top: 16%;
-    left: 1%;
-}*/
-
-#selectTecnicosUsuarios {
-    background-color: #0563af;
-    color: white;
-    padding: 10px;
     width: 250px;
     height: 50px;
     border: none;
@@ -67,6 +58,24 @@
     box-shadow: 0 5px 25px rgba(0,0,0,.5);
     -webkit-appearance: button;
     outline: none;
+    background-color: #191919;
+    color: rgb(255,140,0);
+    font-size: 17px;
+}
+
+select:focus
+{
+    background-color: #262626;
+}
+
+select option:checked
+{
+    background-color: black;
+}
+
+#selectTecnicosUsuarios
+{
+    padding-left: 70px;
 }
 
 .showSelectTecnicosUsuarios:before
@@ -74,129 +83,81 @@
     
     content: '';
     position: absolute;
+    background-color: #262626;
+    width: 52px;
+    height: 50px;
     top: 0;
     right: 0;
-    width: 50px;
-    height: 50px;
-    color: white;
-    background-color: #007ce0;
     pointer-events: none;
 }
 
 .showSelectTecnicosUsuarios:hover:before
 {
-    background-color: #0472ca;
+    background-color: #323232;
 }
 
 .showSelectTecnicosUsuarios:after
 {
-    content: '';
+    content: '\f107';
     position: absolute;
-    width: 0;
-    height: 0;
-    top: 22px;
+    font-family: fontAwesome;
+    color: rgb(255,140,0);
+    pointer-events: none;
+    top: 8px;
     right: 18px;
-    color: white;
-    font-size: 20px;
-    border-style: solid;
-    border-width: 10px 7px 0;
-    border-color: white transparent;
-    background-color: #007ce0;
-    pointer-events: none;
+    font-size: 25px;
 }
 
-#selectStatus {
-    background-color: #0563af;
-    color: white;
-    padding: 10px;
-    width: 250px;
-    height: 50px;
-    border: none;
-    font-size: 17px;
-    box-shadow: 0 5px 25px rgba(0,0,0,.5);
-    -webkit-appearance: button;
-    outline: none;
-}
-
-#divSelectStatus:before{
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 50px;
-    color: white;
-    background-color: #007ce0;
-    pointer-events: none;
-}
-
-#divSelectStatus:hover:before
+#selectStatus
 {
-    background-color: #0472ca;
+    padding-left: 70px;
 }
 
 #divSelectStatus:after{
-    content: '';
+    content: '\f107';
     position: absolute;
-    width: 0;
-    height: 0;
-    /*top: 22px;*/
-    /*right: 18px;*/
-    top: 22px;
-    right: 18px;
-    color: white;
-    font-size: 20px;
-    border-style: solid;
-    border-width: 10px 7px 0;
-    border-color: white transparent;
-    background-color: #007ce0;
+    font-family: fontAwesome;
+    color: rgb(255,140,0);
     pointer-events: none;
+    top: 10px;
+    right: -40px;
 }
 
-#selectTodosChamados {
-    background-color: #0563af;
-    color: white;
-    padding: 10px;
-    width: 250px;
-    height: 50px;
-    border: none;
-    font-size: 17px;
-    box-shadow: 0 5px 25px rgba(0,0,0,.5);
-    -webkit-appearance: button;
-    outline: none;
+#selectTodosChamados
+{
+    padding-left: 15px;
 }
 
-#divSelectTodosChamados:before {
+#divSelectTodosChamados:before,
+#divSelectStatus:before
+{
     content: '';
     position: absolute;
+    background-color: #262626;
+    width: 52px;
+    height: 50px;
     top: 0;
     right: 0;
-    width: 50px;
-    height: 50px;
-    color: white;
-    background-color: #007ce0;
     pointer-events: none;
 }
 
-#divSelectTodosChamados:hover:before
+#divSelectTodosChamados:hover:before,
+#divSelectStatus:hover:before
 {
-    background-color: #0472ca;
+    background-color: #323232;
 }
 
-#divSelectTodosChamados:after {
-    content: '';
+#divSelectTodosChamados:after,
+#divSelectStatus:after
+{
+    content: '\f107';
     position: absolute;
-    width: 0;
-    height: 0;
-    top: 22px;
-    right: 18px;
-    color: white;
-    font-size: 20px;
-    border-style: solid;
-    border-width: 10px 7px 0;
-    border-color: white transparent;
-    background-color: #007ce0;
+    font-family: fontAwesome;
+    color: rgb(255,140,0);
     pointer-events: none;
+    top: 8px;
+    right: 18px;
+    font-size: 25px;
 }
 
 #btSolicitarNovoChamado {
@@ -245,10 +206,6 @@
     }
 }
 
-#divLinks {
-    margin-left: 38%;
-}
-
 body {
     background-image: url("fotos/background_body_semlogo.png");
     background-repeat: no-repeat;
@@ -271,6 +228,18 @@ table th {
     /*background-size: 150%;*/
     color: black;
     font-size: 120%;
+}
+
+table .tdFakeButton {
+    height: 100%;
+    font-weight: bold;
+    color: #1E90FF;
+    cursor: pointer;
+}
+
+table .tdFakeButton:hover {
+    background-color: #1E64FF;
+    color: white;
 }
 
 @keyframes animate
