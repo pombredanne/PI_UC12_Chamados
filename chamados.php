@@ -99,7 +99,26 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
             </div>
 
             <div id="divTable"></div>
-
+            
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="salas.js"></script>
+            
+            <div id="divContainerAlert">
+                <h1 id="h1Before"></h1>
+                <h1 id="h1FakeSpan"></h1>
+                <h1 id="h1After"></h1>
+                
+                <button id="buttonAlertCancelar">
+                <i class="fas fa-times"></i>
+                <label>Cancelar</label></button>
+                
+                <button id="buttonAlertConfirmar">
+                <i class="fas fa-check"></i>
+                <label id="labelPausarRetomar"></label></button>
+                
+            </div>
+            
         <?php
     } else {
         header("Location: login.php");

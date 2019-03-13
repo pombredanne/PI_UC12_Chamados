@@ -67,11 +67,11 @@ if (isset($_SESSION['logado']) && $_SESSION['logado'] && $_SESSION['admin'] == 1
             <div id="divContainerAlert">
                 <h1>Excluir a sala <span id="spanAlert"></span>?</h1>
                 
-                <button id="buttonAlertCancel">
+                <button id="buttonAlertCancelar">
                 <i class="fas fa-times"></i>
                 <label>Cancelar</label></button>
                 
-                <button id="buttonAlertDelete">
+                <button id="buttonAlertConfirmar">
                 <i class="fas fa-check"></i>
                 <label>Excluir</label></button>
                 

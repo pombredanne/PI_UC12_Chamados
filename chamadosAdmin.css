@@ -289,3 +289,113 @@ label {
     font-weight: bold;
     font-size: 120%;
 }
+
+#divContainerAlert
+{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    width: 500px;
+    height: 200px;
+    background: orange;
+    box-shadow: 0 0 20px black;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    z-index: 2;
+}
+
+h1
+{
+    color: #191919;
+    margin-top: 20px;
+    display: inline;
+}
+
+#buttonAlertCancelar
+{
+    margin-top: 30px;
+    margin-right: 70px;
+    border: 2px solid black;
+    padding: 5px 10px 0;
+    border-radius: 30px;
+    background-color: black;
+    cursor: pointer;
+    outline: none;
+}
+
+#buttonAlertCancelar:hover
+{
+    background-color: red;
+}
+
+#buttonAlertCancelar:hover i, #buttonAlertCancelar:hover label
+{
+    color: black
+}
+
+#buttonAlertCancelar:active
+{
+    transform: translateY(4px);
+}
+
+#buttonAlertCancelar label
+{
+    position: relative;
+    top: -10px;
+    color: red;
+    font-size: 20px;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#buttonAlertCancelar i
+{
+    color: red;
+    font-size: 40px;
+}
+
+#buttonAlertConfirmar
+{
+    margin-top: 30px;
+    /*top sides bottom*/
+    padding: 5px 10px 0;
+    border-radius: 30px;
+    border: 2px solid black;
+    background-color: black;
+    cursor: pointer;
+    outline: none;
+}
+
+#buttonAlertConfirmar:hover
+{
+    background-color: #2ecc71;
+}
+
+#buttonAlertConfirmar:hover i, #buttonAlertConfirmar:hover label
+{
+    color: black
+}
+
+#buttonAlertConfirmar:active
+{
+    transform: translateY(4px);
+}
+
+#buttonAlertConfirmar label
+{
+    position: relative;
+    top: -10px;
+    color: #2ecc71;
+    font-size: 20px;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#buttonAlertConfirmar i
+{
+    color: #2ecc71;
+    font-size: 40px;
+}

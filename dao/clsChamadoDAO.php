@@ -192,10 +192,23 @@ class ChamadoDAO {
 
         return $dados['historicoRetomar'];
     }
+    
+    public static function getPausado($codigoChamado)
+    {
+        $sql = "SELECT pausado FROM chamados WHERE codigo = " . $codigoChamado;
+            
+        $result = Conexao::consultar($sql);
+        
+        $dados = mysqli_fetch_assoc($result);
+        
+        return $dados['pausado'];
+        
+    }
 
     public static function getTecnicos() {
 
-        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 1";
+        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 1
+            ORDER BY nomeUsuario";
 
         $result = Conexao::consultar($sql);
 
@@ -216,7 +229,8 @@ class ChamadoDAO {
 
     public static function getUsuarios() {
 
-        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 0";
+        $sql = "SELECT codigo, nomeUsuario, admin FROM usuarios WHERE admin = 0
+            ORDER BY nomeUsuario";
 
         $result = Conexao::consultar($sql);
 
@@ -237,10 +251,11 @@ class ChamadoDAO {
 
     public static function getChamados($status) {
 
-        $sql = " SELECT * FROM chamados"
+        $sql = " SELECT * FROM chamados c"
                 . " INNER JOIN salas on fkSala = salas.codigo"
                 . " INNER JOIN usuarios u ON fkUsuario = u.codigo"
-                . " WHERE chamados.ativo = 1";
+                . " WHERE c.ativo = 1"
+                . " ORDER BY c.dataHoraAbertura";
 
         if ($status != "todos") {
 
@@ -320,7 +335,8 @@ class ChamadoDAO {
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
                 . " WHERE c.ativo = 1"
-                . " AND u.admin = 0";
+                . " AND u.admin = 0"
+                . " ORDER BY c.dataHoraAbertura";
         
         if ($nomeUsuario != 'todos') {
             
@@ -402,7 +418,8 @@ class ChamadoDAO {
                 . " INNER JOIN salas s ON c.fkSala = s.codigo"
                 . " INNER JOIN usuarios u ON c.fkUsuario = u.codigo"
                 . " WHERE c.ativo = 1"
-                . " AND u.admin = 1";
+                . " AND u.admin = 1"
+                . " ORDER BY c.dataHoraAbertura";
         
         if ($nomeUsuario != "todos") {
             

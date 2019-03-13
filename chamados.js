@@ -2,35 +2,138 @@ $(document).ready(function () {
 
     $('#selectTecnicosUsuarios').empty().append('<option value="todos">Todos</option>');
 
-    ajax();
+    ajaxSelects();
+    
+//    $("button").css("disabled", "disabled");
     
 });
 
 $(document).on('click', '#tdEditar', function () {
 
     var row = $(this).closest("tr");
-    var tdText = row.find(".tdCodigo").text();
+    var tdCodigo = row.find(".tdCodigo").text();
 
-    window.location.href = 'abrirChamado.php?editar&codigoChamado=' + tdText;
-
+    window.location.href = 'abrirChamado.php?editar&codigoChamado=' + tdCodigo;
 
 });
 
 $(document).on('click', '#tdPausarRetomar', function () {
 
     var row = $(this).closest("tr");
-    var tdText = row.find(".tdCodigo").text();
+    var tdCodigo = row.find(".tdCodigo").text();
 
-    window.location.href = 'controller/salvarChamado.php?verificadorPausarRetomar&codigoChamado=' + tdText;
+//    window.location.href = 'controller/salvarChamado.php?verificadorPausarRetomar&codigoChamado=' + tdText;
+
+    $(function () {
+        $("#divContainerAlert").draggable();
+    });
+    
+    $.ajax({
+        type: 'GET',
+        url: 'functions.php?pausado&codigoChamado=' + tdCodigo,
+        datatype: 'json',
+        success: function (data)
+        {
+            
+            var json = jQuery.parseJSON(data);
+            
+            if (json == 0)
+            {
+                $("#h1Before").text("Pausar o chamado ");
+                $("#labelPausarRetomar").text("Pausar");
+            }
+            else
+            {
+                $("#h1Before").text("Retomar o chamado ");
+                $("#labelPausarRetomar").text("Retomar");
+            }
+        }
+    });
+    
+    $("#h1FakeSpan").text(tdCodigo);
+    $("#h1After").text("?");
+    $("#divContainerAlert").show();
+
+    $(document).on("click", "#buttonAlertConfirmar", function () {
+
+        $("#divContainerAlert").hide();
+
+        $.ajax({
+
+            type: 'GET',
+            url: 'functions.php?pausarRetomar&codigoChamado=' + tdCodigo,
+            datatype: 'json',
+            success: function (data)
+            {
+                //só irá executar no lado do servidor
+            }
+        });
+    });
+
+    $(document).on("click", "#buttonAlertCancelar", function () {
+
+        $("#divContainerAlert").hide();
+
+    });
 
 });
 
 $(document).on('click', '#tdCancelar', function () {
 
     var row = $(this).closest("tr");
-    var tdText = row.find(".tdCodigo").text();
+    var tdCodigo = row.find(".tdCodigo").text();
 
-    window.location.href = 'controller/salvarChamado.php?cancelar&codigoChamado=' + tdText;
+    $(function () {
+        $("#divContainerAlert").draggable();
+    });
+    
+    $.ajax({
+        type: 'GET',
+        url: 'functions.php?cancelar&codigoChamado=' + tdCodigo,
+        datatype: 'json',
+        success: function (data)
+        {
+            
+            var json = jQuery.parseJSON(data);
+            
+            if (json == 0)
+            {
+                $("#h1Before").text("Pausar o chamado ");
+                $("#labelPausarRetomar").text("Pausar");
+            }
+            else
+            {
+                $("#h1Before").text("Retomar o chamado ");
+                $("#labelPausarRetomar").text("Retomar");
+            }
+        }
+    });
+    
+    $("#h1FakeSpan").text(tdCodigo);
+    $("#h1After").text("?");
+    $("#divContainerAlert").show();
+
+    $(document).on("click", "#buttonAlertConfirmar", function () {
+
+        $("#divContainerAlert").hide();
+
+        $.ajax({
+
+            type: 'GET',
+            url: 'functions.php?pausarRetomar&codigoChamado=' + tdCodigo,
+            datatype: 'json',
+            success: function (data)
+            {
+                //só irá executar no lado do servidor
+            }
+        });
+    });
+
+    $(document).on("click", "#buttonAlertCancelar", function () {
+
+        $("#divContainerAlert").hide();
+
+    });
 
 });
 
@@ -81,11 +184,11 @@ $(document).on('change', 'select', function () {
         
     }
 
-    ajax();
+    ajaxSelects();
 
 });
 
-function ajax() {
+function ajaxSelects() {
 
     var selectTodosChamados = document.getElementById("selectTodosChamados");
     var selectStatus = document.getElementById("selectStatus");

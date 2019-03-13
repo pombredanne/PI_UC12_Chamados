@@ -124,7 +124,7 @@ h1
     margin-top: 20px;
 }
 
-#buttonAlertCancel
+#buttonAlertCancelar
 {
     margin-top: 30px;
     margin-right: 70px;
@@ -136,22 +136,22 @@ h1
     outline: none;
 }
 
-#buttonAlertCancel:hover
+#buttonAlertCancelar:hover
 {
     background-color: red;
 }
 
-#buttonAlertCancel:hover i, #buttonAlertCancel:hover label
+#buttonAlertCancelar:hover i, #buttonAlertCancelar:hover label
 {
     color: black
 }
 
-#buttonAlertCancel:active
+#buttonAlertCancelar:active
 {
     transform: translateY(4px);
 }
 
-#buttonAlertCancel label
+#buttonAlertCancelar label
 {
     position: relative;
     top: -10px;
@@ -162,13 +162,13 @@ h1
     cursor: pointer;
 }
 
-#buttonAlertCancel i
+#buttonAlertCancelar i
 {
     color: red;
     font-size: 40px;
 }
 
-#buttonAlertDelete
+#buttonAlertConfirmar
 {
     margin-top: 30px;
     /*top sides bottom*/
@@ -180,22 +180,22 @@ h1
     outline: none;
 }
 
-#buttonAlertDelete:hover
+#buttonAlertConfirmar:hover
 {
     background-color: #2ecc71;
 }
 
-#buttonAlertDelete:hover i, #buttonAlertDelete:hover label
+#buttonAlertConfirmar:hover i, #buttonAlertConfirmar:hover label
 {
     color: black
 }
 
-#buttonAlertDelete:active
+#buttonAlertConfirmar:active
 {
     transform: translateY(4px);
 }
 
-#buttonAlertDelete label
+#buttonAlertConfirmar label
 {
     position: relative;
     top: -10px;
@@ -206,7 +206,7 @@ h1
     cursor: pointer;
 }
 
-#buttonAlertDelete i
+#buttonAlertConfirmar i
 {
     color: #2ecc71;
     font-size: 40px;

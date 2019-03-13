@@ -69,6 +69,7 @@ header nav ul li a
     color: #1E90FF;
     background: #191919;
     text-align: center;
+    outline: none;
 }
 
 header nav ul li a:hover

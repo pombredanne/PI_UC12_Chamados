@@ -1,6 +1,12 @@
 responsividade geral
 
+trocar texto botao pausar/retomar
+
 chamadosadmincss -> chamadosdocentecss
+
+posicao alert "perto" da tr
+
+limitar scroll horizontal tela chamados
 
 custom scroll pagina, tadescricaoproblema
 
