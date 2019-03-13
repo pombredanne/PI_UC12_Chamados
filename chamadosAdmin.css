@@ -292,9 +292,6 @@ label {
 
 #divContainerAlert
 {
-    position: absolute;
-    top: 40%;
-    left: 35%;
     width: 500px;
     height: 200px;
     background: orange;

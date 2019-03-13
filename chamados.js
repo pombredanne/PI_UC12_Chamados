@@ -22,12 +22,6 @@ $(document).on('click', '#tdPausarRetomar', function () {
     var row = $(this).closest("tr");
     var tdCodigo = row.find(".tdCodigo").text();
 
-//    window.location.href = 'controller/salvarChamado.php?verificadorPausarRetomar&codigoChamado=' + tdText;
-
-    $(function () {
-        $("#divContainerAlert").draggable();
-    });
-    
     $.ajax({
         type: 'GET',
         url: 'functions.php?pausado&codigoChamado=' + tdCodigo,
@@ -52,6 +46,14 @@ $(document).on('click', '#tdPausarRetomar', function () {
     
     $("#h1FakeSpan").text(tdCodigo);
     $("#h1After").text("?");
+    $("#divContainerAlert").draggable();
+    
+    var position = $(this).position();
+    console.log(position);
+    
+    $("#divContainerAlert").css("position", "absolute");
+    $("#divContainerAlert").css("left", position.left - 500 + "px");
+    $("#divContainerAlert").css("top", position.top - 125 + "px");
     $("#divContainerAlert").show();
 
     $(document).on("click", "#buttonAlertConfirmar", function () {
@@ -316,6 +318,12 @@ function createTable(dataKeys)
     table.appendChild(tableBody);
 
     var cont = 0;
+    
+    var arrayTds = new Array('tdChamadoCodigo', 'tdUsuarioNomeUsuario',
+                    'tdSalaNumero', 'tdChamadoDescricaoProblema', 'tdChamadoStatus',
+                    'tdChamadoHistoricoStatus', 'tdChamadoNivelCriticidade',
+                    'tdChamadoTecnicoNomeUsuario', 'tdChamadoDataHoraAbertura',
+                    'tdBtEditar', 'tdBtPausarRetomar', 'tdBtCancelar', 'tdBtEncerrar');
 
     for (let i = 0; i < dataKeys.countRows; i++) {
 
@@ -323,12 +331,6 @@ function createTable(dataKeys)
         tableBody.appendChild(tr);
 
         for (let j = 0; j < 1; j++) {
-
-            let arrayTds = new Array('tdChamadoCodigo', 'tdUsuarioNomeUsuario',
-                    'tdSalaNumero', 'tdChamadoDescricaoProblema', 'tdChamadoStatus',
-                    'tdChamadoHistoricoStatus', 'tdChamadoNivelCriticidade',
-                    'tdChamadoTecnicoNomeUsuario', 'tdChamadoDataHoraAbertura',
-                    'tdBtEditar', 'tdBtPausarRetomar', 'tdBtCancelar', 'tdBtEncerrar');
 
 //            let arrayBts = new Array('btEditar', 'btPausarRetomar',
 //                    'btCancelar', 'btEncerrar');
