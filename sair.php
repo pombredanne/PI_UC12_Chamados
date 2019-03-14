@@ -7,19 +7,19 @@ error_reporting(0);
 if (isset($_SESSION['logado']))
 	unset($_SESSION['logado']);
 
-//if (isset($_SESSION['idCliente']))
-//	unset($_SESSION['idCliente']);
-//
-//if (isset($_SESSION['nome']))
-//	unset($_SESSION['nome']);
-//
-//if (isset($_SESSION['foto']))
-//	unset($_SESSION['foto']);
-//
-//if (isset($_SESSION['admin']))
-//	unset($_SESSION['admin']);
+if (isset($_SESSION['codigo']))
+	unset($_SESSION['codigo']);
+
+if (isset($_SESSION['admin']))
+	unset($_SESSION['admin']);
+
+if (isset($_SESSION['nomeCompleto']))
+	unset($_SESSION['nomeCompleto']);
+
+if (isset($_SESSION['nomeUsuario']))
+	unset($_SESSION['nomeUsuario']);
 
 session_destroy();
 
-header("Location: index.php");
+header("Location: login.php");
 

@@ -28,7 +28,7 @@ if ($_SESSION['logado'] == true && $_SESSION['admin'] == 1) {
 
         <body>
 
-            <button id="btCadastrarUsuario"><a href="cadastrarUsuario.php">Cadastrar usuário</a></button>
+            <a href="cadastrarUsuario.php"><button id="btCadastrarUsuario">Cadastrar usuário</button></a>
 
             <table border="1">
                 <th>Foto</th>

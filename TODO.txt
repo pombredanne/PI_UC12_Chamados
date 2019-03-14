@@ -1,6 +1,22 @@
+mostrar msg senhas nao identicas ao tentar mudar a senha
+
+funcao de mudar senha e redirecionar pra tela de login
+
 responsividade geral
 
 chamadosadmincss -> chamadosdocentecss
+
+titles
+
+cores verificacao senha cadastro de usuario
+
+fake loading animation
+
+icones input login
+
+eyereveal password login
+
+eyereveal password novaSenha
 
 limitar scroll horizontal tela chamados
 

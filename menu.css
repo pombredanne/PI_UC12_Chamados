@@ -44,7 +44,7 @@ header nav ul li ul
     margin: 0;
     padding: 0;
     position: absolute;
-    background: #333;
+    /*background: #333;*/
     display: none;
     
 }
@@ -147,4 +147,44 @@ header nav ul li a:hover
         color: orange;
     }
     
+}
+
+#divImgMenu
+{
+    position: absolute;
+    right: 0;
+}
+
+#imgMenu
+{
+    width: 50px;
+    cursor: pointer;
+}
+
+#aSair
+{
+    visibility: hidden;
+    width: 50px;
+    height: 50px;
+    display: block;
+    font-size: 20px;
+    color: #1E90FF;
+    background: #191919;
+    text-align: center;
+    line-height: 45px;
+    outline: none;
+    cursor: pointer;
+}
+
+#aSair:hover
+{
+    visibility: visible;
+    text-decoration: none;
+    color: white;
+    background: #1E64FF;
+}
+
+#imgMenu:hover ~ #aSair
+{
+    visibility: visible;
 }

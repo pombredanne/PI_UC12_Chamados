@@ -160,21 +160,73 @@ if (isset($_GET['changeSelect'])) {
 
     echo json_encode($pausado);
 } else if (isset($_GET['pausarRetomar'])) {
- 
+
     $pausado = ChamadoDAO::getPausado($_GET['codigoChamado']);
 
     if ($pausado == 0)
         pausar($_GET['codigoChamado']);
     else
         retomar($_GET['codigoChamado']);
+} else if (isset($_GET['recuperarLogin'])) {
+
+    $usuario = UsuarioDAO::verificarDadosUsuario
+                    ($_GET['nomeCompleto'], $_GET['nomeUsuario'], $_GET['email']);
+
+    if ($usuario == true) {
+
+        include_once './PHPMailer/src/Exception.php';
+        include_once './PHPMailer/src/PHPMailer.php';
+        include_once './PHPMailer/src/SMTP.php';
+
+        $email = new PHPMailer\PHPMailer\PHPMailer;
+        $email->isSMTP();
+        $email->Host = 'smtp.gmail.com';
+        $email->SMTPAuth = true;
+        $email->SMTPSecure = 'tls';
+        $email->Username = 'senacinformaticapi@gmail.com';
+        $email->Password = 'senac2019Project';
+        $email->Port = 587;
+
+        $email->setFrom('senacinformaticapi@gmail.com');
+        $email->addReplyTo('senacinformaticapi@gmail.com');
+        $email->addAddress($_GET['email'], $_GET['nomeUsuario']);
+
+        $email->isHTML(true);
+        $email->CharSet = 'UTF-8';
+        $email->Subject = 'Recuperação de senha';
+        $email->Body = $_GET['nomeUsuario'] . ', segue o link para'
+                        . ' redefinir a senha da sua conta:'
+                        . ' http://localhost/m171/PI_UC12_Chamados/novaSenha.php'
+                        . '?nomeCompleto=' . $_GET['nomeCompleto']
+                        . '&nomeUsuario=' . $_GET['nomeUsuario']
+                        . '&email=' . $_GET['email'];
+
+        //Texto alternativo para quem nao consegue visualizar o html
+        $email->AltBody = 'Nenhum';
+        //enviar arquivos em anexos
+//        $email->addAttachment('fotos/adalto.jpg');
+
+        $email->send();
+
+//        if (!$email->send()) {
+//            echo 'Não foi possível enviar a mensagem';
+//            echo 'Erro: ' . $email->ErrorInfo;
+//        } else {
+//            echo 'Mensagem enviada';
+//        }
+
+        echo json_encode($usuario);
+    } else {
+        echo json_encode($usuario);
+    }
 }
 
 function pausar($codigoChamado) {
-    
+
     $chamado = new Chamado();
 
     $chamado->setCodigo($codigoChamado);
-    
+
     date_default_timezone_set('America/Sao_Paulo');
     $chamado->setPausar(date("Y-m-d H:i:s"));
     $chamado->setPausado(1);
@@ -192,11 +244,10 @@ function pausar($codigoChamado) {
     $chamado->setHistoricoPausar($historicoPausar);
 
     ChamadoDAO::pausar($chamado);
-
 }
 
 function retomar($codigoChamado) {
-    
+
     $chamado = new Chamado();
 
     $chamado->setCodigo($codigoChamado);
@@ -659,5 +710,4 @@ function retomar($codigoChamado) {
     }
 
     ChamadoDAO::retomar($chamado);
-
 }

@@ -1,20 +1,5 @@
 $(document).ready(function () {
-
-    $("#divMenuToogle").click(function () {
-
-        $("nav").toggleClass('active');
-        $("i").toggleClass('fa-times');
-    });
-
-    $('ul li').hover(function () {
-
-//       Faz com que não seja possível ter 2 submenu ativados
-//       ao mesmo tempo
-        $(this).siblings().removeClass('active');
-        $(this).toggleClass('active');
-
-    });
-
+    
     if (document.URL.indexOf("salas") != -1)
     {
         $("#aSalas").css("backgroundColor", "#1E64FF");
@@ -47,4 +32,19 @@ $(document).ready(function () {
         $("#aCadastrarUsuario").css("color", "white");
     }
 
+});
+
+$('ul li').hover(function () {
+
+//       Faz com que não seja possível ter 2 submenu ativados
+//       ao mesmo tempo
+    $(this).siblings().removeClass('active');
+    $(this).toggleClass('active');
+
+});
+
+$("#divMenuToogle").click(function () {
+
+    $("nav").toggleClass('active');
+    $("i").toggleClass('fa-times');
 });

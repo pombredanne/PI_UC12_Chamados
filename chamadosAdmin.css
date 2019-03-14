@@ -4,6 +4,14 @@
     padding: 0;
 }
 
+body {
+    background-image: url("fotos/background_body_semlogo.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; 
+    max-width: 100vw;
+}
+
 #btSolicitarNovoChamado {
     background-color: #0066ff;
     border-radius: 20px;
@@ -48,13 +56,6 @@
     {
         background-position: 400%;
     }
-}
-
-body {
-    background-image: url("fotos/background_body_semlogo.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; 
 }
 
 table {

@@ -58,6 +58,35 @@ class UsuarioDAO {
         
     }
     
+    public static function verificarDadosUsuario($nomeCompleto, $nomeUsuario, $email)
+    {
+        $sql = "SELECT codigo FROM usuarios"
+                . " WHERE nomeCompleto = '" . $nomeCompleto . "'"
+                . " AND nomeUsuario = '" . $nomeUsuario . "'"
+                . " AND email = '" . $email . "'";
+        
+        $result = Conexao::consultar($sql);
+            
+        if (mysqli_fetch_row($result) > 0)
+            return true;
+        else
+            return false;
+            
+    }
+    
+    public static function getFoto($codigoUsuario)
+    {
+        
+        $sql = "SELECT foto FROM usuarios WHERE codigo = " . $codigoUsuario;
+        
+        $result = Conexao::consultar($sql);
+        
+        $dados = mysqli_fetch_assoc($result);
+        
+        return $dados['foto'];
+        
+    }
+    
     public static function getAllUsuarios($admin) {
         
         $sql = "SELECT codigo, nomeCompleto, nomeUsuario, email, admin, foto"

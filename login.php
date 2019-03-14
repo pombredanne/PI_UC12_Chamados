@@ -43,8 +43,10 @@ error_reporting(0);
                 <span id="spanLoginInvalido"></span>
 
                 <input type="submit" value="Entrar" id="btEntrar">
-            </form><br><br><br>
-
+                
+                <a id="aEsqueciMinhaSenha" href="recuperarLogin.php">Esqueci minha senha</a>
+            </form>
+            
             <?php
             if ($_COOKIE['logado'] == 2) {
                 ?>

@@ -8,7 +8,7 @@ input[type='file'] {
     display: none;
 }
 
-img
+#imgFile
 {
     margin-left: 12vh;
     margin-top: 20px;
@@ -19,14 +19,6 @@ img
 #divSenha {
     margin-top: -10px;
 }
-
-/*uma div que delimita todo o HTML e faz com q os elementos ao dar zoom não
-"scroll" na página*/
-#wrapper {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100vh;
-}   
 
 label {
     font-size: 20px;

@@ -31,9 +31,8 @@ if (isset($_GET['inserir'])) {
         . 'alert("As senhas não coincidem!");'
         . '</script></body>';
     }
-}
-
-if (isset($_GET['editar'])) {
+    
+} else if (isset($_GET['editar'])) {
     
     $usuario = UsuarioDAO::getUsuarioByCodigo($_GET['codigoUsuario']);
     
@@ -54,6 +53,20 @@ if (isset($_GET['editar'])) {
     UsuarioDAO::editar($usuario);
     
     header("Location: ../usuarios.php");
+    
+} else if (isset ($_GET['mudarSenha'])) {
+    
+    $senha = $_POST['txtSenha'];
+    $confirmarSenha = $_POST['txtConfirmarSenha'];
+    
+    if ($senha != $confirmarSenha) {
+        
+        setcookie('mudarSenha', 0);
+        
+        echo '<script>window.history.back();</script>';
+        
+    }
+    
 }
 
 function salvarFoto()

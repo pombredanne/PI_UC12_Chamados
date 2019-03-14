@@ -99,3 +99,18 @@ form input[type="submit"]:focus, form input[type="submit"]:hover  {
     left: 32%;
     color: red;
 }
+
+#aEsqueciMinhaSenha
+{
+    position: absolute;
+    margin-top: .5%;
+    margin-left: -15%;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+#aEsqueciMinhaSenha:hover
+{
+    color: #3498db;
+}

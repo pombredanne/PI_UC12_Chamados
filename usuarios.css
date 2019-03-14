@@ -24,11 +24,8 @@ body {
     z-index: 1;
     padding: 10px;
     outline: none;
-}
-
-#btCadastrarUsuario a {
     color: #fff;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 #btCadastrarUsuario:hover

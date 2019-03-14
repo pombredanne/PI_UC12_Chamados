@@ -1,0 +1,117 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background-image: url("fotos/background_body_semlogo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+h1
+{
+    margin-bottom: 50px;
+    margin-left: 30%;
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #191919; 
+}
+
+#divContainerForm
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffb44e;
+    padding: 40px;
+    border: 5px solid #ea9537;
+    box-shadow: 0 5px 10px #171617;
+    width: 400px;
+}
+
+div
+{
+    position: relative;
+    margin-bottom: 30px;
+}
+
+input
+{
+    display: block;
+    width: 87%;
+    max-height: 70px;
+    height: 70px;
+    font-size: 20px;
+    border-radius: 7px;
+    background-color: #191919;
+    color: orange;
+    border-style: none;
+    outline: none;
+    padding-left: 10px;
+    margin-left: 5%;
+}
+
+label
+{
+    position: absolute;
+    top: 35%;
+    left: 8%;
+    font-size: 20px;
+    color: rgba(255,140,0,.5);
+    pointer-events: none;
+    transition: .5s;
+}
+
+input:focus ~ label,
+input:valid ~ label
+{
+    transform: translate(-5%, -120%);
+    color: rgb(255,140,0);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+span
+{
+    color: red;
+    font-size: 20px;
+    margin-left: 25%;
+    display: none;
+}
+
+input[type="submit"]
+{
+    color: rgb(255,140,0);
+    background-color: #191919;
+    cursor: pointer;
+    width: 300px;
+    height: 70px;
+    margin-top: 40px;
+    margin-left: 12%;
+    font-family: Georgia, sans-serif;
+    text-transform: uppercase;
+    outline: none;
+    border-style: none;
+    border-radius: 7px;
+    font-size: 20px;
+}
+
+input[type="submit"]:hover
+{
+    background: linear-gradient(180deg, #1E64FF, #191919);
+}
+
+input[type="submit"]:focus
+{
+    background: linear-gradient(180deg, #1E64FF, #191919);
+}
+
+input[type="submit"]:active
+{
+    transform: translateY(4px);
+}
