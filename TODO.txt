@@ -2,6 +2,8 @@ mostrar msg senhas nao identicas ao tentar mudar a senha
 
 funcao de mudar senha e redirecionar pra tela de login
 
+animacao carregando tela recuperarLogin no submit
+
 responsividade geral
 
 chamadosadmincss -> chamadosdocentecss

@@ -13,16 +13,6 @@
         
         error_reporting(0);
         
-        if (strpos($_SERVER['HTTP_REFERER'], 'controller') !== false) {
-        
-        ?>
-        
-        <script>senhaErrada();</script>
-        
-        <?php
-        
-        }
-        
         ?>
         
          <div id="divContainerForm">

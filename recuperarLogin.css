@@ -81,7 +81,7 @@ span
     color: red;
     font-size: 20px;
     margin-left: 25%;
-    display: none;
+    /*display: none;*/
 }
 
 button

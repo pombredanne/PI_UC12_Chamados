@@ -24,9 +24,8 @@ $(document).on("keyup", "input", function () {
 
 });
 
-function senhaErrada() {
+$(document).on("click", "button", function(){
+   
     
-    $("span").css("display", "block");
-    $("span").text("As senhas não são idênticas");
-    $("span").css("color", "red");
-}
+    
+});

@@ -1,3 +1,5 @@
+$("span").hide();
+
 $(document).on("keyup", "#inputEmail", function(){
    
     if ($(this).val().length > 0)
@@ -39,10 +41,13 @@ $(document).on("click", "button", function(){
             var json = jQuery.parseJSON(data);
             
             if (json == false) {
-                $("span").css("display", "block");
+                $("span").text("Os dados não conferem!");
+                $("span").show();
             } else {
-                $("span").css("display", "none");
-            }
+                $("span").hide();
+                window.location.href =
+                        'novaSenha.php?nomeUsuario=' + nomeUsuario;
+            }   
             
         }
     });
